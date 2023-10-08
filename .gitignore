@@ -1,0 +1,9 @@
+node_modules
+
+app.json
+.env.production
+.env.development
+/server/dist
+eas.json
+.vscode
+gradle.properties
