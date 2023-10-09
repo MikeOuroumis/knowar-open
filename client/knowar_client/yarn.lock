@@ -6825,7 +6825,7 @@
   "resolved" "https://registry.npmjs.org/react-native-dropdown-select-list/-/react-native-dropdown-select-list-2.0.5.tgz"
   "version" "2.0.5"
 
-"react-native-gesture-handler@>= 1.0.0":
+"react-native-gesture-handler@^2.13.1", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-hW454X7sjuiBN+lobqw63pmT3boAmTl5OP6zQLq83iEe4T6PcHZ9lxzgCrebtgmutY8cJfq9rM2dOUVh9WBcww=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.13.1.tgz"
   "version" "2.13.1"
