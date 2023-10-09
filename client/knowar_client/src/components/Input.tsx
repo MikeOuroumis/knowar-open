@@ -1,3 +1,4 @@
+import React from 'react';
 import {TextInput, StyleSheet} from 'react-native';
 
 export default function Input(props) {
@@ -8,7 +9,8 @@ export default function Input(props) {
       placeholderTextColor="#000"
       keyboardType={props.keyboardType}
       secureTextEntry={props.secureTextEntry}
-      onChangeText={props.onChangeText}></TextInput>
+      onChangeText={props.onChangeText}
+    />
   );
 }
 

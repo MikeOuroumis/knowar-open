@@ -13,7 +13,9 @@ export function useSocketLogic(
     if (isHost) {
       socket.on(SocketEvents.OPPONENT_JOINED, setOpponent);
     }
-    if (isHost && opponent) socket.emit(SocketEvents.SEND_QUESTIONS, questions);
+    if (isHost && opponent) {
+      socket.emit(SocketEvents.SEND_QUESTIONS, questions);
+    }
   }, [isHost, opponent, questions]);
 
   useEffect(() => {

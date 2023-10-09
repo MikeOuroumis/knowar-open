@@ -1,3 +1,4 @@
+import React from 'react';
 import LoadingScreen from '../../screens/LoadingScreen';
 import ButtonComponent from '../ButtonComponent';
 
