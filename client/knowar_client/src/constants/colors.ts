@@ -16,3 +16,16 @@ export const COLORS = {
   white: '#ffffff',
   black: '#000000',
 };
+
+export const COLOR_LIST = {
+  deepBlue: '#1C185C',
+  brightPurple: '#8720FF',
+  neonPink: '#FA2398',
+  electricBlue: '#0278FF',
+  vibrantCyan: '#00F2FF',
+  softPink: '#FB79D7',
+  glowingYellow: '#FFEA1F',
+  darkBackgroundBlue: '#0B0235',
+  orange: '#FFA500',
+  white: '#FFFFFF',
+};

@@ -1,16 +1,20 @@
 import React from 'react';
-import {StyleSheet, Text, Pressable} from 'react-native';
+import {StyleSheet, Text, Pressable, ViewStyle, TextStyle} from 'react-native';
 import {COLORS} from '../constants/colors';
 
 interface ButtonComponentProps {
   onPress: () => void;
   title: string;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
   disabled?: boolean;
 }
 
 export default function ButtonComponent({
   onPress,
   title,
+  style,
+  textStyle,
   disabled,
 }: ButtonComponentProps) {
   return (
@@ -20,12 +24,13 @@ export default function ButtonComponent({
         {
           backgroundColor:
             pressed && !disabled ? '#2563bb' : COLORS.primaryBlue,
-          opacity: disabled ? 0.5 : 1, // Add opacity based on disabled prop
+          opacity: disabled ? 0.5 : 1,
         },
         styles.button,
+        style,
       ]}
       disabled={disabled}>
-      <Text style={styles.buttonText}>{title}</Text>
+      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
     </Pressable>
   );
 }
