@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, Pressable, ViewStyle, TextStyle} from 'react-native';
-import {COLORS} from '../constants/colors';
+import {COLOR_LIST} from '../constants/colors';
 
 interface ButtonComponentProps {
   onPress: () => void;
@@ -22,9 +22,8 @@ export default function ButtonComponent({
       onPress={onPress}
       style={({pressed}) => [
         {
-          backgroundColor:
-            pressed && !disabled ? '#2563bb' : COLORS.primaryBlue,
-          opacity: disabled ? 0.5 : 1,
+          opacity: pressed && !disabled ? 0.5 : disabled ? 0.5 : 1,
+          // opacity: disabled ? 0.5 : 1,
         },
         styles.button,
         style,
@@ -37,16 +36,24 @@ export default function ButtonComponent({
 
 const styles = StyleSheet.create({
   button: {
-    textAlign: 'center',
+    backgroundColor: COLOR_LIST.neonPink,
+    shadowColor: COLOR_LIST.neonPink,
+    shadowOpacity: 1,
+    shadowRadius: 20,
+    shadowOffset: {
+      height: 10,
+      width: 10,
+    },
+    elevation: 10,
     borderRadius: 20,
     height: 45,
     marginHorizontal: 35,
     justifyContent: 'center',
-    marginTop: 60,
   },
   buttonText: {
     textAlign: 'center',
     color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });

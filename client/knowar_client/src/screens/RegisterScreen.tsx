@@ -168,15 +168,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   button: {
-    backgroundColor: COLOR_LIST.neonPink,
-    shadowColor: COLOR_LIST.neonPink,
-    shadowOpacity: 1,
-    shadowRadius: 20,
-    shadowOffset: {
-      height: 10,
-      width: 10,
-    },
-    elevation: 10,
+    marginTop: 50,
   },
   footerText: {
     flexDirection: 'row',

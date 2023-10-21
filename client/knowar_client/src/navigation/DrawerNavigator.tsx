@@ -6,13 +6,13 @@ import {
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {useContext} from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainMenuScreen from '../screens/MainMenuScreen';
 import MultiplayerLobbyScreen from '../screens/MultiplayerLobbyScreen';
 import {AuthContext} from '../store/auth-context';
 import {COLORS} from '../constants/colors';
 import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
+import {useLogout} from '../hooks/useLogout';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,16 +23,7 @@ function DrawerIcon({focused, name}) {
 
 export function DrawerNavigator() {
   const authCtx = useContext(AuthContext);
-
-  async function logOutHandler() {
-    try {
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.setItem('loggedIn', JSON.stringify(false));
-      authCtx.logout();
-    } catch (error) {
-      console.log("Couldn't log out", error);
-    }
-  }
+  const logout = useLogout();
 
   return (
     <Drawer.Navigator
@@ -68,7 +59,7 @@ export function DrawerNavigator() {
             icon={({focused}) => (
               <DrawerIcon focused={focused} name="log-out" />
             )}
-            onPress={logOutHandler}
+            onPress={logout}
           />
         </DrawerContentScrollView>
       )}>
