@@ -35,9 +35,7 @@ export default function MainMenuScreen(props) {
           style={styles.linearGradient}
           start={{x: 0, y: 0}}
           end={{x: 0, y: 1}}>
-          <View style={styles.logoContainer}>
-            <Image source={knowarLogo} style={styles.logo} />
-          </View>
+          <Image source={knowarLogo} style={styles.logo} />
           <View style={styles.buttonWrapper}>
             <ButtonComponent
               title="Multi Player"

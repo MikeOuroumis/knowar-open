@@ -5,11 +5,9 @@ import {
   DrawerItem,
 } from '@react-navigation/drawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {useContext} from 'react';
 import MainMenuScreen from '../screens/MainMenuScreen';
 import MultiplayerLobbyScreen from '../screens/MultiplayerLobbyScreen';
-import {AuthContext} from '../store/auth-context';
-import {COLORS} from '../constants/colors';
+import {COLOR_LIST, COLORS} from '../constants/colors';
 import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
 import {useLogout} from '../hooks/useLogout';
@@ -18,23 +16,23 @@ const Drawer = createDrawerNavigator();
 
 function DrawerIcon({focused, name}) {
   const iconName = focused ? name : `${name}-outline`;
-  return <Ionicons name={iconName} size={20} />;
+  return <Ionicons name={iconName} size={20} color={COLOR_LIST.neonPink} />;
 }
 
 export function DrawerNavigator() {
-  const authCtx = useContext(AuthContext);
   const logout = useLogout();
 
   return (
     <Drawer.Navigator
       screenOptions={{
-        headerStyle: {backgroundColor: COLORS.lighterGrey},
-        headerTintColor: COLORS.black,
-        headerTitleStyle: {fontWeight: 'bold'},
-        headerTitleAlign: 'center',
-        drawerActiveBackgroundColor: COLORS.lightBlue,
+        headerShown: true, // Show the header
+        headerStyle: {backgroundColor: '#000'},
+        headerTintColor: COLOR_LIST.neonPink,
+        headerTitle: '',
+        drawerActiveBackgroundColor: 'transparent',
         drawerActiveTintColor: COLORS.black,
-        drawerStyle: {backgroundColor: COLORS.lightGrey},
+        drawerStyle: {backgroundColor: 'transparent'},
+        overlayColor: 'rgba(0, 0, 0, 0.7)',
       }}
       drawerContent={props => (
         <DrawerContentScrollView {...props}>
@@ -42,23 +40,23 @@ export function DrawerNavigator() {
             label="Main Menu"
             icon={({focused}) => <DrawerIcon focused={focused} name="home" />}
             onPress={() => props.navigation.navigate('MainMenuScreen')}
-            activeTintColor={COLORS.black}
-            inactiveTintColor={COLORS.black}
-            activeBackgroundColor={COLORS.lightBlue}
+            activeTintColor={COLOR_LIST.neonPink}
+            inactiveTintColor={COLOR_LIST.neonPink}
           />
           <DrawerItem
             label="Multiplayer"
             icon={({focused}) => <DrawerIcon focused={focused} name="people" />}
             onPress={() => props.navigation.navigate('MultiplayerLobbyScreen')}
-            activeTintColor={COLORS.black}
-            inactiveTintColor={COLORS.black}
-            activeBackgroundColor={COLORS.lightBlue}
+            activeTintColor={COLOR_LIST.neonPink}
+            inactiveTintColor={COLOR_LIST.neonPink}
           />
           <DrawerItem
             label="Logout"
             icon={({focused}) => (
               <DrawerIcon focused={focused} name="log-out" />
             )}
+            activeTintColor={COLOR_LIST.neonPink}
+            inactiveTintColor={COLOR_LIST.neonPink}
             onPress={logout}
           />
         </DrawerContentScrollView>

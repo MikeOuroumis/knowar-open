@@ -34,7 +34,9 @@ export const useRoomListener = () => {
   useEffect(() => {
     const handleNewRoom = data => {
       setActiveRooms(prev => {
-        if (prev.includes(data.roomId)) return prev;
+        if (prev.includes(data.roomId)) {
+          return prev;
+        }
         return [...prev, data.roomId];
       });
     };

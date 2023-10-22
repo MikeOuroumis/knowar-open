@@ -26,8 +26,8 @@ export default function GameScreen({navigation, route}) {
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
 
   const fetchQuestions = async () => {
-    const questions = await fetchQuestionsFromAPI(categoryId);
-    setQuestions(questions);
+    const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
+    setQuestions(fetchedQuestions);
   };
 
   useEffect(() => {
@@ -38,6 +38,7 @@ export default function GameScreen({navigation, route}) {
         socket.emit(SocketEvents.LEAVE_ROOM, userId);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
