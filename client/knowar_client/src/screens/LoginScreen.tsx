@@ -51,10 +51,6 @@ export default function LoginScreen({navigation}) {
     }
   };
 
-  if (isLoading) {
-    return <LoadingScreen text={'Logging In...'} />;
-  }
-
   const registerText = (
     <Text
       style={styles.hereText}
@@ -96,6 +92,7 @@ export default function LoginScreen({navigation}) {
             textStyle={styles.inputText}
             onPress={loginHandler}
             style={styles.button}
+            isLoading={isLoading}
           />
           <View style={styles.footerText}>
             <Text style={styles.registerText}>New user? Register </Text>

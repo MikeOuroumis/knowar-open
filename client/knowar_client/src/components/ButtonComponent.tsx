@@ -1,6 +1,14 @@
-import React from 'react';
-import {StyleSheet, Text, Pressable, ViewStyle, TextStyle} from 'react-native';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  Pressable,
+  ViewStyle,
+  TextStyle,
+  ActivityIndicator,
+} from 'react-native';
 import {COLOR_LIST} from '../constants/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface ButtonComponentProps {
   onPress: () => void;
@@ -8,6 +16,7 @@ interface ButtonComponentProps {
   style?: ViewStyle;
   textStyle?: TextStyle;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export default function ButtonComponent({
@@ -16,39 +25,54 @@ export default function ButtonComponent({
   style,
   textStyle,
   disabled,
+  isLoading,
 }: ButtonComponentProps) {
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handlePressIn = () => {
+    setIsPressed(true);
+  };
+
+  const handlePressOut = () => {
+    setIsPressed(false);
+  };
+
   return (
     <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       onPress={onPress}
-      style={({pressed}) => [
-        {
-          opacity: pressed && !disabled ? 0.5 : disabled ? 0.5 : 1,
-          // opacity: disabled ? 0.5 : 1,
-        },
-        styles.button,
-        style,
-      ]}
       disabled={disabled}>
-      <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      <LinearGradient
+        colors={[COLOR_LIST.neonPink, COLOR_LIST.softPink]}
+        style={[
+          styles.gradient,
+          {opacity: isPressed && !disabled ? 0.5 : 1},
+          style,
+        ]}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}>
+        {isLoading ? (
+          <ActivityIndicator size={'small'} color={COLOR_LIST.white} />
+        ) : (
+          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+        )}
+      </LinearGradient>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: COLOR_LIST.neonPink,
-    shadowColor: COLOR_LIST.neonPink,
+  gradient: {
+    shadowColor: COLOR_LIST.softPink,
     shadowOpacity: 1,
-    shadowRadius: 20,
-    shadowOffset: {
-      height: 10,
-      width: 10,
-    },
+    shadowRadius: 3,
     elevation: 10,
     borderRadius: 20,
     height: 45,
     marginHorizontal: 35,
     justifyContent: 'center',
+    marginTop: 20,
   },
   buttonText: {
     textAlign: 'center',

@@ -14,8 +14,10 @@ export default function RegisterScreen({navigation}) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [userName, setUserName] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const registerHandler = () => {
+    setIsLoading(true);
     fetch(`${apiUrl}:5000/register`, {
       method: 'POST',
       headers: {
@@ -39,26 +41,21 @@ export default function RegisterScreen({navigation}) {
             screen: 'MainMenuScreen',
           });
         } else {
-          // Handle error message here
-          let errorMessage = data.message || 'Registration failed!'; // Default error message
+          let errorMessage = data.message || 'Registration failed!';
           if (data.error) {
-            errorMessage = data.error; // Server provided error message
+            errorMessage = data.error;
           }
-          Alert.alert(
-            'Registration Error', // Title of the alert
-            errorMessage, // Message to display
-            [
-              {
-                text: 'OK',
-                onPress: () => console.log('OK Pressed'),
-              },
-            ],
-          );
+          Alert.alert('Registration Error', errorMessage, [
+            {
+              text: 'OK',
+              onPress: () => console.log('OK Pressed'),
+            },
+          ]);
         }
       })
       .catch(err => {
         console.error('register error', err);
-        // Handle fetch error here
+
         Alert.alert(
           'Network Error',
           'Unable to register at the moment. Please try again later.',
@@ -69,6 +66,9 @@ export default function RegisterScreen({navigation}) {
             },
           ],
         );
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -118,6 +118,7 @@ export default function RegisterScreen({navigation}) {
             title="Register"
             onPress={registerHandler}
             style={styles.button}
+            isLoading={isLoading}
           />
           <View style={styles.footerText}>
             <Text style={styles.loginText}>

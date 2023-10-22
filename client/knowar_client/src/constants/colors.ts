@@ -28,4 +28,6 @@ export const COLOR_LIST = {
   darkBackgroundBlue: '#0B0235',
   orange: '#FFA500',
   white: '#FFFFFF',
+  red: '#FF0000',
+  green: '#00FF00',
 };
