@@ -27,10 +27,11 @@ export default function MainMenuScreen(props) {
         resizeMode="cover">
         <LinearGradient
           colors={[
-            'rgba(0,0,0,0)',
-            'rgba(0,0,0,0.2)',
+            'rgba(0,0,0,0.3)',
+            'rgba(0,0,0,0.5)',
             'rgba(0,0,0,0.8)',
-            'rgba(0,0,0,0.8)',
+            'rgba(0,0,0,0.9)',
+            'rgba(0,0,0,1)',
           ]}
           style={styles.linearGradient}
           start={{x: 0, y: 0}}
