@@ -5,7 +5,9 @@ import {apiUrl} from '../constants/constants';
 import {SocketEvents} from '../socket/SocketEvents';
 
 export const useRoomListener = () => {
-  const [activeRooms, setActiveRooms] = useState<string[]>([]);
+  const [activeRooms, setActiveRooms] = useState<
+    {userName: string; category: string}[]
+  >([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,7 +19,12 @@ export const useRoomListener = () => {
           const response = await axios.get(`${apiUrl}:5000/active-rooms`);
           const data = response.data;
 
-          setActiveRooms(data.rooms.map(room => room.host._id));
+          setActiveRooms(
+            data.rooms.map(room => ({
+              userName: room.host.userName,
+              category: room.category,
+            })),
+          );
         } catch (err) {
           console.log("Couldn't fetch rooms", err);
           alert(err);
@@ -37,12 +44,16 @@ export const useRoomListener = () => {
         if (prev.includes(data.roomId)) {
           return prev;
         }
-        return [...prev, data.roomId];
+        return [...prev, data];
       });
     };
 
     const handleRoomDeletion = roomID => {
-      setActiveRooms(prev => prev.filter(id => id !== roomID));
+      setActiveRooms(prev =>
+        prev.filter(id => {
+          id !== roomID;
+        }),
+      );
     };
 
     socket.on(SocketEvents.NEW_ROOM_AVAILABLE, handleNewRoom);

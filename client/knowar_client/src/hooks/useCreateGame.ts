@@ -8,7 +8,7 @@ import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 export const useCreateGame = (selectedCategory, navigation) => {
   const categories = useFetchTriviaCategories();
 
-  const userId = useContext(AuthContext).userId;
+  const {userId, userName} = useContext(AuthContext);
 
   async function createGameHandler() {
     try {
@@ -20,6 +20,7 @@ export const useCreateGame = (selectedCategory, navigation) => {
       if (response.data && response.data.status === 'ok') {
         socket.emit('create_room', {
           roomId: userId,
+          userName: userName,
           category: selectedCategory.name,
         });
 
