@@ -30,4 +30,5 @@ export const COLOR_LIST = {
   white: '#FFFFFF',
   red: '#FF0000',
   green: '#00FF00',
+  black: '#000000',
 };

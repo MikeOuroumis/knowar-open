@@ -10,6 +10,8 @@ import {useSocketLogic} from '../hooks/useSocketLogic';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
+import {COLOR_LIST} from '../constants/colors';
+import {Score} from '../components/GameScreen/Score';
 
 export default function GameScreen({navigation, route}) {
   const {categoryId, isHost} = route.params;
@@ -127,12 +129,7 @@ export default function GameScreen({navigation, route}) {
     return (
       <View style={styles.container}>
         <View style={styles.questionWrapper}>
-          <View style={styles.scoreContainer}>
-            <Text style={styles.playerScoreText}>You: {playerScore}</Text>
-            <Text style={styles.opponentScoreText}>
-              Opponent: {opponentScore}
-            </Text>
-          </View>
+          <Score playerScore={playerScore} opponentScore={opponentScore} />
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selectedAnswer => handleOptionPress(selectedAnswer)}
@@ -154,26 +151,12 @@ export default function GameScreen({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: COLOR_LIST.black,
     justifyContent: 'center',
   },
   questionWrapper: {
     flex: 1,
     justifyContent: 'space-between',
     marginHorizontal: 20,
-  },
-  scoreContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  playerScoreText: {
-    color: '#fff',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  opponentScoreText: {
-    color: '#fff',
-    fontSize: 20,
   },
 });
