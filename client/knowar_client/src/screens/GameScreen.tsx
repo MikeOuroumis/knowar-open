@@ -7,9 +7,9 @@ import {AuthContext} from '../store/auth-context';
 import {SocketEvents} from '../socket/SocketEvents';
 import {fetchQuestionsFromAPI} from '../api/fetchQuestions';
 import {useSocketLogic} from '../hooks/useSocketLogic';
-import {WaitingForOpponent} from '../components/GameScreen/WaitingForOpponent';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
+import LoadingScreen from './LoadingScreen';
 
 export default function GameScreen({navigation, route}) {
   const {categoryId, isHost} = route.params;
@@ -87,7 +87,13 @@ export default function GameScreen({navigation, route}) {
   }
 
   if (isHost && !opponent) {
-    return <WaitingForOpponent navigation={navigation} />;
+    return (
+      <LoadingScreen
+        text="Waiting for the opponent to join the game..."
+        buttonText="Back"
+        navigation={navigation}
+      />
+    );
   }
 
   const handleOptionPress = answer => {
