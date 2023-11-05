@@ -1,47 +1,83 @@
-import React from 'react';
-import {StyleSheet, Text, Pressable} from 'react-native';
-import {COLORS} from '../constants/colors';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  Pressable,
+  ViewStyle,
+  TextStyle,
+  ActivityIndicator,
+} from 'react-native';
+import {COLOR_LIST} from '../constants/colors';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface ButtonComponentProps {
   onPress: () => void;
   title: string;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
 export default function ButtonComponent({
   onPress,
   title,
+  style,
+  textStyle,
   disabled,
+  isLoading,
 }: ButtonComponentProps) {
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handlePressIn = () => {
+    setIsPressed(true);
+  };
+
+  const handlePressOut = () => {
+    setIsPressed(false);
+  };
+
   return (
     <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
       onPress={onPress}
-      style={({pressed}) => [
-        {
-          backgroundColor:
-            pressed && !disabled ? '#2563bb' : COLORS.primaryBlue,
-          opacity: disabled ? 0.5 : 1, // Add opacity based on disabled prop
-        },
-        styles.button,
-      ]}
       disabled={disabled}>
-      <Text style={styles.buttonText}>{title}</Text>
+      <LinearGradient
+        colors={[COLOR_LIST.neonPink, COLOR_LIST.softPink]}
+        style={[
+          styles.gradient,
+          {opacity: isPressed && !disabled ? 0.5 : 1},
+          style,
+        ]}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 0}}>
+        {isLoading ? (
+          <ActivityIndicator size={'small'} color={COLOR_LIST.white} />
+        ) : (
+          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+        )}
+      </LinearGradient>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    textAlign: 'center',
+  gradient: {
+    shadowColor: COLOR_LIST.softPink,
+    shadowOpacity: 1,
+    shadowRadius: 3,
+    elevation: 10,
     borderRadius: 20,
     height: 45,
     marginHorizontal: 35,
     justifyContent: 'center',
-    marginTop: 60,
+    marginTop: 20,
   },
   buttonText: {
     textAlign: 'center',
     color: 'white',
     fontSize: 20,
+    fontWeight: 'bold',
   },
 });

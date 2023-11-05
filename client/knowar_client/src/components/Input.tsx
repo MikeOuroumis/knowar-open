@@ -1,15 +1,34 @@
 import React from 'react';
-import {TextInput, StyleSheet} from 'react-native';
+import {TextInput, StyleSheet, ViewStyle, TextStyle} from 'react-native';
+import {COLOR_LIST} from '../constants/colors';
 
-export default function Input(props) {
+interface InputProps {
+  placeholder: string;
+  style?: ViewStyle;
+  textStyle?: TextStyle;
+  placeholderTextColor?: string;
+  keyboardType?: any;
+  secureTextEntry?: boolean;
+  onChangeText?: (text: string) => void;
+}
+
+export default function Input({
+  placeholder,
+  style,
+  textStyle,
+  placeholderTextColor,
+  keyboardType,
+  secureTextEntry,
+  onChangeText,
+}: InputProps) {
   return (
     <TextInput
-      placeholder={props.placeholder}
-      style={styles.input}
-      placeholderTextColor="#000"
-      keyboardType={props.keyboardType}
-      secureTextEntry={props.secureTextEntry}
-      onChangeText={props.onChangeText}
+      placeholder={placeholder}
+      style={[styles.input, style, textStyle]}
+      placeholderTextColor={placeholderTextColor || '#fff'}
+      keyboardType={keyboardType}
+      secureTextEntry={secureTextEntry}
+      onChangeText={onChangeText}
     />
   );
 }
@@ -20,10 +39,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     borderRadius: 20,
     height: 45,
-    borderStyle: 'solid',
-    borderWidth: 0.5,
     marginHorizontal: 35,
-    color: '#000',
+    color: COLOR_LIST.neonPink,
     paddingHorizontal: 10,
     marginTop: 20,
     backgroundColor: 'white',

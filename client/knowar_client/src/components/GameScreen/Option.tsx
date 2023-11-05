@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {decode} from 'html-entities';
+import {COLOR_LIST} from '../../constants/colors';
 
 export function Option({answer, onPress}) {
   return (
@@ -12,7 +13,7 @@ export function Option({answer, onPress}) {
 
 const styles = StyleSheet.create({
   optionContainer: {
-    backgroundColor: '#fff',
+    backgroundColor: COLOR_LIST.neonPink,
     width: '100%',
     marginVertical: 10,
     fontSize: 20,
@@ -20,10 +21,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
+    borderWidth: 2,
+    borderColor: COLOR_LIST.neonPink,
   },
   optionText: {
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
+    color: COLOR_LIST.white,
   },
 });

@@ -1,4 +1,4 @@
-import {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,6 +7,7 @@ import LoadingScreen from '../screens/LoadingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import {DrawerNavigator} from './DrawerNavigator';
+import SplashScreen from '../screens/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +40,7 @@ export function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="SplashScreen" component={SplashScreen} />
         {authCtx.isAuthenticated ? (
           <>
             <Stack.Screen

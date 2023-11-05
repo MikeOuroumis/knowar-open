@@ -7,9 +7,11 @@ import {AuthContext} from '../store/auth-context';
 import {SocketEvents} from '../socket/SocketEvents';
 import {fetchQuestionsFromAPI} from '../api/fetchQuestions';
 import {useSocketLogic} from '../hooks/useSocketLogic';
-import {WaitingForOpponent} from '../components/GameScreen/WaitingForOpponent';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
+import LoadingScreen from './LoadingScreen';
+import {COLOR_LIST} from '../constants/colors';
+import {Score} from '../components/GameScreen/Score';
 
 export default function GameScreen({navigation, route}) {
   const {categoryId, isHost} = route.params;
@@ -26,8 +28,8 @@ export default function GameScreen({navigation, route}) {
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
 
   const fetchQuestions = async () => {
-    const questions = await fetchQuestionsFromAPI(categoryId);
-    setQuestions(questions);
+    const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
+    setQuestions(fetchedQuestions);
   };
 
   useEffect(() => {
@@ -38,6 +40,7 @@ export default function GameScreen({navigation, route}) {
         socket.emit(SocketEvents.LEAVE_ROOM, userId);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -86,7 +89,13 @@ export default function GameScreen({navigation, route}) {
   }
 
   if (isHost && !opponent) {
-    return <WaitingForOpponent navigation={navigation} />;
+    return (
+      <LoadingScreen
+        text="Waiting for the opponent to join the game..."
+        buttonText="Back"
+        navigation={navigation}
+      />
+    );
   }
 
   const handleOptionPress = answer => {
@@ -120,12 +129,7 @@ export default function GameScreen({navigation, route}) {
     return (
       <View style={styles.container}>
         <View style={styles.questionWrapper}>
-          <View style={styles.scoreContainer}>
-            <Text style={styles.playerScoreText}>You: {playerScore}</Text>
-            <Text style={styles.opponentScoreText}>
-              Opponent: {opponentScore}
-            </Text>
-          </View>
+          <Score playerScore={playerScore} opponentScore={opponentScore} />
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selectedAnswer => handleOptionPress(selectedAnswer)}
@@ -147,26 +151,12 @@ export default function GameScreen({navigation, route}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: COLOR_LIST.black,
     justifyContent: 'center',
   },
   questionWrapper: {
     flex: 1,
     justifyContent: 'space-between',
     marginHorizontal: 20,
-  },
-  scoreContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  playerScoreText: {
-    color: '#fff',
-    fontSize: 20,
-    textAlign: 'center',
-  },
-  opponentScoreText: {
-    color: '#fff',
-    fontSize: 20,
   },
 });
