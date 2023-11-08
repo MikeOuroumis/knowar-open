@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Alert} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
-import LoadingScreen from './LoadingScreen';
 import {AuthContext} from '../store/auth-context';
 import {apiUrl} from '../constants/constants';
 import backgroundImage from '../assets/images/loginScreen_bg.png';

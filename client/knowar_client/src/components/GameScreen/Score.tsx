@@ -29,8 +29,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: COLOR_LIST.red,
     marginTop: 10,
-    borderWidth: 2,
-    borderColor: COLOR_LIST.white,
+
     borderRadius: 10,
     padding: 10,
   },

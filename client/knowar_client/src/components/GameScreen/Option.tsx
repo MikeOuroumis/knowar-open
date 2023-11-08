@@ -13,7 +13,7 @@ export function Option({answer, onPress}) {
 
 const styles = StyleSheet.create({
   optionContainer: {
-    backgroundColor: COLOR_LIST.neonPink,
+    backgroundColor: COLOR_LIST.white,
     width: '100%',
     marginVertical: 10,
     fontSize: 20,
@@ -22,12 +22,11 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: COLOR_LIST.neonPink,
   },
   optionText: {
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: COLOR_LIST.white,
+    color: COLOR_LIST.black,
   },
 });
