@@ -8,3 +8,4 @@ app.json
 eas.json
 .vscode
 gradle.properties
+network_security_config.xml
