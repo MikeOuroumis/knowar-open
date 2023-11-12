@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ImageBackground, Image} from 'react-native';
 import {useEffect} from 'react';
 import ButtonComponent from '../components/ButtonComponent';
-import {COLORS, COLOR_LIST} from '../constants/colors';
+import {COLOR_LIST} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import mainMenuBackground from '../assets/images/galaxy.png';
@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useLogout} from '../hooks/useLogout';
 import knowarLogo from '../assets/images/logo_letters.png';
 
-export default function MainMenuScreen(props) {
+export default function MainMenuScreen({navigation}) {
   const logout = useLogout();
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function MainMenuScreen(props) {
               title="Multi Player"
               style={styles.button}
               onPress={() =>
-                props.navigation.replace('AuthenticatedStack', {
+                navigation.replace('AuthenticatedStack', {
                   screen: 'MultiplayerLobbyScreen',
                 })
               }
@@ -61,7 +61,7 @@ export default function MainMenuScreen(props) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.black,
+    backgroundColor: COLOR_LIST.black,
     flex: 1,
   },
   globalView: {
@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   logoContainer: {
-    elevation: 10, // move the elevation here
-    shadowColor: COLOR_LIST.vibrantCyan, // applicable for iOS
-    shadowOffset: {width: 0, height: 2}, // applicable for iOS, if you need to adjust the direction of the shadow
+    elevation: 10,
+    shadowColor: COLOR_LIST.vibrantCyan,
+    shadowOffset: {width: 0, height: 2},
   },
   logo: {
     width: '100%',

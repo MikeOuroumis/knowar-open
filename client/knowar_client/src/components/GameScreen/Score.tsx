@@ -10,6 +10,7 @@ interface ScoreProps {
 export function Score({playerScore, opponentScore}: ScoreProps): JSX.Element {
   const winning = playerScore > opponentScore;
   const isDraw = playerScore === opponentScore;
+
   return (
     <View
       style={[

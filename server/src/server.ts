@@ -6,6 +6,13 @@ if (process.env.NODE_ENV === "production") {
   dotenv.config({ path: "../.env.development" });
 }
 
+// Check for JWT_SECRET
+const jwtSecret = process.env.JWT_SECRET;
+if (!jwtSecret) {
+  console.error("FATAL ERROR: JWT_SECRET is not defined.");
+  process.exit(1); // Exit the application with a failure code
+}
+
 import express from "express";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes";

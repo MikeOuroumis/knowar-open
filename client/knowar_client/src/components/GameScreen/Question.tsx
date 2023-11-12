@@ -3,7 +3,16 @@ import {Text, View, StyleSheet} from 'react-native';
 import {Option} from './Option';
 import {decode} from 'html-entities';
 
-export function Question({questionObj, onOptionPress}) {
+interface QuestionProps {
+  questionObj: {
+    question: string;
+    all_answers: string[];
+    correct_answer: string;
+  };
+  onOptionPress: (answer: string) => void;
+}
+
+export function Question({questionObj, onOptionPress}: QuestionProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.questionText}>{decode(questionObj.question)}</Text>
