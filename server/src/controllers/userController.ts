@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "../models/Users";
-
-const JWT_SECRET = process.env.JWT_SECRET;
+import * as UserService from "../services/userService";
+import { validateEmail } from "../utils/emailValidation";
 
 interface UserRequestBody {
   userName: string;
@@ -14,9 +11,14 @@ interface UserRequestBody {
 export const register = async (req: Request, res: Response) => {
   const { userName, email, password }: UserRequestBody = req.body;
 
+  if (!validateEmail(email)) {
+    return res
+      .status(400)
+      .json({ status: "error", message: "Invalid email format" });
+  }
+
   try {
-    const encryptedPassword = await bcrypt.hash(password, 10);
-    const oldUser = await User.findOne({ email });
+    const oldUser = await UserService.findUserByEmail(email);
 
     if (oldUser) {
       return res
@@ -24,17 +26,9 @@ export const register = async (req: Request, res: Response) => {
         .json({ status: "error", message: "Email is already registered" });
     }
 
-    const newUser = await User.create({
-      userName,
-      email,
-      password: encryptedPassword,
-    });
+    const newUser = await UserService.createUser(userName, email, password);
 
-    const token = jwt.sign(
-      { userId: newUser.id, email: newUser.email },
-      "your-secret-key", // Replace with your actual secret key
-      { expiresIn: "1h" } // Set the token expiration time as needed
-    );
+    const token = UserService.generateToken(newUser);
 
     return res.status(201).json({
       status: "ok",
@@ -56,58 +50,54 @@ export const register = async (req: Request, res: Response) => {
 export const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.json({ error: "User not found" });
-  }
-  if (await bcrypt.compare(password, user.password)) {
-    if (!JWT_SECRET) {
+  try {
+    const user = await UserService.findUserByEmail(email);
+    if (!user) {
       return res
-        .status(500)
-        .send({ status: "error", error: "JWT_SECRET is not defined." });
+        .status(404)
+        .json({ status: "error", message: "User not found" });
     }
-    const token = jwt.sign({ email: user.email }, JWT_SECRET);
 
-    if (res.status(201)) {
-      return res.json({
-        status: "ok",
-        data: {
-          token: token,
-          email: user.email,
-          userName: user.userName,
-          userId: user._id,
-        },
-      });
-    } else {
-      return res.json({ error: "error" });
+    const isValidPassword = await UserService.validatePassword(password, user);
+    if (!isValidPassword) {
+      return res
+        .status(401)
+        .json({ status: "error", message: "Invalid password" });
     }
+
+    const token = UserService.generateToken(user);
+
+    return res.json({
+      status: "ok",
+      data: {
+        token,
+        email: user.email,
+        userName: user.userName,
+        userId: user._id,
+      },
+    });
+  } catch (error) {
+    const typedError = error as Error;
+    console.error(typedError);
+    return res
+      .status(500)
+      .json({ status: "error", message: "Internal Server Error" });
   }
-  res.json({ status: "error", error: "Invalid Password" });
 };
 
 export const userData = async (req: Request, res: Response) => {
   const { token } = req.body;
 
-  if (!JWT_SECRET) {
-    return res
-      .status(500)
-      .send({ status: "error", error: "JWT_SECRET is not defined." });
-  }
-
   try {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const user: any = jwt.verify(token, JWT_SECRET);
-    const userEmail = user.email;
+    const user = await UserService.getUserDataFromToken(token);
 
-    User.findOne({ email: userEmail }).then((data) => {
-      res.send({
-        status: "ok",
-        data: {
-          email: data.email,
-          userName: data.userName,
-          userId: data._id,
-        },
-      });
+    res.send({
+      status: "ok",
+      data: {
+        email: user.email,
+        userName: user.userName,
+        userId: user._id,
+      },
     });
   } catch (error) {
     console.error(error);
