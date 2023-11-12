@@ -3,7 +3,12 @@ import {Text, Pressable, StyleSheet} from 'react-native';
 import {decode} from 'html-entities';
 import {COLOR_LIST} from '../../constants/colors';
 
-export function Option({answer, onPress}) {
+interface OptionProps {
+  answer: string;
+  onPress: (answer: string) => void;
+}
+
+export function Option({answer, onPress}: OptionProps) {
   return (
     <Pressable style={styles.optionContainer} onPress={() => onPress(answer)}>
       <Text style={styles.optionText}>{decode(answer)}</Text>

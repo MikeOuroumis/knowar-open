@@ -7,7 +7,7 @@ import {
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MainMenuScreen from '../screens/MainMenuScreen';
 import MultiplayerLobbyScreen from '../screens/MultiplayerLobbyScreen';
-import {COLOR_LIST, COLORS} from '../constants/colors';
+import {COLOR_LIST} from '../constants/colors';
 import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
 import {useLogout} from '../hooks/useLogout';
@@ -30,7 +30,7 @@ export function DrawerNavigator() {
         headerTintColor: COLOR_LIST.neonPink,
         headerTitle: '',
         drawerActiveBackgroundColor: 'transparent',
-        drawerActiveTintColor: COLORS.black,
+        drawerActiveTintColor: COLOR_LIST.black,
         drawerStyle: {backgroundColor: 'transparent'},
         overlayColor: 'rgba(0, 0, 0, 0.7)',
       }}
