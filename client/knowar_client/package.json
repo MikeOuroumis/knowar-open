@@ -17,7 +17,7 @@
     "@react-navigation/native-stack": "^6.9.6",
     "@types/react-native": "~0.70.6",
     "@typescript-eslint/scope-manager": "^6.6.0",
-    "axios": "^1.2.0",
+    "axios": "^1.6.0",
     "cli": "^1.0.1",
     "decode-html": "^2.0.0",
     "html-entities": "^2.3.3",
