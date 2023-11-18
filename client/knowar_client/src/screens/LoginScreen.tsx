@@ -19,7 +19,7 @@ export default function LoginScreen({navigation}) {
   const loginHandler = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${apiUrl}:5000/login-user`, {
+      const response = await fetch(`${apiUrl}/login-user`, {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

@@ -12,7 +12,7 @@ export const useCreateGame = (selectedCategory, navigation) => {
 
   async function createGameHandler() {
     try {
-      const response = await axios.post(`${apiUrl}:5000/create-room`, {
+      const response = await axios.post(`${apiUrl}/create-room`, {
         category: selectedCategory.name,
         userId: userId,
       });

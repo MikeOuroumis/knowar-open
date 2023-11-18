@@ -18,7 +18,7 @@ export default function RegisterScreen({navigation}) {
 
   const registerHandler = () => {
     setIsLoading(true);
-    fetch(`${apiUrl}:5000/register`, {
+    fetch(`${apiUrl}/register`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

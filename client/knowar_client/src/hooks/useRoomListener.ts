@@ -16,7 +16,7 @@ export const useRoomListener = () => {
       setLoading(true);
       const fetchActiveRooms = async () => {
         try {
-          const response = await axios.get(`${apiUrl}:5000/active-rooms`);
+          const response = await axios.get(`${apiUrl}/active-rooms`);
           const data = response.data;
 
           setActiveRooms(
