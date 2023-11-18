@@ -1,45 +1,38 @@
 import axios from 'axios';
 
-export async function fetchQuestionsFromAPI(categoryId) {
+export async function fetchQuestionsFromAPI(categoryId, amount = 10) {
   try {
     const response = await axios.get(
-      `https://opentdb.com/api.php?amount=1&category=${categoryId}`,
+      `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}`,
     );
-
     const code = response.data.response_code;
 
     if (code !== 0) {
-      const err =
-        code === 1
-          ? "No Results. The API doesn't have enough questions for your query."
-          : code === 2
-          ? "Invalid Parameter. Arguments passed in aren't valid."
-          : code === 3
-          ? 'Token Not Found. Session Token does not exist.'
-          : 'Token Empty Session. Token has returned all possible questions for the specified query. Resetting the Token is necessary.';
-
-      throw new Error(`${err}`);
-    } else {
-      const data = await response.data;
-      const totalQuestionsAvailable = data.total_questions;
-      const amount = totalQuestionsAvailable;
-
-      const questionsResponse = await axios.get(
-        `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}`,
-      );
-
-      const questionsData = await questionsResponse.data;
-      let fetchedResults = questionsData.results;
-
-      // Shuffle the order of questions
-      fetchedResults = shuffleArray(fetchedResults);
-
-      // Shuffle answers and add them to the results
-      for (const result of fetchedResults) {
-        const allAnswers = [...result.incorrect_answers, result.correct_answer];
-        shuffleArray(allAnswers);
-        result.all_answers = allAnswers;
+      if (code === 1 && amount > 1) {
+        // Recursively call with fewer questions
+        return fetchQuestionsFromAPI(categoryId, amount - 1);
+      } else {
+        const errorMessage =
+          code === 1
+            ? "No Results. The API doesn't have enough questions for your query."
+            : code === 2
+            ? "Invalid Parameter. Arguments passed in aren't valid."
+            : code === 3
+            ? 'Token Not Found. Session Token does not exist.'
+            : 'Token Empty Session. Token has returned all possible questions for the specified query. Resetting the Token is necessary.';
+        throw new Error(errorMessage);
       }
+    } else {
+      let fetchedResults = response.data.results;
+
+      // Shuffle the order of questions and answers
+      fetchedResults = shuffleArray(fetchedResults).map(result => {
+        const allAnswers = shuffleArray([
+          ...result.incorrect_answers,
+          result.correct_answer,
+        ]);
+        return {...result, all_answers: allAnswers};
+      });
 
       return fetchedResults;
     }
