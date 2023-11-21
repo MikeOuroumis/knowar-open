@@ -8,6 +8,7 @@ import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
+import {getCategoryInfo} from '../util/categories';
 
 export default function CreateGameScreen() {
   const navigation = useNavigation();
@@ -16,17 +17,7 @@ export default function CreateGameScreen() {
 
   const categories = useFetchTriviaCategories();
 
-  const categoriesMap = categories.reduce((categoryMap, category) => {
-    categoryMap[category.name] = category.id;
-    return categoryMap;
-  }, {});
-
-  function getCategoryInfo(categoryName) {
-    const categoryId = categoriesMap[categoryName];
-    return {id: categoryId, name: categoryName};
-  }
-
-  const categoryId = getCategoryInfo(selectedCategory);
+  const categoryId = getCategoryInfo(selectedCategory, categories);
 
   const {createGameHandler} = useCreateGame(categoryId, navigation);
 
