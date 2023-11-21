@@ -37,6 +37,16 @@ export default function ButtonComponent({
     setIsPressed(false);
   };
 
+  const getGradientStyle = () => {
+    if (disabled) {
+      return [styles.gradient, styles.disabled, style];
+    }
+    if (isPressed) {
+      return [styles.gradient, styles.pressed, style];
+    }
+    return [styles.gradient, style];
+  };
+
   return (
     <Pressable
       onPressIn={handlePressIn}
@@ -45,11 +55,7 @@ export default function ButtonComponent({
       disabled={disabled}>
       <LinearGradient
         colors={[COLOR_LIST.neonPink, COLOR_LIST.softPink]}
-        style={[
-          styles.gradient,
-          {opacity: isPressed && !disabled ? 0.5 : 1},
-          style,
-        ]}
+        style={getGradientStyle()}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}>
         {isLoading ? (
@@ -73,6 +79,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 35,
     justifyContent: 'center',
     marginTop: 20,
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+  pressed: {
+    opacity: 0.8,
   },
   buttonText: {
     textAlign: 'center',

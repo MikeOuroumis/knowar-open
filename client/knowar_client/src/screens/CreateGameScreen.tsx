@@ -13,7 +13,9 @@ import {getCategoryInfo} from '../util/categories';
 export default function CreateGameScreen() {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null); // Track the selected category ID
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null,
+  );
 
   const categories = useFetchTriviaCategories();
 
@@ -22,9 +24,7 @@ export default function CreateGameScreen() {
   const {createGameHandler} = useCreateGame(categoryId, navigation);
 
   return (
-    <ImageBackground
-      source={createGameBG}
-      style={{width: '100%', height: '100%'}}>
+    <ImageBackground source={createGameBG} style={styles.imageBackground}>
       <LinearGradient
         colors={[
           'rgba(0,0,0,0.8)',
@@ -39,10 +39,10 @@ export default function CreateGameScreen() {
         <View style={styles.container}>
           <Text style={styles.title}>Choose a category to start the game!</Text>
           <DropdownComponent
-            options={categories.map(category => category.name)} // Pass an array of category names as options
+            options={categories.map(category => category.name)}
             onSelectOption={(selectedItem, index) => {
               setSelectedCategory(selectedItem);
-              setSelectedCategoryId(categories[index].id); // Get the ID based on the selected index
+              setSelectedCategoryId(categories[index].id);
             }}
           />
           <ButtonComponent
@@ -61,6 +61,10 @@ export default function CreateGameScreen() {
 }
 
 const styles = StyleSheet.create({
+  imageBackground: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   lobbyScreenContainer: {
     backgroundColor: '#000',
     flex: 1,

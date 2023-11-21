@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 interface DropdownComponentProps {
   options: string[];
-  onSelectOption: (option: string) => void;
+  onSelectOption: (selectedItem: any, index: any) => void;
 }
 
 export default function DropdownComponent({
