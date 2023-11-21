@@ -1,14 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground, Image} from 'react-native';
+import {View, StyleSheet, ImageBackground} from 'react-native';
 import {useEffect} from 'react';
 import ButtonComponent from '../components/ButtonComponent';
 import {COLOR_LIST} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
-import mainMenuBackground from '../assets/images/galaxy.png';
-import LinearGradient from 'react-native-linear-gradient';
+import mainMenuBackground from '../assets/images/Knowar_logo.png';
 import {useLogout} from '../hooks/useLogout';
-import knowarLogo from '../assets/images/logo_letters.png';
 
 export default function MainMenuScreen({navigation}) {
   const logout = useLogout();
@@ -25,35 +23,31 @@ export default function MainMenuScreen({navigation}) {
         source={mainMenuBackground}
         style={styles.globalView}
         resizeMode="cover">
-        <LinearGradient
-          colors={[
-            'rgba(0,0,0,0.3)',
-            'rgba(0,0,0,0.5)',
-            'rgba(0,0,0,0.8)',
-            'rgba(0,0,0,0.9)',
-            'rgba(0,0,0,1)',
-          ]}
-          style={styles.linearGradient}
-          start={{x: 0, y: 0}}
-          end={{x: 0, y: 1}}>
-          <Image source={knowarLogo} style={styles.logo} />
-          <View style={styles.buttonWrapper}>
-            <ButtonComponent
-              title="Multi Player"
-              style={styles.button}
-              onPress={() =>
-                navigation.replace('AuthenticatedStack', {
-                  screen: 'MultiplayerLobbyScreen',
-                })
-              }
-            />
-            <ButtonComponent
-              title="Log Out"
-              style={styles.button}
-              onPress={logout}
-            />
-          </View>
-        </LinearGradient>
+        <View style={styles.buttonWrapper}>
+          <ButtonComponent
+            title="Single Player"
+            style={styles.button}
+            onPress={() =>
+              navigation.replace('AuthenticatedStack', {
+                screen: 'SinglePlayerCreateGameScreen',
+              })
+            }
+          />
+          <ButtonComponent
+            title="Multi Player"
+            style={styles.button}
+            onPress={() =>
+              navigation.replace('AuthenticatedStack', {
+                screen: 'MultiplayerLobbyScreen',
+              })
+            }
+          />
+          <ButtonComponent
+            title="Log Out"
+            style={styles.button}
+            onPress={logout}
+          />
+        </View>
       </ImageBackground>
     </View>
   );
@@ -61,16 +55,12 @@ export default function MainMenuScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLOR_LIST.black,
+    backgroundColor: COLOR_LIST.darkBackgroundBlue,
     flex: 1,
   },
   globalView: {
     flex: 1,
-    height: '100%',
-  },
-  linearGradient: {
-    flex: 1,
-    justifyContent: 'space-around',
+    height: '50%',
   },
   logoContainer: {
     elevation: 10,
@@ -82,22 +72,10 @@ const styles = StyleSheet.create({
     height: 300,
     resizeMode: 'contain',
   },
-  title: {
-    textAlign: 'center',
-    padding: 20,
-    color: COLOR_LIST.vibrantCyan,
-    textShadowColor: COLOR_LIST.vibrantCyan,
-    textShadowRadius: 10,
-    textShadowOffset: {
-      width: 0,
-      height: 0,
-    },
-    marginBottom: 60,
-    fontWeight: '400',
-    fontSize: 65,
-  },
   buttonWrapper: {
-    marginVertical: 8,
+    marginVertical: 18,
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   button: {
     borderColor: COLOR_LIST.softPink,

@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {TRIVIA_CATEGORY_URL} from '../constants/constants';
+import {CategoryInterface} from '../types/category';
 
 export const useFetchTriviaCategories = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<CategoryInterface[]>([]);
 
   useEffect(() => {
     fetchCategories();

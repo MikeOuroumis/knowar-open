@@ -5,9 +5,14 @@ import {COLOR_LIST} from '../../constants/colors';
 interface ScoreProps {
   playerScore: number;
   opponentScore: number;
+  isSinglePlayer: boolean;
 }
 
-export function Score({playerScore, opponentScore}: ScoreProps): JSX.Element {
+export function Score({
+  playerScore,
+  opponentScore,
+  isSinglePlayer,
+}: ScoreProps): JSX.Element {
   const winning = playerScore > opponentScore;
   const isDraw = playerScore === opponentScore;
 
@@ -19,7 +24,9 @@ export function Score({playerScore, opponentScore}: ScoreProps): JSX.Element {
         isDraw && styles.draw,
       ]}>
       <Text style={styles.playerScoreText}>You: {playerScore}</Text>
-      <Text style={styles.opponentScoreText}>Opponent: {opponentScore}</Text>
+      {!isSinglePlayer && (
+        <Text style={styles.opponentScoreText}>Opponent: {opponentScore}</Text>
+      )}
     </View>
   );
 }

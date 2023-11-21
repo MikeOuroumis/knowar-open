@@ -1,30 +1,30 @@
 import React, {useState} from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {Text, View, ImageBackground, StyleSheet} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import DropdownComponent from '../components/DropdownComponent';
-import {useCreateGame} from '../hooks/useCreateGame';
+import {LinearGradient} from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
-import createGameBG from '../assets/images/lobby_bg2.png';
-import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
+import createGameBG from '../assets/images/lobby_bg2.png';
 import {getCategoryInfo} from '../util/categories';
+import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
 
-export default function CreateGameScreen() {
+export function SinglePlayerCreateGameScreen() {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
-    null,
-  );
 
   const categories = useFetchTriviaCategories();
 
   const categoryId = getCategoryInfo(selectedCategory, categories);
 
-  const {createGameHandler} = useCreateGame(categoryId, navigation);
+  const {startSinglePlayerGameHandler} = useSinglePlayerGameCreation(
+    categoryId,
+    navigation,
+  );
 
   return (
-    <ImageBackground source={createGameBG} style={styles.imageBackground}>
+    <ImageBackground source={createGameBG} style={styles.backgroundImage}>
       <LinearGradient
         colors={[
           'rgba(0,0,0,0.8)',
@@ -39,20 +39,19 @@ export default function CreateGameScreen() {
         <View style={styles.container}>
           <Text style={styles.title}>Choose a category to start the game!</Text>
           <DropdownComponent
-            options={categories.map(category => category.name)}
-            onSelectOption={(selectedItem, index) => {
+            options={categories.map(category => category.name)} // Pass an array of category names as options
+            onSelectOption={selectedItem => {
               setSelectedCategory(selectedItem);
-              setSelectedCategoryId(categories[index].id);
             }}
           />
           <ButtonComponent
             title="Start Game"
-            onPress={createGameHandler}
+            onPress={startSinglePlayerGameHandler}
             disabled={!selectedCategory}
           />
           <ButtonComponent
-            title="Back to Lobby"
-            onPress={() => navigation.navigate('MultiplayerLobbyScreen')}
+            title="Back"
+            onPress={() => navigation.navigate('MainMenuScreen')}
           />
         </View>
       </LinearGradient>
@@ -61,14 +60,9 @@ export default function CreateGameScreen() {
 }
 
 const styles = StyleSheet.create({
-  imageBackground: {
-    flex: 1,
-    resizeMode: 'cover',
-  },
-  lobbyScreenContainer: {
-    backgroundColor: '#000',
-    flex: 1,
-    justifyContent: 'center',
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
   },
   linearGradient: {
     flex: 1,

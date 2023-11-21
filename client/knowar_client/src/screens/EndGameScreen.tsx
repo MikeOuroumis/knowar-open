@@ -2,13 +2,23 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 
+interface EndGameScreenProps {
+  playerScore: number;
+  opponentScore: number;
+  didWin: boolean;
+  isDraw: boolean;
+  onBackToMainMenu: () => void;
+  isSinglePlayer: boolean;
+}
+
 export default function EndGameScreen({
   playerScore,
   opponentScore,
   didWin,
-  isDraw, // Add isDraw prop
-  onBackToLobbyPress,
-}) {
+  isDraw,
+  onBackToMainMenu,
+  isSinglePlayer,
+}: EndGameScreenProps) {
   let message;
   if (isDraw) {
     message = "It's a draw! 🤝";
@@ -18,10 +28,12 @@ export default function EndGameScreen({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.message}>{message}</Text>
+      {!isSinglePlayer && <Text style={styles.message}>{message}</Text>}
       <Text style={styles.scoreText}>Your Score: {playerScore}</Text>
-      <Text style={styles.scoreText}>Opponent's Score: {opponentScore}</Text>
-      <ButtonComponent title="Back to Lobby" onPress={onBackToLobbyPress} />
+      {!isSinglePlayer && (
+        <Text style={styles.scoreText}>Opponent's Score: {opponentScore}</Text>
+      )}
+      <ButtonComponent title="Back to Main Menu" onPress={onBackToMainMenu} />
     </View>
   );
 }

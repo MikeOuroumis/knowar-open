@@ -1,4 +1,4 @@
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React, {useContext, useState} from 'react';
 import {useEffect} from 'react';
 import socket from '../socket/socket';
@@ -12,14 +12,15 @@ import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
 import {COLOR_LIST} from '../constants/colors';
 import {Score} from '../components/GameScreen/Score';
+import {QuestionInterface} from '../types/questions';
 
 export default function GameScreen({navigation, route}) {
-  const {categoryId, isHost} = route.params;
+  const {categoryId, isHost, isSinglePlayer} = route.params;
 
   const userId = useContext(AuthContext).userId;
 
   const [opponent, setOpponent] = useState(false);
-  const [questions, setQuestions] = useState(null);
+  const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [playerScore, setPlayerScore] = useState(0);
   const [opponentScore, setOpponentScore] = useState(0);
@@ -70,36 +71,16 @@ export default function GameScreen({navigation, route}) {
     }
   }, [currentQuestionIndex, questions]);
 
-  const handleBackToLobbyPress = () => {
+  const onBackToMainMenu = () => {
     navigation.replace('AuthenticatedStack', {
-      screen: 'MultiplayerLobbyScreen',
+      screen: 'MainMenuScreen',
     });
   };
 
-  if (gameEnded) {
-    return (
-      <EndGameScreen
-        playerScore={playerScore}
-        opponentScore={opponentScore}
-        didWin={playerScore > opponentScore} // Determine if the player won
-        onBackToLobbyPress={handleBackToLobbyPress}
-        isDraw={playerScore === opponentScore}
-      />
-    );
-  }
-
-  if (isHost && !opponent) {
-    return (
-      <LoadingScreen
-        text="Waiting for the opponent to join the game..."
-        buttonText="Back"
-        navigation={navigation}
-      />
-    );
-  }
-
-  const handleOptionPress = answer => {
-    const isCorrect = answer === questions[currentQuestionIndex].correct_answer;
+  const handleOptionPress = (answer: string) => {
+    const isCorrect =
+      questions !== null &&
+      answer === questions[currentQuestionIndex].correct_answer;
     let updatedPlayerScore = playerScore;
     const updatedOpponentScore = opponentScore;
 
@@ -118,18 +99,45 @@ export default function GameScreen({navigation, route}) {
     setPlayerScore(updatedPlayerScore);
 
     // Move to the next question or end the game
-    if (currentQuestionIndex < questions.length - 1) {
+    if (questions !== null && currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prevIndex => prevIndex + 1);
     } else {
       console.log('All questions answered!');
     }
   };
 
+  if (gameEnded) {
+    return (
+      <EndGameScreen
+        playerScore={playerScore}
+        opponentScore={opponentScore}
+        didWin={playerScore > opponentScore} // Determine if the player won
+        onBackToMainMenu={onBackToMainMenu}
+        isDraw={playerScore === opponentScore}
+        isSinglePlayer={isSinglePlayer}
+      />
+    );
+  }
+
+  if (isHost && !opponent && !isSinglePlayer) {
+    return (
+      <LoadingScreen
+        text="Waiting for the opponent to join the game..."
+        buttonText="Back"
+        navigation={navigation}
+      />
+    );
+  }
+
   if (questions) {
     return (
       <View style={styles.container}>
         <View style={styles.questionWrapper}>
-          <Score playerScore={playerScore} opponentScore={opponentScore} />
+          <Score
+            playerScore={playerScore}
+            opponentScore={opponentScore}
+            isSinglePlayer={isSinglePlayer}
+          />
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selectedAnswer => handleOptionPress(selectedAnswer)}

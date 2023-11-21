@@ -3,7 +3,15 @@ import {StyleSheet, View} from 'react-native';
 import SelectDropdown from 'react-native-select-dropdown';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function DropdownComponent({options, onSelectOption}) {
+interface DropdownComponentProps {
+  options: string[];
+  onSelectOption: (selectedItem: any, index: any) => void;
+}
+
+export default function DropdownComponent({
+  options,
+  onSelectOption,
+}: DropdownComponentProps) {
   return (
     <View style={styles.container}>
       <SelectDropdown

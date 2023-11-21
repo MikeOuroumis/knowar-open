@@ -11,6 +11,7 @@ import {COLOR_LIST} from '../constants/colors';
 import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
 import {useLogout} from '../hooks/useLogout';
+import {SinglePlayerCreateGameScreen} from '../screens/SinglePlayerCreateGameScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -68,6 +69,10 @@ export function DrawerNavigator() {
       />
       <Drawer.Screen name="GameScreen" component={GameScreen} />
       <Drawer.Screen name="CreateGameScreen" component={CreateGameScreen} />
+      <Drawer.Screen
+        name="SinglePlayerCreateGameScreen"
+        component={SinglePlayerCreateGameScreen}
+      />
     </Drawer.Navigator>
   );
 }
