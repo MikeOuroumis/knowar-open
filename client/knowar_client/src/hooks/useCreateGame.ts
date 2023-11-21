@@ -5,7 +5,10 @@ import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 
-export const useCreateGame = (selectedCategory, navigation) => {
+export const useCreateGame = (
+  selectedCategory: {id: number; name: string} | null,
+  navigation: any,
+) => {
   const categories = useFetchTriviaCategories();
 
   const {userId, userName} = useContext(AuthContext);
@@ -28,6 +31,7 @@ export const useCreateGame = (selectedCategory, navigation) => {
           categoryId: selectedCategory.id,
           roomId: userId,
           isHost: true,
+          isSinglePlayer: false,
         });
       } else {
         alert('Failed to create game room.');
