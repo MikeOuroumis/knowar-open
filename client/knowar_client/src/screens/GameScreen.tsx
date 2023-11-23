@@ -142,14 +142,21 @@ export default function GameScreen({navigation, route}) {
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selectedAnswer => handleOptionPress(selectedAnswer)}
           />
-          <ButtonComponent
-            title="Back to Lobby"
-            onPress={() =>
-              navigation.replace('AuthenticatedStack', {
-                screen: 'MultiplayerLobbyScreen',
-              })
-            }
-          />
+          {isSinglePlayer ? (
+            <ButtonComponent
+              title="Back Main Menu"
+              onPress={onBackToMainMenu}
+            />
+          ) : (
+            <ButtonComponent
+              title="Back to Lobby"
+              onPress={() =>
+                navigation.replace('AuthenticatedStack', {
+                  screen: 'MultiplayerLobbyScreen',
+                })
+              }
+            />
+          )}
         </View>
       </View>
     );
