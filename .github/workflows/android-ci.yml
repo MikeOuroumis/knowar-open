@@ -49,7 +49,6 @@ jobs:
           echo "hermesEnabled=${{ secrets.HERMES_ENABLED }}" >> gradle.properties
           echo "FLIPPER_VERSION=${{ secrets.FLIPPER_VERSION }}" >> gradle.properties
           echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> gradle.properties
-          echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.MYAPP_RELEASE_KEY_PASSWORD }}" >> gradle.properties
           echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.MYAPP_RELEASE_STORE_PASSWORD }}" >> gradle.properties
           echo "MYAPP_RELEASE_KEY_ALIAS=${{ secrets.MYAPP_RELEASE_KEY_ALIAS }}" >> gradle.properties
         working-directory: ./client/knowar_client/android
