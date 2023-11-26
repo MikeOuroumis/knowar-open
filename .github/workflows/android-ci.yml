@@ -33,9 +33,11 @@ jobs:
         run: chmod +x gradlew
         working-directory: ./client/knowar_client/android
 
-      - name: Decode and write the keystore
+      - name: Decode keystore and output file size
         run: |
           echo "${{ secrets.KEYSTORE_BASE_64 }}" | base64 --decode > my-release-key.keystore
+          ls -la my-release-key.keystore
+          du -h my-release-key.keystore
         working-directory: ./client/knowar_client/android/app
 
       - name: Create or append to gradle.properties
