@@ -47,22 +47,16 @@ jobs:
           echo "MYAPP_RELEASE_STORE_FILE=my-release-key.keystore" >> gradle.properties
           echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.MYAPP_RELEASE_KEY_PASSWORD }}" >> gradle.properties
           echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.MYAPP_RELEASE_STORE_PASSWORD }}" >> gradle.properties
+          echo "MYAPP_RELEASE_KEY_ALIAS=${{ secrets.MYAPP_RELEASE_KEY_ALIAS }}" >> gradle.properties
         working-directory: ./client/knowar_client/android
 
       - name: Build with Gradle
         run: ./gradlew bundleRelease
         working-directory: ./client/knowar_client/android
 
-      # Rest of your steps
-
-      # - name: Sign APK
-      #   uses: r0adkll/sign-android-release@v1
-      #   with:
-      #     releaseDirectory: app/build/outputs/apk/bundle/release
-      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-      #     alias: ${{ secrets.KEY_ALIAS }}
-      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
+      # - name: Build with Gradle
+      #   run: ./gradlew bundleRelease
+      #   working-directory: ./client/knowar_client/android
 
       # - name: Upload to Google Play
       #   uses: r0adkll/upload-google-play@v1
