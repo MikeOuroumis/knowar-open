@@ -39,6 +39,16 @@ jobs:
           my-release-key.keystore
         working-directory: ./client/knowar_client/android/app
 
+      - name: Check Keystore File
+        run: |
+          if [ -f my-release-key.keystore ]; then
+            echo "Keystore file exists and has size:"
+            ls -l my-release-key.keystore
+          else
+            echo "Keystore file does not exist."
+          fi
+        working-directory: ./client/knowar_client/android/app
+
       - name: Create or append to gradle.properties
         run: |
           touch gradle.properties
