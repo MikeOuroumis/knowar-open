@@ -31,7 +31,7 @@ export function Navigation() {
     }
 
     retrieveUserData();
-  }, [authCtx]);
+  }, []);
 
   if (isLoading) {
     return <LoadingScreen text="Loading..." />;
