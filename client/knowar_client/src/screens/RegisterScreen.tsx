@@ -7,6 +7,7 @@ import {AuthContext} from '../store/auth-context';
 import {LinearGradient} from 'react-native-linear-gradient';
 import backgroundImage from '../assets/images/loginScreen_bg.png';
 import {COLOR_LIST} from '../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function RegisterScreen({navigation}) {
   const authCtx = useContext(AuthContext);
@@ -16,60 +17,62 @@ export default function RegisterScreen({navigation}) {
   const [userName, setUserName] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const registerHandler = () => {
+  const registerHandler = async () => {
     setIsLoading(true);
-    fetch(`${apiUrl}/register`, {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-        Accept: 'application.json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify({userName, email, password}),
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'ok') {
-          authCtx.authenticate(
-            data.token,
-            data.email,
-            data.userName,
-            data.userId,
-          );
-
-          navigation.replace('AuthenticatedStack', {
-            screen: 'MainMenuScreen',
-          });
-        } else {
-          let errorMessage = data.message || 'Registration failed!';
-          if (data.error) {
-            errorMessage = data.error;
-          }
-          Alert.alert('Registration Error', errorMessage, [
-            {
-              text: 'OK',
-              onPress: () => console.log('OK Pressed'),
-            },
-          ]);
-        }
-      })
-      .catch(err => {
-        console.error('register error', err);
-
-        Alert.alert(
-          'Network Error',
-          'Unable to register at the moment. Please try again later.',
-          [
-            {
-              text: 'OK',
-              onPress: () => console.log('OK Pressed'),
-            },
-          ],
-        );
-      })
-      .finally(() => {
-        setIsLoading(false);
+    try {
+      const response = await fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          Accept: 'application.json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({userName, email, password}),
       });
+
+      const data = await response.json();
+
+      if (data.status === 'ok') {
+        authCtx.authenticate(
+          data.token,
+          data.email,
+          data.userName,
+          data.userId,
+        );
+        await AsyncStorage.setItem('token', JSON.stringify(data));
+        await AsyncStorage.setItem('loggedIn', JSON.stringify(true));
+
+        navigation.navigate('AuthenticatedStack', {
+          screen: 'MainMenuScreen',
+        });
+      } else {
+        let errorMessage = data.message || 'Registration failed!';
+        if (data.error) {
+          errorMessage = data.error;
+        }
+        Alert.alert('Registration Error', errorMessage, [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error('register error', error);
+
+      Alert.alert(
+        'Network Error',
+        'Unable to register at the moment. Please try again later.',
+        [
+          {
+            text: 'OK',
+            onPress: () => console.log('OK Pressed'),
+          },
+        ],
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const loginText = (
