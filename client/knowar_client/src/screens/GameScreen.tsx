@@ -14,6 +14,7 @@ import {COLOR_LIST} from '../constants/colors';
 import {Score} from '../components/GameScreen/Score';
 import {QuestionInterface} from '../types/questions';
 import {useGameLogic} from '../hooks/useGameLogic';
+import {TimeBar} from '../components/GameScreen/TimeBar';
 
 type Route = {
   params: {
@@ -49,6 +50,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
     playerScore,
     opponentScore,
     setPlayerScore,
+    setCurrentQuestionIndex,
   } = useGameLogic(questions, userId);
 
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
@@ -115,6 +117,14 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
     setPlayerScore(updatedPlayerScore);
   };
 
+  const handleTimeElapsed = () => {
+    incrementQuestionIndex();
+  };
+
+  const incrementQuestionIndex = () => {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
   if (gameEnded) {
     return (
       <EndGameScreen
@@ -147,6 +157,10 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             opponentScore={opponentScore}
             isSinglePlayer={isSinglePlayer}
           />
+          <TimeBar
+            onTimeElapsed={handleTimeElapsed}
+            currentQuestionIndex={currentQuestionIndex}
+          />
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selected => handleOptionPress(selected)}
@@ -154,6 +168,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             isCorrect={isCorrect}
             selectedAnswer={selectedAnswer}
           />
+
           {isSinglePlayer ? (
             <ButtonComponent
               title="Back Main Menu"
