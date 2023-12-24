@@ -15,6 +15,7 @@ import {Score} from '../components/GameScreen/Score';
 import {QuestionInterface} from '../types/questions';
 import {useGameLogic} from '../hooks/useGameLogic';
 import {TimeBar} from '../components/GameScreen/TimeBar';
+import {useGameContext} from '../store/GameContext';
 
 type Route = {
   params: {
@@ -37,6 +38,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
   const {categoryId, isHost, isSinglePlayer} = route.params;
 
   const userId = useContext(AuthContext).userId;
+  const {triggerResetTimer} = useGameContext();
 
   const [opponent, setOpponent] = useState(false);
   const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
@@ -63,6 +65,10 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
   useEffect(() => {
     // set is answered to false when the question changes
     setIsAnswered(false);
+  }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    triggerResetTimer();
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -105,6 +111,10 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
       updatedPlayerScore += 10;
     } else {
       setIsCorrect(false);
+    }
+
+    if (isSinglePlayer) {
+      incrementQuestionIndex();
     }
 
     socket.emit(SocketEvents.UPDATE_SCORE_AND_STATE, {
@@ -157,10 +167,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             opponentScore={opponentScore}
             isSinglePlayer={isSinglePlayer}
           />
-          <TimeBar
-            onTimeElapsed={handleTimeElapsed}
-            currentQuestionIndex={currentQuestionIndex}
-          />
+          {!isSinglePlayer && <TimeBar onTimeElapsed={handleTimeElapsed} />}
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selected => handleOptionPress(selected)}
