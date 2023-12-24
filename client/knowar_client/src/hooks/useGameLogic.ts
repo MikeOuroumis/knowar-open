@@ -3,7 +3,7 @@ import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import {QuestionInterface} from '../types/questions';
 
-type dataType = {
+type UpdateData = {
   nextQuestionIndex: number;
   opponentScore: number;
   playerScore: number;
@@ -20,20 +20,7 @@ export function useGameLogic(
   const [opponentScore, setOpponentScore] = useState(0);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      // Move to the next question after 10 seconds
-      if (questions && currentQuestionIndex < questions.length - 1) {
-        setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-      } else if (questions) {
-        // If all questions are answered, end the game
-        setGameEnded(true);
-      }
-    }, 10000); // 10 seconds delay
-    return () => clearTimeout(timer); // Clear the timer if the component unmounts or the index changes
-  }, [currentQuestionIndex, questions]);
-
-  useEffect(() => {
-    const handleOpponentUpdate = (data: dataType) => {
+    const handleOpponentUpdate = (data: UpdateData) => {
       if (data.userId === userId) {
         setPlayerScore(data.playerScore);
         setOpponentScore(data.opponentScore);
@@ -64,5 +51,6 @@ export function useGameLogic(
     playerScore,
     opponentScore,
     setPlayerScore,
+    setCurrentQuestionIndex,
   };
 }
