@@ -2,20 +2,21 @@ import React, {useCallback, useEffect, useRef} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../../constants/colors';
+import {useGameContext} from '../../store/GameContext';
 
 type TimeBarProps = {
   onTimeElapsed: () => void;
-  currentQuestionIndex: number;
 };
 
-export function TimeBar({onTimeElapsed, currentQuestionIndex}: TimeBarProps) {
+export function TimeBar({onTimeElapsed}: TimeBarProps) {
   const overlayWidthAnim = useRef(new Animated.Value(0)).current;
+  const {resetTimerKey} = useGameContext();
 
-  const startAnimation = useCallback(() => {
-    overlayWidthAnim.setValue(0);
+  const runAnimation = useCallback(() => {
+    overlayWidthAnim.setValue(0); // Reset the animation
     Animated.timing(overlayWidthAnim, {
       toValue: 100,
-      duration: 10000,
+      duration: 10000, // 10 seconds
       useNativeDriver: false,
     }).start(({finished}) => {
       if (finished) {
@@ -24,11 +25,11 @@ export function TimeBar({onTimeElapsed, currentQuestionIndex}: TimeBarProps) {
     });
   }, [overlayWidthAnim, onTimeElapsed]);
 
+  // Reset and restart the timer when resetTimerKey changes
   useEffect(() => {
-    startAnimation();
-
-    return () => overlayWidthAnim.stopAnimation();
-  }, [currentQuestionIndex, startAnimation, overlayWidthAnim]);
+    runAnimation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [resetTimerKey]);
 
   const animatedOverlayWidth = overlayWidthAnim.interpolate({
     inputRange: [0, 100],
