@@ -6,11 +6,31 @@ import {COLOR_LIST} from '../../constants/colors';
 interface OptionProps {
   answer: string;
   onPress: (answer: string) => void;
+  isAnswered: boolean;
+  isCorrect: boolean;
+  selectedAnswer: string;
 }
 
-export function Option({answer, onPress}: OptionProps) {
+export function Option({
+  answer,
+  onPress,
+  isAnswered,
+  isCorrect,
+  selectedAnswer,
+}: OptionProps) {
+  const isSelected = selectedAnswer === answer;
+
   return (
-    <Pressable style={styles.optionContainer} onPress={() => onPress(answer)}>
+    <Pressable
+      style={[
+        styles.optionContainer,
+        isAnswered && isSelected
+          ? isCorrect
+            ? styles.correct
+            : styles.incorrect
+          : {},
+      ]}
+      onPress={() => onPress(answer)}>
       <Text style={styles.optionText}>{decode(answer)}</Text>
     </Pressable>
   );
@@ -33,5 +53,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: COLOR_LIST.black,
+  },
+  correct: {
+    backgroundColor: COLOR_LIST.green,
+  },
+  incorrect: {
+    backgroundColor: COLOR_LIST.red,
   },
 });

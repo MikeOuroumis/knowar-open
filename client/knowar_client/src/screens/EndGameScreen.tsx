@@ -33,7 +33,12 @@ export default function EndGameScreen({
       {!isSinglePlayer && (
         <Text style={styles.scoreText}>Opponent's Score: {opponentScore}</Text>
       )}
-      <ButtonComponent title="Back to Main Menu" onPress={onBackToMainMenu} />
+
+      <ButtonComponent
+        title="Back to Main Menu"
+        onPress={onBackToMainMenu}
+        style={styles.button}
+      />
     </View>
   );
 }
@@ -54,5 +59,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#fff',
     marginBottom: 10,
+  },
+  button: {
+    width: 260,
+    alignSelf: 'center',
   },
 });
