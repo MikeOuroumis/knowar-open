@@ -13,18 +13,43 @@ import LoadingScreen from './LoadingScreen';
 import {COLOR_LIST} from '../constants/colors';
 import {Score} from '../components/GameScreen/Score';
 import {QuestionInterface} from '../types/questions';
+import {useGameLogic} from '../hooks/useGameLogic';
 
-export default function GameScreen({navigation, route}) {
+type Route = {
+  params: {
+    categoryId: string;
+    isHost: boolean;
+    isSinglePlayer: boolean;
+  };
+};
+
+type Navigation = {
+  replace: (screen: string, params?: any) => void;
+};
+
+type GameScreenProps = {
+  navigation: Navigation;
+  route: Route;
+};
+
+export default function GameScreen({navigation, route}: GameScreenProps) {
   const {categoryId, isHost, isSinglePlayer} = route.params;
 
   const userId = useContext(AuthContext).userId;
 
   const [opponent, setOpponent] = useState(false);
   const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [playerScore, setPlayerScore] = useState(0);
-  const [opponentScore, setOpponentScore] = useState(0);
-  const [gameEnded, setGameEnded] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState('');
+
+  const {
+    gameEnded,
+    currentQuestionIndex,
+    playerScore,
+    opponentScore,
+    setPlayerScore,
+  } = useGameLogic(questions, userId);
 
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
 
@@ -32,6 +57,11 @@ export default function GameScreen({navigation, route}) {
     const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
     setQuestions(fetchedQuestions);
   };
+
+  useEffect(() => {
+    // set is answered to false when the question changes
+    setIsAnswered(false);
+  }, [currentQuestionIndex]);
 
   useEffect(() => {
     if (isHost && !questions) {
@@ -44,66 +74,45 @@ export default function GameScreen({navigation, route}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const handleOpponentUpdate = data => {
-      setCurrentQuestionIndex(data.nextQuestionIndex);
-
-      if (data.userId === userId) {
-        setPlayerScore(data.playerScore);
-        setOpponentScore(data.opponentScore);
-      } else {
-        setPlayerScore(data.opponentScore);
-        setOpponentScore(data.playerScore);
-      }
-    };
-
-    socket.on(SocketEvents.OPPONENT_UPDATE_STATE, handleOpponentUpdate);
-
-    return () => {
-      socket.off(SocketEvents.OPPONENT_UPDATE_STATE, handleOpponentUpdate);
-    };
-  }, [socket, userId]);
-
-  useEffect(() => {
-    // Check if the game has ended (e.g., all questions answered)
-    if (questions && currentQuestionIndex + 1 >= questions.length) {
-      setGameEnded(true);
-    }
-  }, [currentQuestionIndex, questions]);
-
   const onBackToMainMenu = () => {
     navigation.replace('AuthenticatedStack', {
       screen: 'MainMenuScreen',
     });
   };
 
-  const handleOptionPress = (answer: string) => {
-    const isCorrect =
+  function isAnswerCorrect(answer: string): boolean {
+    return (
       questions !== null &&
-      answer === questions[currentQuestionIndex].correct_answer;
+      answer === questions[currentQuestionIndex].correct_answer
+    );
+  }
+
+  const handleOptionPress = (answer: string) => {
+    if (isAnswered) {
+      return;
+    }
+
     let updatedPlayerScore = playerScore;
     const updatedOpponentScore = opponentScore;
 
-    if (isCorrect) {
+    setSelectedAnswer(answer);
+    setIsAnswered(true);
+
+    if (isAnswerCorrect(answer) && !isAnswered) {
+      setIsCorrect(true);
       updatedPlayerScore += 10;
     } else {
-      updatedPlayerScore -= 5;
+      setIsCorrect(false);
     }
+
     socket.emit(SocketEvents.UPDATE_SCORE_AND_STATE, {
-      userId,
+      userId: userId,
       playerScore: updatedPlayerScore,
       opponentScore: updatedOpponentScore,
       nextQuestionIndex: currentQuestionIndex + 1,
     });
 
     setPlayerScore(updatedPlayerScore);
-
-    // Move to the next question or end the game
-    if (questions !== null && currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(prevIndex => prevIndex + 1);
-    } else {
-      console.log('All questions answered!');
-    }
   };
 
   if (gameEnded) {
@@ -140,7 +149,10 @@ export default function GameScreen({navigation, route}) {
           />
           <Question
             questionObj={questions[currentQuestionIndex]}
-            onOptionPress={selectedAnswer => handleOptionPress(selectedAnswer)}
+            onOptionPress={selected => handleOptionPress(selected)}
+            isAnswered={isAnswered}
+            isCorrect={isCorrect}
+            selectedAnswer={selectedAnswer}
           />
           {isSinglePlayer ? (
             <ButtonComponent
