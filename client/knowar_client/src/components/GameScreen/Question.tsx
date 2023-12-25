@@ -12,7 +12,7 @@ interface QuestionProps {
   questionObj: QuestionObject;
   onOptionPress: (answer: string) => void;
   isAnswered: boolean;
-  isCorrect: boolean;
+  answeredCorrect: boolean;
   selectedAnswer: string;
 }
 
@@ -20,7 +20,7 @@ export function Question({
   questionObj,
   onOptionPress,
   isAnswered,
-  isCorrect,
+  answeredCorrect,
   selectedAnswer,
 }: QuestionProps) {
   return (
@@ -32,8 +32,9 @@ export function Question({
           answer={answer}
           onPress={onOptionPress}
           isAnswered={isAnswered}
-          isCorrect={isCorrect}
+          answeredCorrect={answeredCorrect}
           selectedAnswer={selectedAnswer}
+          isCorrect={answer === questionObj.correct_answer}
         />
       ))}
     </View>
