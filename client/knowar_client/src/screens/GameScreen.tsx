@@ -43,7 +43,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
   const [opponent, setOpponent] = useState(false);
   const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
+  const [answeredCorrect, setAnsweredCorrect] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState('');
 
   const {
@@ -69,6 +69,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
 
   useEffect(() => {
     triggerResetTimer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -107,10 +108,10 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
     setIsAnswered(true);
 
     if (isAnswerCorrect(answer) && !isAnswered) {
-      setIsCorrect(true);
+      setAnsweredCorrect(true);
       updatedPlayerScore += 10;
     } else {
-      setIsCorrect(false);
+      setAnsweredCorrect(false);
     }
 
     if (isSinglePlayer) {
@@ -172,7 +173,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selected => handleOptionPress(selected)}
             isAnswered={isAnswered}
-            isCorrect={isCorrect}
+            answeredCorrect={answeredCorrect}
             selectedAnswer={selectedAnswer}
           />
 

@@ -7,16 +7,18 @@ interface OptionProps {
   answer: string;
   onPress: (answer: string) => void;
   isAnswered: boolean;
-  isCorrect: boolean;
+  answeredCorrect: boolean;
   selectedAnswer: string;
+  isCorrect: boolean;
 }
 
 export function Option({
   answer,
   onPress,
   isAnswered,
-  isCorrect,
+  answeredCorrect,
   selectedAnswer,
+  isCorrect,
 }: OptionProps) {
   const isSelected = selectedAnswer === answer;
 
@@ -25,10 +27,11 @@ export function Option({
       style={[
         styles.optionContainer,
         isAnswered && isSelected
-          ? isCorrect
+          ? answeredCorrect
             ? styles.correct
             : styles.incorrect
           : {},
+        isAnswered && isCorrect ? styles.correctNoSelected : {},
       ]}
       onPress={() => onPress(answer)}>
       <Text style={styles.optionText}>{decode(answer)}</Text>
@@ -59,5 +62,9 @@ const styles = StyleSheet.create({
   },
   incorrect: {
     backgroundColor: COLOR_LIST.red,
+  },
+  correctNoSelected: {
+    borderColor: COLOR_LIST.green,
+    borderWidth: 3,
   },
 });
