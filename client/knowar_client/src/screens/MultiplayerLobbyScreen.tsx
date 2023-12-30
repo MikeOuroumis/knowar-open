@@ -50,6 +50,7 @@ export default function MultiplayerLobbyScreen({navigation}) {
             <View style={styles.flexOne}>
               <ButtonComponent
                 title="Create New"
+                style={styles.createNewButton}
                 onPress={() => navigation.navigate('CreateGameScreen')}
               />
             </View>
@@ -73,10 +74,16 @@ export default function MultiplayerLobbyScreen({navigation}) {
                 ))}
               </View>
             ) : (
-              <Text style={styles.noRoomsAvailable}>No active games...</Text>
+              <Text style={styles.noRoomsAvailable}>
+                No active games, press create new...
+              </Text>
             )}
           </ScrollView>
         </View>
+        <ButtonComponent
+          title="Back to Main Menu"
+          onPress={() => navigation.navigate('MainMenuScreen')}
+        />
       </LinearGradient>
     </ImageBackground>
   );
@@ -104,6 +111,9 @@ const styles = StyleSheet.create({
   },
   flexOne: {
     flex: 1,
+  },
+  createNewButton: {
+    marginRight: 20,
   },
   globalView: {
     flex: 1,
