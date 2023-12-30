@@ -59,6 +59,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
 
   const fetchQuestions = async () => {
     const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
+
     setQuestions(fetchedQuestions);
   };
 
@@ -114,10 +115,6 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
       setAnsweredCorrect(false);
     }
 
-    if (isSinglePlayer) {
-      incrementQuestionIndex();
-    }
-
     socket.emit(SocketEvents.UPDATE_SCORE_AND_STATE, {
       userId: userId,
       playerScore: updatedPlayerScore,
@@ -168,7 +165,8 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             opponentScore={opponentScore}
             isSinglePlayer={isSinglePlayer}
           />
-          {!isSinglePlayer && <TimeBar onTimeElapsed={handleTimeElapsed} />}
+          <TimeBar onTimeElapsed={handleTimeElapsed} />
+
           <Question
             questionObj={questions[currentQuestionIndex]}
             onOptionPress={selected => handleOptionPress(selected)}
@@ -179,7 +177,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
 
           {isSinglePlayer ? (
             <ButtonComponent
-              title="Back Main Menu"
+              title="Back To Main Menu"
               onPress={onBackToMainMenu}
             />
           ) : (
