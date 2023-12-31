@@ -2,7 +2,7 @@ name: ci-cd pipeline deploy to prod
 
 on:
   push:
-    branches: [feature/github-action]
+    branches: [main]
 jobs:
   deploy:
     runs-on: ubuntu-latest
