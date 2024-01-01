@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config({ path: "../.env" });
+import { MONGO_URL } from "../constants/variables";
 
 const UserDetailsSchema = new mongoose.Schema(
   {
@@ -14,7 +12,7 @@ const UserDetailsSchema = new mongoose.Schema(
 );
 
 mongoose
-  .connect(process.env.MONGO_URL as string)
+  .connect(MONGO_URL as string)
   .then(() => console.log("💿Connected to the database"))
   .catch((err) => console.log("Couldn't connect to the database", err));
 
