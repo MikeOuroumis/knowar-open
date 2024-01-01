@@ -37,11 +37,12 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            cd /home/ubuntu/nodejs-ssl-server
+            cd /home/ubuntu/server # Update to your server's directory
             git stash
-            git pull origin feature/github-action
+            git pull origin main # Ensure the branch name is correct
             npm install
-            pm2 restart nodejs-ssl-server
+            npm run build # Build the TypeScript project
+            NODE_ENV=production pm2 restart ./dist/server.js --update-env
 
       - name: Remove Github Actions IP from security group
         run: |
