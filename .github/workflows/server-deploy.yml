@@ -16,41 +16,38 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Get Github action IP
+        id: ip
+        uses: haythem/public-ip@v1.2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14" # or another version if needed
-
-      - name: Install dependencies
-        run: npm install
-        working-directory: server
-
-      # Here you can run tests or build steps if necessary
-      - name: Build
-        run: npm run build # make sure this script is defined in your package.json
-        working-directory: server
-
-      # Assuming you have set up a method to deploy, such as using SSH to transfer files to EC2
-      - name: Deploy to AWS EC2
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HOST: ${{ secrets.HOST }}
-          USERNAME: ${{ secrets.USERNAME }}
-          PORT: ${{ secrets.PORT }}
+      - name: Add Github Actions IP to Security group
         run: |
-          # Install SSH client
-          sudo apt-get update
-          sudo apt-get install -y openssh-client
-          # Start SSH agent
-          eval $(ssh-agent -s)
-          # Add the SSH private key stored in GitHub Secrets to the agent store
-          ssh-add - <<< "${SSH_PRIVATE_KEY}"
-          # Disable SSH host key checking. Be aware that this is less secure
-          export SSH_ARGS="-o StrictHostKeyChecking=no"
-          # Sync files to the EC2 instance
-          rsync -avz --delete $SSH_ARGS -e "ssh -p $PORT" ./server/ $USERNAME@$HOST:/path/to/your/app
-          # Restart server (if required)
-          ssh $SSH_ARGS -p $PORT $USERNAME@$HOST "pm2 restart your-app-name"
+          aws ec2 authorize-security-group-ingress --group-name ${{ secrets.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: Deploy to prod server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
+            cd /home/ubuntu/nodejs-ssl-server
+            git stash
+            git pull origin feature/github-action
+            npm install
+            pm2 restart nodejs-ssl-server
+
+      - name: Remove Github Actions IP from security group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-name ${{ secrets.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+        if: always()
