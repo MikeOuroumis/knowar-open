@@ -3,10 +3,10 @@ name: Deploy Node.js app to AWS EC2
 on:
   push:
     branches:
-      - [server-error-handling]
+      - server-error-handling
   pull_request:
     branches:
-      - [server-error-handling]
+      - server-error-handling
 
 jobs:
   deploy:
