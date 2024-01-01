@@ -18,6 +18,7 @@ import {
   handleUserInactive,
 } from "./socketHandlers/userHandlers";
 import { handleUpdateScoreAndState } from "./socketHandlers/gameplayHandlers";
+import { LOCALHOST_URL } from "../constants/variables";
 
 const configureSocket = (io: SocketServer) => {
   io.on("connection", (socket: Socket) => {
@@ -44,7 +45,7 @@ export const initializeSocket = (server: HttpServer) => {
 
   const io = new SocketServer(server, {
     cors: {
-      origin: `${process.env.LOCALHOST_URL}:5002`,
+      origin: `${LOCALHOST_URL}:5002`,
       methods: ["GET", "POST"],
     },
   });
