@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - [server-error-handling]
+  pull_request:
+    branches:
+      - server-error-handling
 
 jobs:
   deploy:
