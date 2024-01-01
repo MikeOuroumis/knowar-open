@@ -6,7 +6,7 @@ on:
       - [server-error-handling]
   pull_request:
     branches:
-      - server-error-handling
+      - [server-error-handling]
 
 jobs:
   deploy:
