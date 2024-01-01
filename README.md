@@ -4,6 +4,13 @@ Welcome to the official repository for *Knowar*, a real-time multiplayer quiz ga
 
 [![Knowar Logo](https://github.com/MikeOuroumis/Knowar/blob/main/client/knowar_client/src/assets/images/Knowar_logo.png)](https://play.google.com/store/apps/details?id=com.knowar_client)
 
+### Sneak Peek
+
+![ezgif com-video-to-gif-converter (1)](https://github.com/MikeOuroumis/Knowar/assets/93167319/02a77bcd-7b6e-40fc-a242-1725212ab42d)
+
+
+
+
 ## Introduction
 
 *Knowar* challenges players with a wide array of questions from the Open Trivia Database across various categories and difficulties. The game promotes friendly competition with an engaging real-time experience.
