@@ -37,17 +37,18 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
-            # Assuming /home/ubuntu/Knowar is the directory for your full repo
+            # Navigate to the project directory
             cd /home/ubuntu/Knowar
             # Stash any local changes and pull the latest code
             git stash
             git pull origin main
             # Navigate to the server directory
             cd server
-            # Install dependencies, build the project, and restart the server
+            # Install dependencies and build the project
             npm install
             npm run build
-            NODE_ENV=production pm2 restart ./dist/server.js --update-env
+            # Restart the server using PM2
+            NODE_ENV=production pm2 restart /home/ubuntu/Knowar/server/dist/server.js --update-env
 
       - name: Remove Github Actions IP from security group
         run: |
