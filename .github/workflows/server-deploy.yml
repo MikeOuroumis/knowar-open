@@ -3,7 +3,7 @@ name: Deploy Node.js app to AWS EC2
 on:
   push:
     branches:
-      - main
+      - [server-error-handling]
     paths:
       - "server/**"
 
