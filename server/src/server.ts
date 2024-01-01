@@ -13,7 +13,7 @@ if (!process.env.NODE_ENV) {
 
 const dotenvResult =
   process.env.NODE_ENV === "production"
-    ? dotenv.config({ path: "../.env.production" })
+    ? dotenv.config({ path: "../../.env.production" })
     : dotenv.config({ path: "../.env.development" });
 
 // Log any errors from dotenv
