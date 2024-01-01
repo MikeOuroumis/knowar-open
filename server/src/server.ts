@@ -22,8 +22,6 @@ if (dotenvResult.error) {
   process.exit(1); // Exit if there is an error loading .env file
 }
 
-// this is for action running
-
 // Check for JWT_SECRET
 const jwtSecret = process.env.JWT_SECRET;
 if (!jwtSecret) {
