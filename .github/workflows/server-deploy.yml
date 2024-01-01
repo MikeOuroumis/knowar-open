@@ -1,11 +1,16 @@
 name: Deploy Node.js app to AWS EC2
 
 on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "server/**"
   push:
     branches:
       - main
-  paths:
-    - "server/**"
+    paths:
+      - "server/**"
 
 jobs:
   deploy:
