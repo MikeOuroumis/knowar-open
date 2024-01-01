@@ -2,8 +2,6 @@ name: Deploy Node.js app to AWS EC2
 
 on:
   push:
-    branches:
-      - server-error-handling
 
 jobs:
   deploy:
