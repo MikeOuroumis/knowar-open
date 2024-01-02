@@ -38,7 +38,7 @@ const configureSocket = (io: SocketServer) => {
 };
 
 export const initializeSocket = (server: HttpServer) => {
-  if (!process.env.LOCALHOST_URL) {
+  if (!LOCALHOST_URL) {
     console.error("Error: LOCALHOST_URL is not set!");
     return;
   }
