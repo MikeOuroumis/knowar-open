@@ -24,6 +24,8 @@ const configureSocket = (io: SocketServer) => {
   io.on("connection", (socket: Socket) => {
     console.log("A user connected to socket🔌:", socket.id);
 
+    sayHello(socket);
+
     handleOnConnect(socket);
     handleOnDisconnect(socket);
     handleSendAnswer(socket);
