@@ -24,7 +24,7 @@ const configureSocket = (io: SocketServer) => {
   io.on("connection", (socket: Socket) => {
     console.log("A user connected to socket🔌:", socket.id);
 
-    // sayHello(socket);
+    sayHello(socket);
 
     handleOnConnect(socket);
     handleOnDisconnect(socket);
@@ -58,7 +58,6 @@ export const initializeSocket = (server: HttpServer) => {
 function sayHello(socket: Socket) {
   socket.emit(
     "message_from_server",
-    "Message from server",
     "Hello from server!👋 \n" + "The changes have been deployed!🚀🚀🚀"
   );
 }
