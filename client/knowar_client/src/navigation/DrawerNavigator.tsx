@@ -12,17 +12,16 @@ import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
 import {useLogout} from '../hooks/useLogout';
 import {SinglePlayerCreateGameScreen} from '../screens/SinglePlayerCreateGameScreen';
+import AccountScreen from '../screens/AccountScreen';
 
 const Drawer = createDrawerNavigator();
 
-function DrawerIcon({focused, name}) {
+function DrawerIcon({focused, name}: {focused: boolean; name: string}) {
   const iconName = focused ? name : `${name}-outline`;
   return <Ionicons name={iconName} size={20} color={COLOR_LIST.neonPink} />;
 }
 
 export function DrawerNavigator() {
-  const logout = useLogout();
-
   return (
     <Drawer.Navigator
       screenOptions={{
@@ -52,13 +51,11 @@ export function DrawerNavigator() {
             inactiveTintColor={COLOR_LIST.neonPink}
           />
           <DrawerItem
-            label="Logout"
-            icon={({focused}) => (
-              <DrawerIcon focused={focused} name="log-out" />
-            )}
+            label="My Account"
+            icon={({focused}) => <DrawerIcon focused={focused} name="person" />}
+            onPress={() => props.navigation.navigate('AccountScreen')}
             activeTintColor={COLOR_LIST.neonPink}
             inactiveTintColor={COLOR_LIST.neonPink}
-            onPress={logout}
           />
         </DrawerContentScrollView>
       )}>
@@ -73,6 +70,7 @@ export function DrawerNavigator() {
         name="SinglePlayerCreateGameScreen"
         component={SinglePlayerCreateGameScreen}
       />
+      <Drawer.Screen name="AccountScreen" component={AccountScreen} />
     </Drawer.Navigator>
   );
 }
