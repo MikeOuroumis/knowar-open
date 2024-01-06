@@ -58,3 +58,15 @@ export const getUserDataFromToken = async (token: string) => {
 
   return user;
 };
+
+export const deleteUser = async (userId: string) => {
+  // Assuming User is a Mongoose model
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  await User.deleteOne({ _id: userId });
+  // Additional cleanup operations can be performed here if necessary
+  return { message: "User deleted successfully" };
+};

@@ -6,11 +6,8 @@ import {COLOR_LIST} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import mainMenuBackground from '../assets/images/Knowar_logo.png';
-import {useLogout} from '../hooks/useLogout';
 
 export default function MainMenuScreen({navigation}) {
-  const logout = useLogout();
-
   useEffect(() => {
     socket.on(SocketEvents.CONNECT, () => {
       socket.emit('on_connect', 'someone connected');
@@ -43,9 +40,13 @@ export default function MainMenuScreen({navigation}) {
             }
           />
           <ButtonComponent
-            title="Log Out"
+            title="My Account"
             style={styles.button}
-            onPress={logout}
+            onPress={() => {
+              navigation.replace('AuthenticatedStack', {
+                screen: 'AccountScreen',
+              });
+            }}
           />
         </View>
       </ImageBackground>

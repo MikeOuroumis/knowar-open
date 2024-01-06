@@ -104,3 +104,19 @@ export const userData = async (req: Request, res: Response) => {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
+
+export const deleteUser = async (req: Request, res: Response) => {
+  const { userId } = req.body;
+
+  try {
+    await UserService.deleteUser(userId);
+
+    res.send({
+      status: "ok",
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Internal server error" });
+  }
+};
