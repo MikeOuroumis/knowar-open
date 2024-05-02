@@ -3,32 +3,27 @@ import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
 import {apiUrl} from '../constants/constants';
 import {SocketEvents} from '../socket/SocketEvents';
+import {Alert} from 'react-native';
+import {IRoom} from '../../../../shared/types/Room';
 
 export const useRoomListener = () => {
-  const [activeRooms, setActiveRooms] = useState<
-    {userName: string; category: string}[]
-  >([]);
+  const [activeRooms, setActiveRooms] = useState<IRoom[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // prevent race condition
     setTimeout(() => {
       setLoading(true);
+
       const fetchActiveRooms = async () => {
         try {
           const response = await axios.get(`${apiUrl}/active-rooms`);
-          const data = response.data;
+          const rooms: IRoom[] = response.data.rooms;
 
-          setActiveRooms(
-            data.rooms.map(room => ({
-              userName: room.host.userName,
-              category: room.category,
-            })),
-          );
+          setActiveRooms(rooms);
         } catch (err) {
-          console.log("Couldn't fetch rooms", err);
-          alert(err);
-          setLoading(false);
+          console.error("Couldn't fetch rooms", err);
+          Alert.alert("Couldn't find rooms");
         } finally {
           setLoading(false);
         }

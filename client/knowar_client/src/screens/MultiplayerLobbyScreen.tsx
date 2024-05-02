@@ -67,7 +67,7 @@ export default function MultiplayerLobbyScreen({navigation}) {
                     onPress={() => handleJoinGame(room)}>
                     <View style={styles.activeRoomButton}>
                       <Text style={styles.activeRooms}>
-                        {room.userName} - {room.category}
+                        {room.host.userName} - {room.category}
                       </Text>
                     </View>
                   </Pressable>
