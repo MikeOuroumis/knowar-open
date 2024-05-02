@@ -4,6 +4,7 @@ import {apiUrl} from '../constants/constants';
 import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
+import {Alert} from 'react-native';
 
 export const useCreateGame = (
   selectedCategory: {id: number; name: string} | null,
@@ -34,10 +35,10 @@ export const useCreateGame = (
           isSinglePlayer: false,
         });
       } else {
-        alert('Failed to create game room.');
+        Alert.alert('Failed to create game room.');
       }
     } catch (error) {
-      alert("Couldn't create game room.");
+      Alert.alert("Couldn't create game room.");
       console.log("Couldn't create game room.", error);
     }
   }
