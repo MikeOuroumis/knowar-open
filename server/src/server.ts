@@ -4,8 +4,7 @@ import userRoutes from "./routes/userRoutes";
 import roomRoutes from "./routes/roomRoutes";
 import { initializeSocket } from "./socket/socket";
 import { JWT_SECRET } from "./constants/variables";
-
-// Check NODE_ENV and load corresponding .env file
+import { logRequests } from "./middleware/logger";
 
 // Check for JWT_SECRET
 const jwtSecret = JWT_SECRET;
@@ -16,13 +15,14 @@ if (!jwtSecret) {
 
 const app = express();
 
+app.use(logRequests);
 app.use(express.json());
 app.use(cors());
 app.use(userRoutes);
 app.use(roomRoutes);
 
 // Health check route
-app.get("/", (req, res) => res.status(200).send("OK"));
+app.get("/", (_req, res) => res.status(200).send("OK"));
 
 const server = app.listen(5000, () => {
   console.log("Server running on port 5000");
