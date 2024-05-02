@@ -24,7 +24,7 @@ export function Navigation() {
           authCtx.authenticate(token, email, userName, userId);
         }
       } catch (error) {
-        console.log("Couldn't login", error);
+        console.error("Couldn't login", error);
       } finally {
         setIsLoading(false);
       }
