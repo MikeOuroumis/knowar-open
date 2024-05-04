@@ -1,79 +1,23 @@
-import React, {useContext, useState} from 'react';
-import {View, Text, StyleSheet, Alert, ImageBackground} from 'react-native';
-import {apiUrl} from '../constants/constants';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
-import {AuthContext} from '../store/auth-context';
 import {LinearGradient} from 'react-native-linear-gradient';
 import backgroundImage from '../assets/images/loginScreen_bg.png';
 import {COLOR_LIST} from '../constants/colors';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useRegisterUser} from '../hooks/useRegisterUser';
 
 export default function RegisterScreen({navigation}) {
-  const authCtx = useContext(AuthContext);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
 
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const registerHandler = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${apiUrl}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Accept: 'application.json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: JSON.stringify({userName, email, password}),
-      });
-
-      const data = await response.json();
-
-      if (data.status === 'ok') {
-        authCtx.authenticate(
-          data.token,
-          data.email,
-          data.userName,
-          data.userId,
-        );
-        await AsyncStorage.setItem('token', JSON.stringify(data));
-        await AsyncStorage.setItem('loggedIn', JSON.stringify(true));
-
-        navigation.navigate('AuthenticatedStack', {
-          screen: 'MainMenuScreen',
-        });
-      } else {
-        let errorMessage = data.message || 'Registration failed!';
-        if (data.error) {
-          errorMessage = data.error;
-        }
-        Alert.alert('Registration Error', errorMessage, [
-          {
-            text: 'OK',
-            onPress: () => console.log('OK Pressed'),
-          },
-        ]);
-      }
-    } catch (error) {
-      console.error('register error', error);
-
-      Alert.alert(
-        'Network Error',
-        'Unable to register at the moment. Please try again later.',
-        [
-          {
-            text: 'OK',
-            onPress: () => console.log('OK Pressed'),
-          },
-        ],
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {registerHandler, isLoading} = useRegisterUser(
+    navigation,
+    userName,
+    email,
+    password,
+  );
 
   const loginText = (
     <Text

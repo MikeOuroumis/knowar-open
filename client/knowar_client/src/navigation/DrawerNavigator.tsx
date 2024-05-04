@@ -10,7 +10,6 @@ import MultiplayerLobbyScreen from '../screens/MultiplayerLobbyScreen';
 import {COLOR_LIST} from '../constants/colors';
 import GameScreen from '../screens/GameScreen';
 import CreateGameScreen from '../screens/CreateGameScreen';
-import {useLogout} from '../hooks/useLogout';
 import {SinglePlayerCreateGameScreen} from '../screens/SinglePlayerCreateGameScreen';
 import AccountScreen from '../screens/AccountScreen';
 
