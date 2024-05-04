@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../store/auth-context';
 import {useContext} from 'react';
 
@@ -7,8 +7,7 @@ export function useLogout() {
 
   async function logout() {
     try {
-      await AsyncStorage.removeItem('token');
-      await AsyncStorage.setItem('loggedIn', JSON.stringify(false));
+      await Keychain.resetGenericPassword();
       authCtx.logout();
     } catch (error) {
       console.log("Couldn't log out", error);

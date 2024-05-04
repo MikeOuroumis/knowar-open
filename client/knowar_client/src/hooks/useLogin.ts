@@ -1,6 +1,5 @@
 import * as Keychain from 'react-native-keychain';
 import {apiUrl} from '../constants/constants';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useContext, useState} from 'react';
 import {Alert} from 'react-native';
 import {AuthContext} from '../store/auth-context';
@@ -26,8 +25,8 @@ export function useLogin(navigation: any, email: string, password: string) {
       if (data.status === 'ok') {
         const {token, email, userName, userId} = data.data;
         authCtx.authenticate(token, email, userName, userId);
-        await Keychain.setGenericPassword('token', JSON.stringify(data.data));
-        await AsyncStorage.setItem('loggedIn', JSON.stringify(true));
+        const keychainData = JSON.stringify({token, userName, userId});
+        await Keychain.setGenericPassword(email, keychainData);
         navigation.navigate('AuthenticatedStack');
       } else {
         Alert.alert('Login Failed', 'Invalid Credentials');
