@@ -1,54 +1,18 @@
-import React, {useState, useContext} from 'react';
-import {View, Text, StyleSheet, Alert} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
-import {AuthContext} from '../store/auth-context';
-import {apiUrl} from '../constants/constants';
 import backgroundImage from '../assets/images/loginScreen_bg.png';
 import {ImageBackground} from 'react-native';
 import {COLOR_LIST} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
+import {useLogin} from '../hooks/useLogin';
 
 export default function LoginScreen({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const authCtx = useContext(AuthContext);
 
-  const loginHandler = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(`${apiUrl}/login-user`, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Accept: 'application.json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: JSON.stringify({email, password}),
-      });
-      const data = await response.json();
-
-      if (data.status === 'ok') {
-        authCtx.authenticate(
-          data.data.token,
-          data.data.email,
-          data.data.userName,
-          data.data.userId,
-        );
-        await AsyncStorage.setItem('token', JSON.stringify(data.data));
-        await AsyncStorage.setItem('loggedIn', JSON.stringify(true));
-        navigation.navigate('AuthenticatedStack');
-      } else {
-        Alert.alert('Login Failed', 'Invalid Credentials');
-      }
-    } catch (error) {
-      console.error('Login failed:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const {loginHandler, isLoading} = useLogin(navigation, email, password);
 
   const registerText = (
     <Text
