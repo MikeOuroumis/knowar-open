@@ -3,6 +3,7 @@ import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 import {AuthContext} from '../store/auth-context';
 import {Alert} from 'react-native';
 import {CategoryInterface} from '../types/category';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export function useSinglePlayerGameCreation(
   selectedCategory: CategoryInterface,
@@ -14,7 +15,7 @@ export function useSinglePlayerGameCreation(
 
   async function startSinglePlayerGameHandler() {
     try {
-      navigation.navigate('GameScreen', {
+      navigation.navigate(AuthenticatedScreens.GameScreen, {
         categoryId: selectedCategory.id,
         roomId: userId,
         isHost: true,

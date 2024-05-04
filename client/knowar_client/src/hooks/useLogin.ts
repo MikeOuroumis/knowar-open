@@ -3,6 +3,7 @@ import {apiUrl} from '../constants/constants';
 import {useContext, useState} from 'react';
 import {Alert} from 'react-native';
 import {AuthContext} from '../store/auth-context';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export function useLogin(navigation: any, email: string, password: string) {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,7 @@ export function useLogin(navigation: any, email: string, password: string) {
         authCtx.authenticate(token, email, userName, userId);
         const keychainData = JSON.stringify({token, userName, userId});
         await Keychain.setGenericPassword(email, keychainData);
-        navigation.navigate('AuthenticatedStack');
+        navigation.navigate(AuthenticatedScreens.MainMenuScreen);
       } else {
         Alert.alert('Login Failed', 'Invalid Credentials');
       }

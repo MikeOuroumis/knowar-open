@@ -9,6 +9,7 @@ import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
 import {getCategoryInfo} from '../util/categories';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export default function CreateGameScreen() {
   const navigation = useNavigation();
@@ -52,7 +53,9 @@ export default function CreateGameScreen() {
           />
           <ButtonComponent
             title="Back to Lobby"
-            onPress={() => navigation.navigate('MultiplayerLobbyScreen')}
+            onPress={() =>
+              navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
+            }
           />
         </View>
       </LinearGradient>

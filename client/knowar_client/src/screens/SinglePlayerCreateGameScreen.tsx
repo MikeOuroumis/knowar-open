@@ -9,6 +9,7 @@ import {COLOR_LIST} from '../constants/colors';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {getCategoryInfo} from '../util/categories';
 import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export function SinglePlayerCreateGameScreen() {
   const navigation = useNavigation();
@@ -51,7 +52,9 @@ export function SinglePlayerCreateGameScreen() {
           />
           <ButtonComponent
             title="Back"
-            onPress={() => navigation.navigate('MainMenuScreen')}
+            onPress={() =>
+              navigation.navigate(AuthenticatedScreens.MainMenuScreen)
+            }
           />
         </View>
       </LinearGradient>

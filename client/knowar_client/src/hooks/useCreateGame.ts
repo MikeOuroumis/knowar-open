@@ -5,6 +5,7 @@ import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export const useCreateGame = (
   selectedCategory: {id: number; name: string} | null,
@@ -28,7 +29,7 @@ export const useCreateGame = (
           category: selectedCategory.name,
         });
 
-        navigation.navigate('GameScreen', {
+        navigation.navigate(AuthenticatedScreens.GameScreen, {
           categoryId: selectedCategory.id,
           roomId: userId,
           isHost: true,

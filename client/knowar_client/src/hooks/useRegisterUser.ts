@@ -3,6 +3,7 @@ import {apiUrl} from '../constants/constants';
 import {Alert} from 'react-native';
 import {useContext, useState} from 'react';
 import * as Keychain from 'react-native-keychain';
+import {AuthenticatedScreens} from '../types/navigation';
 
 export function useRegisterUser(
   navigation: any,
@@ -36,9 +37,7 @@ export function useRegisterUser(
         const keychainData = JSON.stringify({token, userName, userId});
 
         await Keychain.setGenericPassword(email, keychainData);
-        navigation.navigate('AuthenticatedStack', {
-          screen: 'MainMenuScreen',
-        });
+        navigation.navigate(AuthenticatedScreens.MainMenuScreen);
       } else {
         let errorMessage = data.message || 'Registration failed!';
         if (data.error) {

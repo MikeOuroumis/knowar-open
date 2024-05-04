@@ -15,13 +15,16 @@ import {SocketEvents} from '../socket/SocketEvents';
 import {COLOR_LIST} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import lobbyBackground from '../assets/images/lobby_bg2.png';
+import {useNavigation} from '@react-navigation/native';
+import {AuthenticatedScreens} from '../types/navigation';
 
-export default function MultiplayerLobbyScreen({navigation}) {
+export default function MultiplayerLobbyScreen() {
+  const navigation = useNavigation();
   const {activeRooms, loading} = useRoomListener();
 
   const handleJoinGame = roomId => {
     socket.emit(SocketEvents.JOIN_ROOM, roomId);
-    navigation.navigate('GameScreen', {
+    navigation.navigate(AuthenticatedScreens.GameScreen, {
       roomId,
     });
   };
@@ -51,7 +54,9 @@ export default function MultiplayerLobbyScreen({navigation}) {
               <ButtonComponent
                 title="Create New"
                 style={styles.createNewButton}
-                onPress={() => navigation.navigate('CreateGameScreen')}
+                onPress={() =>
+                  navigation.navigate(AuthenticatedScreens.CreateGameScreen)
+                }
               />
             </View>
           </View>
@@ -82,7 +87,9 @@ export default function MultiplayerLobbyScreen({navigation}) {
         </View>
         <ButtonComponent
           title="Back to Main Menu"
-          onPress={() => navigation.navigate('MainMenuScreen')}
+          onPress={() =>
+            navigation.navigate(AuthenticatedScreens.MainMenuScreen)
+          }
         />
       </LinearGradient>
     </ImageBackground>

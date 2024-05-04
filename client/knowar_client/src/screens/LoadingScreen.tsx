@@ -10,6 +10,7 @@ import loadingImagebg from '../assets/images/galaxy.png';
 import {COLOR_LIST} from '../constants/colors';
 import ButtonComponent from '../components/ButtonComponent';
 import {NavigationProp} from '@react-navigation/native';
+import {AuthenticatedScreens} from '../types/navigation';
 
 interface LoadingScreenProps {
   text: string;
@@ -33,9 +34,7 @@ export default function LoadingScreen({
           <ButtonComponent
             title={buttonText}
             onPress={() =>
-              navigation.replace('AuthenticatedStack', {
-                screen: 'MultiplayerLobbyScreen',
-              })
+              navigation.replace(AuthenticatedScreens.MultiplayerLobbyScreen)
             }
           />
         )}

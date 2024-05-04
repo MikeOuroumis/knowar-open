@@ -16,6 +16,7 @@ import {QuestionInterface} from '../types/questions';
 import {useGameLogic} from '../hooks/useGameLogic';
 import {TimeBar} from '../components/GameScreen/TimeBar';
 import {useGameContext} from '../store/GameContext';
+import {AuthenticatedScreens} from '../types/navigation';
 
 type Route = {
   params: {
@@ -85,9 +86,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
   }, []);
 
   const onBackToMainMenu = () => {
-    navigation.replace('AuthenticatedStack', {
-      screen: 'MainMenuScreen',
-    });
+    navigation.replace(AuthenticatedScreens.MainMenuScreen);
   };
 
   function isAnswerCorrect(answer: string): boolean {
@@ -184,9 +183,7 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
             <ButtonComponent
               title="Back to Lobby"
               onPress={() =>
-                navigation.replace('AuthenticatedStack', {
-                  screen: 'MultiplayerLobbyScreen',
-                })
+                navigation.replace(AuthenticatedScreens.MultiplayerLobbyScreen)
               }
             />
           )}

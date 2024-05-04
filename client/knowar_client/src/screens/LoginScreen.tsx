@@ -7,8 +7,12 @@ import {ImageBackground} from 'react-native';
 import {COLOR_LIST} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useLogin} from '../hooks/useLogin';
+import {useNavigation} from '@react-navigation/native';
+import {UnauthenticatedScreens} from '../types/navigation';
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreen() {
+  const navigation = useNavigation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,7 +21,9 @@ export default function LoginScreen({navigation}) {
   const registerText = (
     <Text
       style={styles.hereText}
-      onPress={() => navigation.navigate('RegisterScreen')}>
+      onPress={() =>
+        navigation.navigate(UnauthenticatedScreens.RegisterScreen)
+      }>
       here
     </Text>
   );
