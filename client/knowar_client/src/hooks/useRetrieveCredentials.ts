@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react';
-import * as Keychain from 'react-native-keychain';
 import {AuthContext} from '../store/auth-context';
+import * as KeychainService from '../services/KeychainService';
 
 export function useRetrieveCredentials(): boolean {
   const authCtx = useContext(AuthContext);
@@ -9,15 +9,13 @@ export function useRetrieveCredentials(): boolean {
   useEffect(() => {
     async function retrieveCredentials() {
       try {
-        const credentials = await Keychain.getGenericPassword();
+        const credentials = await KeychainService.loadCredentials();
         if (credentials) {
-          const {token, email, userName, userId} = JSON.parse(
-            credentials.password,
-          );
+          const {token, email, userName, userId} = credentials;
           authCtx.authenticate(token, email, userName, userId);
         }
       } catch (error) {
-        console.error("Couldn't login", error);
+        console.error("Couldn't retrieve credentials", error);
       } finally {
         setIsLoading(false);
       }
