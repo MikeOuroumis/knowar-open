@@ -2,8 +2,8 @@ import {AuthContext} from '../store/auth-context';
 import {apiUrl} from '../constants/constants';
 import {Alert} from 'react-native';
 import {useContext, useState} from 'react';
-import * as Keychain from 'react-native-keychain';
 import {AuthenticatedScreens} from '../types/navigation';
+import * as KeychainService from '../services/KeychainService';
 
 export function useRegisterUser(
   navigation: any,
@@ -34,9 +34,9 @@ export function useRegisterUser(
         const {token, email, userName, userId} = data;
         authCtx.authenticate(token, email, userName, userId);
 
-        const keychainData = JSON.stringify({token, userName, userId});
+        const keychainData = {token, userName, userId};
 
-        await Keychain.setGenericPassword(email, keychainData);
+        await KeychainService.setCredentials(token, keychainData);
         navigation.navigate(AuthenticatedScreens.MainMenuScreen);
       } else {
         let errorMessage = data.message || 'Registration failed!';

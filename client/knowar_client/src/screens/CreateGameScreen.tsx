@@ -14,7 +14,7 @@ import {AuthenticatedScreens} from '../types/navigation';
 export default function CreateGameScreen() {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+  const [_selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     null,
   );
 

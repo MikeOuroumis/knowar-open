@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {Alert} from 'react-native';
 
 export async function fetchQuestionsFromAPI(categoryId: string, amount = 10) {
   try {
@@ -37,7 +38,7 @@ export async function fetchQuestionsFromAPI(categoryId: string, amount = 10) {
       return fetchedResults;
     }
   } catch (err) {
-    alert("Couldn't fetch questions", err);
+    Alert.alert("Couldn't fetch questions", 'Please try again later.');
     console.log("Couldn't fetch questions", err);
     return []; // Return an empty array in case of an error
   }
