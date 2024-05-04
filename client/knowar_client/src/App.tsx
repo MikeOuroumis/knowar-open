@@ -4,12 +4,15 @@ import {Navigation} from './navigation/Navigation';
 import GameProvider from './store/GameContext';
 import {useRetrieveCredentials} from './hooks/useRetrieveCredentials';
 import LoadingScreen from './screens/LoadingScreen';
+import {NavigationContainer} from '@react-navigation/native';
 
 export default function App() {
   return (
     <AuthContextProvider>
       <GameProvider>
-        <AppContent />
+        <NavigationContainer>
+          <AppContent />
+        </NavigationContainer>
       </GameProvider>
     </AuthContextProvider>
   );
