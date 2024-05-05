@@ -15,11 +15,11 @@ import {SocketEvents} from '../socket/SocketEvents';
 import {COLOR_LIST} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import lobbyBackground from '../assets/images/lobby_bg2.png';
-import {useNavigation} from '@react-navigation/native';
-import {AuthenticatedScreens} from '../types/navigation';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export default function MultiplayerLobbyScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {activeRooms, loading} = useRoomListener();
 
   const handleJoinGame = roomId => {

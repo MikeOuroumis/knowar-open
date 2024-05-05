@@ -7,16 +7,16 @@ import {ImageBackground} from 'react-native';
 import {COLOR_LIST} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useLogin} from '../hooks/useLogin';
-import {useNavigation} from '@react-navigation/native';
-import {UnauthenticatedScreens} from '../types/navigation';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {RootStackParamList, UnauthenticatedScreens} from '../types/navigation';
 
 export default function LoginScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {loginHandler, isLoading} = useLogin(navigation, email, password);
+  const {loginHandler, isLoading} = useLogin(email, password);
 
   const registerText = (
     <Text

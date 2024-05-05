@@ -5,12 +5,21 @@ import {COLOR_LIST} from '../constants/colors';
 import {AuthContext} from '../store/auth-context';
 import {
   AuthenticatedScreens,
+  InitialScreens,
+  RootStackParamList,
   UnauthenticatedScreens,
 } from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+type SplashScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  InitialScreens.SplashScreen
+>;
 
 export function SplashScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<SplashScreenNavigationProp>();
+
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const authCtx = useContext(AuthContext);
 

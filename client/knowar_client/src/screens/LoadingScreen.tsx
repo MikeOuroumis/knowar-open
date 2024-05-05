@@ -9,20 +9,26 @@ import {
 import loadingImagebg from '../assets/images/galaxy.png';
 import {COLOR_LIST} from '../constants/colors';
 import ButtonComponent from '../components/ButtonComponent';
-import {NavigationProp} from '@react-navigation/native';
-import {AuthenticatedScreens} from '../types/navigation';
+import {useNavigation} from '@react-navigation/native';
+import {
+  AuthenticatedScreens,
+  InitialScreens,
+  RootStackParamList,
+} from '../types/navigation';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface LoadingScreenProps {
   text: string;
   buttonText?: string;
-  navigation?: NavigationProp<ReactNavigation.RootParamList>;
 }
 
-export default function LoadingScreen({
-  text,
-  buttonText,
-  navigation,
-}: LoadingScreenProps) {
+type LoadingScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  InitialScreens.LoadingScreen
+>;
+
+export default function LoadingScreen({text, buttonText}: LoadingScreenProps) {
+  const navigation = useNavigation<LoadingScreenNavigationProp>();
   return (
     <ImageBackground source={loadingImagebg} style={styles.backgroundImage}>
       <View style={styles.backgroundImageOverlay}>

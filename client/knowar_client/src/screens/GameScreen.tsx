@@ -16,26 +16,28 @@ import {QuestionInterface} from '../types/questions';
 import {useGameLogic} from '../hooks/useGameLogic';
 import {TimeBar} from '../components/GameScreen/TimeBar';
 import {useGameContext} from '../store/GameContext';
-import {AuthenticatedScreens} from '../types/navigation';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+export type GameScreenParams = {
+  categoryId: number;
+  isHost: boolean;
+  isSinglePlayer: boolean;
+};
 
 type Route = {
-  params: {
-    categoryId: string;
-    isHost: boolean;
-    isSinglePlayer: boolean;
-  };
+  params: GameScreenParams;
 };
 
-type Navigation = {
-  replace: (screen: string, params?: any) => void;
-};
+type GameScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  AuthenticatedScreens.GameScreen
+>;
 
-type GameScreenProps = {
-  navigation: Navigation;
-  route: Route;
-};
+export default function GameScreen({route}: {route: Route}) {
+  const navigation = useNavigation<GameScreenNavigationProp>();
 
-export default function GameScreen({navigation, route}: GameScreenProps) {
   const {categoryId, isHost, isSinglePlayer} = route.params;
 
   const userId = useContext(AuthContext).userId;
@@ -150,7 +152,6 @@ export default function GameScreen({navigation, route}: GameScreenProps) {
       <LoadingScreen
         text="Waiting for the opponent to join the game..."
         buttonText="Back"
-        navigation={navigation}
       />
     );
   }

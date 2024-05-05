@@ -3,26 +3,24 @@ import {Text, View, ImageBackground, StyleSheet} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import DropdownComponent from '../components/DropdownComponent';
 import {LinearGradient} from 'react-native-linear-gradient';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import {COLOR_LIST} from '../constants/colors';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {getCategoryInfo} from '../util/categories';
 import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
-import {AuthenticatedScreens} from '../types/navigation';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export function SinglePlayerCreateGameScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const categories = useFetchTriviaCategories();
 
   const categoryId = getCategoryInfo(selectedCategory, categories);
 
-  const {startSinglePlayerGameHandler} = useSinglePlayerGameCreation(
-    categoryId,
-    navigation,
-  );
+  const {startSinglePlayerGameHandler} =
+    useSinglePlayerGameCreation(categoryId);
 
   return (
     <ImageBackground source={createGameBG} style={styles.backgroundImage}>

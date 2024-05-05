@@ -5,17 +5,22 @@ import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
-import {AuthenticatedScreens} from '../types/navigation';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const useCreateGame = (
   selectedCategory: {id: number; name: string} | null,
-  navigation: any,
 ) => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const categories = useFetchTriviaCategories();
 
   const {userId, userName} = useContext(AuthContext);
 
   async function createGameHandler() {
+    if (!selectedCategory) {
+      Alert.alert('Please select a category.');
+      return;
+    }
     try {
       const response = await axios.post(`${apiUrl}/create-room`, {
         category: selectedCategory.name,
