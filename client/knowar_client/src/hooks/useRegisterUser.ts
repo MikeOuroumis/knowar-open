@@ -10,6 +10,7 @@ import {
 import * as KeychainService from '../services/KeychainService';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import axios from 'axios';
 
 type RegistarNavigationPro = NativeStackNavigationProp<
   RootStackParamList,
@@ -30,17 +31,19 @@ export function useRegisterUser(
   const registerHandler = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${apiUrl}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-          Accept: 'application.json',
-          'Access-Control-Allow-Origin': '*',
+      const response = await axios.post(
+        `${apiUrl}/register`,
+        {userName, email, password},
+        {
+          headers: {
+            'Content-type': 'application/json',
+            Accept: 'application.json',
+            'Access-Control-Allow-Origin': '*',
+          },
         },
-        body: JSON.stringify({userName, email, password}),
-      });
+      );
 
-      const data = await response.json();
+      const data = await response.data;
 
       if (data.status === 'ok') {
         const {token, email, userName, userId} = data;
