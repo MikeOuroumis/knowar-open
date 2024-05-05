@@ -34,21 +34,22 @@ export const useRoomListener = () => {
   }, []);
 
   useEffect(() => {
-    const handleNewRoom = data => {
-      setActiveRooms(prev => {
-        if (prev.includes(data.roomId)) {
-          return prev;
-        }
-        return [...prev, data];
+    const handleNewRoom = (data: IRoom) => {
+      setActiveRooms(previousRooms => {
+        const uniqueRooms = new Set(previousRooms);
+
+        uniqueRooms.add(data);
+
+        // Convert the Set back to an array for React state
+        return Array.from(uniqueRooms);
       });
     };
 
-    const handleRoomDeletion = roomID => {
-      setActiveRooms(prev =>
-        prev.filter(id => {
-          id !== roomID;
-        }),
-      );
+    const handleRoomDeletion = (roomID: string) => {
+      setActiveRooms(prev => {
+        const updatedRooms = prev.filter(room => room.roomId !== roomID);
+        return updatedRooms;
+      });
     };
 
     socket.on(SocketEvents.NEW_ROOM_AVAILABLE, handleNewRoom);
