@@ -1,54 +1,25 @@
 import axios from 'axios';
-import {Alert} from 'react-native';
+import {QuestionInterface} from '../types/questions';
 
-export async function fetchQuestionsFromAPI(categoryId: number, amount = 10) {
+export async function fetchQuestionsFromAPI(
+  categoryId: number,
+  amount = 10,
+): Promise<QuestionInterface[] | null> {
   try {
-    const response = await axios.get(
-      `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}`,
-    );
+    const url = `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}`;
+    const response = await axios.get(url);
     const code = response.data.response_code;
 
-    if (code !== 0) {
-      if (code === 1 && amount > 1) {
-        // Recursively call with fewer questions
-        return fetchQuestionsFromAPI(categoryId, amount - 1);
-      } else {
-        const errorMessage =
-          code === 1
-            ? "No Results. The API doesn't have enough questions for your query."
-            : code === 2
-            ? "Invalid Parameter. Arguments passed in aren't valid."
-            : code === 3
-            ? 'Token Not Found. Session Token does not exist.'
-            : 'Token Empty Session. Token has returned all possible questions for the specified query. Resetting the Token is necessary.';
-        throw new Error(errorMessage);
-      }
-    } else {
-      let fetchedResults = response.data.results;
-
-      // Shuffle the order of questions and answers
-      fetchedResults = shuffleArray(fetchedResults).map(result => {
-        const allAnswers = shuffleArray([
-          ...result.incorrect_answers,
-          result.correct_answer,
-        ]);
-        return {...result, all_answers: allAnswers};
-      });
-
-      return fetchedResults;
+    if (code === 1 && amount > 1) {
+      return fetchQuestionsFromAPI(categoryId, amount - 1);
+    } else if (code !== 0) {
+      console.error('API error with code: ', code);
+      return null;
     }
-  } catch (err) {
-    Alert.alert("Couldn't fetch questions", 'Please try again later.');
-    console.log("Couldn't fetch questions", err);
-    return []; // Return an empty array in case of an error
-  }
-}
 
-// Function to shuffle an array in place using Durstenfeld shuffle algorithm
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    return response.data.results; // Return results directly
+  } catch (err) {
+    console.error('Failed to fetch questions: ', err);
+    return null;
   }
-  return array; // Return the shuffled array
 }

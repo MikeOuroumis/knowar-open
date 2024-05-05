@@ -19,6 +19,7 @@ import {useGameContext} from '../store/GameContext';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {prepareQuestions} from '../util/questions';
 
 export type GameScreenParams = {
   categoryId: number;
@@ -60,10 +61,15 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
 
-  const fetchQuestions = async () => {
+  const fetchAndPrepareQuestions = async () => {
     const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
 
-    setQuestions(fetchedQuestions);
+    if (!fetchedQuestions) {
+      return;
+    }
+
+    const preparedQuestions = prepareQuestions(fetchedQuestions);
+    setQuestions(preparedQuestions);
   };
 
   useEffect(() => {
@@ -78,7 +84,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 
   useEffect(() => {
     if (isHost && !questions) {
-      fetchQuestions();
+      fetchAndPrepareQuestions();
 
       return () => {
         socket.emit(SocketEvents.LEAVE_ROOM, userId);
