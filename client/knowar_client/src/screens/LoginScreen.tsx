@@ -10,7 +10,7 @@ import {useLogin} from '../hooks/useLogin';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList, UnauthenticatedScreens} from '../types/navigation';
 
-export default function LoginScreen() {
+export default function LoginScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const [email, setEmail] = useState('');

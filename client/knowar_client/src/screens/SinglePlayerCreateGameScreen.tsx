@@ -11,7 +11,7 @@ import {getCategoryInfo} from '../util/categories';
 import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export function SinglePlayerCreateGameScreen() {
+export function SinglePlayerCreateGameScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState(null);
 

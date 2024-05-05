@@ -6,7 +6,7 @@ import {AuthContext} from '../store/auth-context';
 import {useDeleteAccount} from '../hooks/useDeleteAccount';
 import {COLOR_LIST} from '../constants/colors';
 
-export default function AccountScreen({}) {
+export default function AccountScreen(): JSX.Element {
   const logout = useLogout();
   const {email, userName} = useContext(AuthContext);
   const {deleteAccount} = useDeleteAccount();

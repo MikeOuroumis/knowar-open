@@ -18,7 +18,7 @@ import lobbyBackground from '../assets/images/lobby_bg2.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function MultiplayerLobbyScreen() {
+export default function MultiplayerLobbyScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {activeRooms, loading} = useRoomListener();
 
