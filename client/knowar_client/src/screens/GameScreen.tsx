@@ -35,7 +35,7 @@ type GameScreenNavigationProp = NativeStackNavigationProp<
   AuthenticatedScreens.GameScreen
 >;
 
-export default function GameScreen({route}: {route: Route}) {
+export default function GameScreen({route}: {route: Route}): JSX.Element {
   const navigation = useNavigation<GameScreenNavigationProp>();
 
   const {categoryId, isHost, isSinglePlayer} = route.params;
@@ -192,6 +192,7 @@ export default function GameScreen({route}: {route: Route}) {
       </View>
     );
   }
+  return <LoadingScreen text="No questions loaded" buttonText="Back" />;
 }
 
 const styles = StyleSheet.create({
