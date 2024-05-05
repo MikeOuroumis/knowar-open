@@ -36,7 +36,6 @@ export const useCreateGame = (
 
         navigation.navigate(AuthenticatedScreens.GameScreen, {
           categoryId: selectedCategory.id,
-          roomId: userId,
           isHost: true,
           isSinglePlayer: false,
         });
