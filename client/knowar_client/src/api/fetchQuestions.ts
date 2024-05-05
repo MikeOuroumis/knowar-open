@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Alert} from 'react-native';
 
-export async function fetchQuestionsFromAPI(categoryId: string, amount = 10) {
+export async function fetchQuestionsFromAPI(categoryId: number, amount = 10) {
   try {
     const response = await axios.get(
       `https://opentdb.com/api.php?amount=${amount}&category=${categoryId}`,

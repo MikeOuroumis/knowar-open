@@ -3,16 +3,16 @@ import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import DropdownComponent from '../components/DropdownComponent';
 import {useCreateGame} from '../hooks/useCreateGame';
-import {useNavigation} from '@react-navigation/native';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
 import {getCategoryInfo} from '../util/categories';
-import {AuthenticatedScreens} from '../types/navigation';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export default function CreateGameScreen() {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [_selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     null,
@@ -22,7 +22,7 @@ export default function CreateGameScreen() {
 
   const categoryId = getCategoryInfo(selectedCategory, categories);
 
-  const {createGameHandler} = useCreateGame(categoryId, navigation);
+  const {createGameHandler} = useCreateGame(categoryId);
 
   return (
     <ImageBackground source={createGameBG} style={styles.imageBackground}>
