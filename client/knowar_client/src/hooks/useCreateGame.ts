@@ -25,6 +25,7 @@ export const useCreateGame = (
       const response = await axios.post(`${apiUrl}/create-room`, {
         category: selectedCategory.name,
         userId: userId,
+        userName,
       });
 
       if (response.data && response.data.status === 'ok') {

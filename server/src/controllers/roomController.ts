@@ -3,13 +3,14 @@ import Room from "../models/Room";
 import mongoose from "mongoose";
 
 export const createRoom = async (req: Request, res: Response) => {
-  const { category, userId } = req.body;
+  const { category, userId, userName } = req.body;
 
   const objectId = new mongoose.Types.ObjectId(userId);
 
   try {
     const room = new Room({
       category: category,
+      userName,
       host: objectId,
       players: [objectId],
     });
