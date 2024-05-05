@@ -17,16 +17,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import lobbyBackground from '../assets/images/lobby_bg2.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {IRoom} from '../../../../shared/types/Room';
 
 export default function MultiplayerLobbyScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {activeRooms, loading} = useRoomListener();
 
-  const handleJoinGame = roomId => {
+  const handleJoinGame = (roomId: IRoom) => {
     socket.emit(SocketEvents.JOIN_ROOM, roomId);
-    navigation.navigate(AuthenticatedScreens.GameScreen, {
-      roomId,
-    });
+    navigation.navigate(AuthenticatedScreens.GameScreen);
   };
 
   return (
@@ -72,7 +71,7 @@ export default function MultiplayerLobbyScreen(): JSX.Element {
                     onPress={() => handleJoinGame(room)}>
                     <View style={styles.activeRoomButton}>
                       <Text style={styles.activeRooms}>
-                        {room.host.userName} - {room.category}
+                        {room.userName} - {room.category}
                       </Text>
                     </View>
                   </Pressable>
