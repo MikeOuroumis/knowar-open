@@ -11,7 +11,7 @@ import {COLOR_LIST} from '../constants/colors';
 import {getCategoryInfo} from '../util/categories';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function CreateGameScreen() {
+export default function CreateGameScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [_selectedCategoryId, setSelectedCategoryId] = useState<number | null>(

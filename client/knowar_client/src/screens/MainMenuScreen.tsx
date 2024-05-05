@@ -9,7 +9,7 @@ import mainMenuBackground from '../assets/images/Knowar_logo.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function MainMenuScreen() {
+export default function MainMenuScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   useEffect(() => {
     socket.on(SocketEvents.CONNECT, () => {

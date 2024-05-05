@@ -19,6 +19,7 @@ import {useGameContext} from '../store/GameContext';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {prepareQuestions} from '../util/questions';
 
 export type GameScreenParams = {
   categoryId: number;
@@ -35,7 +36,7 @@ type GameScreenNavigationProp = NativeStackNavigationProp<
   AuthenticatedScreens.GameScreen
 >;
 
-export default function GameScreen({route}: {route: Route}) {
+export default function GameScreen({route}: {route: Route}): JSX.Element {
   const navigation = useNavigation<GameScreenNavigationProp>();
 
   const {categoryId, isHost, isSinglePlayer} = route.params;
@@ -60,10 +61,15 @@ export default function GameScreen({route}: {route: Route}) {
 
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
 
-  const fetchQuestions = async () => {
+  const fetchAndPrepareQuestions = async () => {
     const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
 
-    setQuestions(fetchedQuestions);
+    if (!fetchedQuestions) {
+      return;
+    }
+
+    const preparedQuestions = prepareQuestions(fetchedQuestions);
+    setQuestions(preparedQuestions);
   };
 
   useEffect(() => {
@@ -78,7 +84,7 @@ export default function GameScreen({route}: {route: Route}) {
 
   useEffect(() => {
     if (isHost && !questions) {
-      fetchQuestions();
+      fetchAndPrepareQuestions();
 
       return () => {
         socket.emit(SocketEvents.LEAVE_ROOM, userId);
@@ -192,6 +198,7 @@ export default function GameScreen({route}: {route: Route}) {
       </View>
     );
   }
+  return <LoadingScreen text="No questions loaded" buttonText="Back" />;
 }
 
 const styles = StyleSheet.create({

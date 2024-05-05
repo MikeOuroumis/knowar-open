@@ -9,7 +9,7 @@ import {useRegisterUser} from '../hooks/useRegisterUser';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList, UnauthenticatedScreens} from '../types/navigation';
 
-export default function RegisterScreen() {
+export default function RegisterScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const [email, setEmail] = useState('');
