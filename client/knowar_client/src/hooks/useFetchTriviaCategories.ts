@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {TRIVIA_CATEGORY_URL} from '../constants/constants';
 import {CategoryInterface} from '../types/category';
+import {Alert} from 'react-native';
 
 export const useFetchTriviaCategories = () => {
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
@@ -20,7 +21,7 @@ export const useFetchTriviaCategories = () => {
       }));
       setCategories(fetchedCategories);
     } catch (err) {
-      alert(err);
+      Alert.alert("Couldn't fetch categories", 'Please try again later.');
     }
   }
 

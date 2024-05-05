@@ -3,37 +3,45 @@ import {View, Animated, StyleSheet} from 'react-native';
 import logo from '../assets/images/Knowar_logo.png';
 import {COLOR_LIST} from '../constants/colors';
 import {AuthContext} from '../store/auth-context';
+import {
+  AuthenticatedScreens,
+  InitialScreens,
+  RootStackParamList,
+  UnauthenticatedScreens,
+} from '../types/navigation';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-interface SplashScreenProps {
-  navigation: any;
-}
+type SplashScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  InitialScreens.SplashScreen
+>;
 
-const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+export function SplashScreen() {
+  const navigation = useNavigation<SplashScreenNavigationProp>();
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
-    // Fade-in effect when component mounts
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 1500,
-      useNativeDriver: true, // Add this line
+      useNativeDriver: true,
     }).start();
 
     const timer = setTimeout(() => {
-      // Start the fade-out effect just before navigation
       Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 1500,
-        useNativeDriver: true, // Add this line
+        useNativeDriver: true,
       }).start(() => {
-        // The completion callback will be invoked after the fade-out is done
         const nextScreen = authCtx.isAuthenticated
-          ? 'AuthenticatedStack'
-          : 'LoginScreen';
+          ? AuthenticatedScreens.MainMenuScreen
+          : UnauthenticatedScreens.LoginScreen;
         navigation.replace(nextScreen);
       });
-    }, 3000); // The entire splash screen is displayed for 3 seconds, including fade-in and starting fade-out
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [navigation, authCtx.isAuthenticated, fadeAnim]);
@@ -45,13 +53,13 @@ const SplashScreen: React.FC<SplashScreenProps> = ({navigation}) => {
         style={[
           styles.logo,
           {
-            opacity: fadeAnim, // Bind opacity to animated value
+            opacity: fadeAnim,
           },
         ]}
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -66,5 +74,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-
-export default SplashScreen;

@@ -6,8 +6,11 @@ import {COLOR_LIST} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import mainMenuBackground from '../assets/images/Knowar_logo.png';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function MainMenuScreen({navigation}) {
+export default function MainMenuScreen() {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   useEffect(() => {
     socket.on(SocketEvents.CONNECT, () => {
       socket.emit('on_connect', 'someone connected');
@@ -25,27 +28,23 @@ export default function MainMenuScreen({navigation}) {
             title="Single Player"
             style={styles.button}
             onPress={() =>
-              navigation.replace('AuthenticatedStack', {
-                screen: 'SinglePlayerCreateGameScreen',
-              })
+              navigation.navigate(
+                AuthenticatedScreens.SinglePlayerCreateGameScreen,
+              )
             }
           />
           <ButtonComponent
             title="Multi Player"
             style={styles.button}
             onPress={() =>
-              navigation.replace('AuthenticatedStack', {
-                screen: 'MultiplayerLobbyScreen',
-              })
+              navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
             }
           />
           <ButtonComponent
             title="My Account"
             style={styles.button}
             onPress={() => {
-              navigation.replace('AuthenticatedStack', {
-                screen: 'AccountScreen',
-              });
+              navigation.navigate(AuthenticatedScreens.AccountScreen);
             }}
           />
         </View>

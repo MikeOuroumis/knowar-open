@@ -1,22 +1,19 @@
-import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
-import {AuthContext} from '../store/auth-context';
 import {Alert} from 'react-native';
 import {CategoryInterface} from '../types/category';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export function useSinglePlayerGameCreation(
   selectedCategory: CategoryInterface,
-  navigation: any,
 ) {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const categories = useFetchTriviaCategories();
-
-  const {userId} = useContext(AuthContext);
 
   async function startSinglePlayerGameHandler() {
     try {
-      navigation.navigate('GameScreen', {
+      navigation.navigate(AuthenticatedScreens.GameScreen, {
         categoryId: selectedCategory.id,
-        roomId: userId,
         isHost: true,
         isSinglePlayer: true,
       });
