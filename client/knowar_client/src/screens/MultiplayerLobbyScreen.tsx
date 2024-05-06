@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import lobbyBackground from '../assets/images/lobby_bg2.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
-import {ActiveRooms} from '../components/GameScreen/ActiveRooms';
+import {ActiveRooms} from '../components/ActiveRooms';
 import {LobbyScreenHeader} from '../components/LobbyScreenHeader';
 
 export default function MultiplayerLobbyScreen(): JSX.Element {

@@ -1,18 +1,18 @@
 import {
   ActivityIndicator,
-  Pressable,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {useRoomListener} from '../../hooks/useRoomListener';
-import {COLOR_LIST} from '../../constants/colors';
+import {useRoomListener} from '../hooks/useRoomListener';
+import {COLOR_LIST} from '../constants/colors';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthenticatedScreens, RootStackParamList} from '../../types/navigation';
-import {SocketEvents} from '../../socket/SocketEvents';
-import socket from '../../socket/socket';
-import {IRoom} from '../../../../../shared/types/Room';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {SocketEvents} from '../socket/SocketEvents';
+import socket from '../socket/socket';
+import {IRoom} from '../../../../shared/types/Room';
+import {RoomItem} from './RoomItem';
 
 export function ActiveRooms() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -23,31 +23,28 @@ export function ActiveRooms() {
     socket.emit(SocketEvents.JOIN_ROOM, roomId);
     navigation.navigate(AuthenticatedScreens.GameScreen);
   };
+
   return (
-    <ScrollView style={styles.scrollView}>
+    <View style={styles.scrollView}>
       {loading ? (
         <ActivityIndicator size="large" color={COLOR_LIST.vibrantCyan} />
-      ) : activeRooms.length > 0 ? (
-        <View>
-          <Text style={styles.activeRoomsTitle}>Active Games</Text>
-          {activeRooms.map((room, index) => (
-            <Pressable
-              key={`${room}-${index}`}
-              onPress={() => handleJoinGame(room)}>
-              <View style={styles.activeRoomButton}>
-                <Text style={styles.activeRooms}>
-                  {room.userName} - {room.category}
-                </Text>
-              </View>
-            </Pressable>
-          ))}
-        </View>
       ) : (
-        <Text style={styles.noRoomsAvailable}>
-          No active games, press create new...
-        </Text>
+        <FlatList
+          data={activeRooms}
+          renderItem={({item}) => (
+            <RoomItem room={item} handleJoinGame={handleJoinGame} />
+          )}
+          ListHeaderComponent={
+            <Text style={styles.activeRoomsTitle}>Active Games</Text>
+          }
+          ListEmptyComponent={
+            <Text style={styles.noRoomsAvailable}>
+              No active games, press create new...
+            </Text>
+          }
+        />
       )}
-    </ScrollView>
+    </View>
   );
 }
 
