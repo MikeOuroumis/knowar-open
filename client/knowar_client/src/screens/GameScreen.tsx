@@ -22,7 +22,7 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {prepareQuestions} from '../util/questions';
 
 export type GameScreenParams = {
-  categoryId: number;
+  categoryId: string;
   isHost: boolean;
   isSinglePlayer: boolean;
 };

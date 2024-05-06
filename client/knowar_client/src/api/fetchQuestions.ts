@@ -2,7 +2,7 @@ import axios from 'axios';
 import {QuestionInterface} from '../types/questions';
 
 export async function fetchQuestionsFromAPI(
-  categoryId: number,
+  categoryId: string,
   amount = 10,
 ): Promise<QuestionInterface[] | null> {
   try {
