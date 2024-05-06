@@ -1,6 +1,6 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {COLOR_LIST} from '../constants/colors';
-import {IRoom} from '../../../../shared/types/Room';
+import {IRoom} from '../../../shared/types/Room';
 
 interface ActiveRoomProps {
   room: IRoom;
