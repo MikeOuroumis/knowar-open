@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {apiUrl} from '../constants/constants';
+import {apiUrl} from '../config';
 
 export const deleteUser = async (userId: string) => {
   const response = await axios.post(`${apiUrl}/deleteUser`, {

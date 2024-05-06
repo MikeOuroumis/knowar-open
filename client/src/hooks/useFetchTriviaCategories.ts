@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
-import {TRIVIA_CATEGORY_URL} from '../constants/constants';
+import {TRIVIA_CATEGORY_URL} from '../config';
 import {CategoryInterface} from '../types/category';
 import {Alert} from 'react-native';
 

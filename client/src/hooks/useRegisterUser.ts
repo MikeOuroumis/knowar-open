@@ -1,5 +1,5 @@
 import {AuthContext} from '../store/auth-context';
-import {apiUrl} from '../constants/constants';
+import {apiUrl} from '../config';
 import {Alert} from 'react-native';
 import {useContext, useState} from 'react';
 import {

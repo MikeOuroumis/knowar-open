@@ -1,4 +1,4 @@
-import {apiUrl} from '../constants/constants';
+import {apiUrl} from '../config';
 import {useContext, useState} from 'react';
 import {Alert} from 'react-native';
 import {AuthContext} from '../store/auth-context';
