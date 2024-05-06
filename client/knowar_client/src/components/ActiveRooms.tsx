@@ -7,22 +7,12 @@ import {
 } from 'react-native';
 import {useRoomListener} from '../hooks/useRoomListener';
 import {COLOR_LIST} from '../constants/colors';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
-import {SocketEvents} from '../socket/SocketEvents';
-import socket from '../socket/socket';
-import {IRoom} from '../../../../shared/types/Room';
 import {RoomItem} from './RoomItem';
+import {useJoinGame} from '../hooks/useJoinGame';
 
 export function ActiveRooms() {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
   const {activeRooms, loading} = useRoomListener();
-
-  const handleJoinGame = (roomId: IRoom) => {
-    socket.emit(SocketEvents.JOIN_ROOM, roomId);
-    navigation.navigate(AuthenticatedScreens.GameScreen);
-  };
+  const handleJoinGame = useJoinGame();
 
   return (
     <View style={styles.scrollView}>
