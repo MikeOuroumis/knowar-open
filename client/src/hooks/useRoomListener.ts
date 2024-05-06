@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
-import {apiUrl} from '../constants/constants';
+import {apiUrl} from '../config';
 import {SocketEvents} from '../socket/SocketEvents';
 import {Alert} from 'react-native';
 import {IRoom} from '../../../shared/types/Room';

@@ -1,6 +1,6 @@
 import {AuthContext} from '../store/auth-context';
 import socket from '../socket/socket';
-import {apiUrl} from '../constants/constants';
+import {apiUrl} from '../config';
 import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
