@@ -1,38 +1,34 @@
 import {useCallback, useContext, useState} from 'react';
-import {deleteUser} from '../api/userService';
+import * as AuthService from '../services/AuthService';
+import * as KeychainService from '../services/KeychainService';
 import {AuthContext} from '../store/auth-context';
 import {Alert} from 'react-native';
 
 export function useDeleteAccount() {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const {userId, logout} = useContext(AuthContext);
 
   const deleteAccount = useCallback(() => {
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
       setLoading(true);
-      setError(null);
 
-      deleteUser(userId)
-        .then(response => {
-          if (response.status === 'ok') {
-            Alert.alert(
-              'Success',
-              'Your account has been successfully deleted.',
-              [{text: 'OK', onPress: () => logout()}],
-            );
-          } else {
-            throw new Error('Failed to delete the account.');
-          }
-        })
-        .catch(err => {
-          if (err instanceof Error) {
-            setError(err);
-          }
-        })
-        .finally(() => {
-          setLoading(false);
-        });
+      try {
+        const response = await AuthService.deleteUser(userId);
+        if (response.status === 'ok') {
+          KeychainService.removeCredentials();
+          Alert.alert(
+            'Success',
+            'Your account has been successfully deleted.',
+            [{text: 'OK', onPress: () => logout()}],
+          );
+        } else {
+          throw new Error('Failed to delete the account.');
+        }
+      } catch (error) {
+        console.error('Failed to delete the account', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     Alert.alert(
@@ -49,6 +45,5 @@ export function useDeleteAccount() {
   return {
     deleteAccount,
     loading,
-    error,
   };
 }
