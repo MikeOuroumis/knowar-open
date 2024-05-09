@@ -22,6 +22,7 @@ export function useRetrieveCredentials(): boolean {
     }
 
     retrieveCredentials();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return isLoading;
