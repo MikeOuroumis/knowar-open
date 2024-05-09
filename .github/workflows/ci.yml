@@ -1,7 +1,5 @@
 name: CI Workflow
 
-# Specifies that this workflow should run on push events to the main branch
-# and on pull request events to the main branch.
 on:
   push:
     branches:
@@ -24,13 +22,17 @@ jobs:
           node-version: "18"
 
       - name: Install dependencies
+        working-directory: ./client
         run: npm install
 
       - name: Run ESLint
+        working-directory: ./client
         run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: Run Prettier Check
+        working-directory: ./client
         run: npx prettier --check .
 
       - name: Run Jest Tests
+        working-directory: ./client
         run: npm test
