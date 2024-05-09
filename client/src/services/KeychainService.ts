@@ -10,6 +10,17 @@ interface UserCredentials {
 type PartialUserCredentials = Omit<UserCredentials, 'email'> &
   Partial<Pick<UserCredentials, 'email'>>;
 
+export async function setCredentials(
+  email: string,
+  userCredentials: PartialUserCredentials,
+): Promise<void> {
+  try {
+    await Keychain.setGenericPassword(email, JSON.stringify(userCredentials));
+  } catch (error) {
+    console.error('Failed to set credentials to Keychain');
+  }
+}
+
 export async function loadCredentials(): Promise<null | UserCredentials> {
   try {
     const credentials = await Keychain.getGenericPassword();
@@ -32,17 +43,6 @@ export async function loadCredentials(): Promise<null | UserCredentials> {
   } catch (error) {
     console.error('Failed to load credentials from Keychain', error);
     return null;
-  }
-}
-
-export async function setCredentials(
-  email: string,
-  userCredentials: PartialUserCredentials,
-): Promise<void> {
-  try {
-    await Keychain.setGenericPassword(email, JSON.stringify(userCredentials));
-  } catch (error) {
-    console.error('Failed to set credentials to Keychain');
   }
 }
 
