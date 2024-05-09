@@ -1,0 +1,36 @@
+name: CI Workflow
+
+# Specifies that this workflow should run on push events to the main branch
+# and on pull request events to the main branch.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
+
+      - name: Run Prettier Check
+        run: npx prettier --check .
+
+      - name: Run Jest Tests
+        run: npm test
