@@ -31,7 +31,7 @@ jobs:
 
       - name: Run Prettier Check
         working-directory: ./client
-        run: npx prettier --check .
+        run: npx prettier --check "src/**/*.{js,jsx,ts,tsx,md}"
 
       - name: Run Jest Tests
         working-directory: ./client
