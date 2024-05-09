@@ -1,5 +1,5 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
-import {useCallback, useContext, useEffect} from 'react';
+import {useContext, useEffect} from 'react';
 import {AuthContext} from '../store/auth-context';
 import {
   AuthenticatedScreens,
