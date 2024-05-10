@@ -7,7 +7,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import {COLOR_LIST} from '../constants/colors';
 import createGameBG from '../assets/images/lobby_bg2.png';
-import {getCategoryInfo} from '../util/categories';
+import {getCategoryIdAndName} from '../util/categories';
 import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
@@ -17,7 +17,7 @@ export function SinglePlayerCreateGameScreen(): JSX.Element {
 
   const categories = useFetchTriviaCategories();
 
-  const categoryId = getCategoryInfo(selectedCategory, categories);
+  const categoryId = getCategoryIdAndName(selectedCategory, categories);
 
   const {startSinglePlayerGameHandler} =
     useSinglePlayerGameCreation(categoryId);

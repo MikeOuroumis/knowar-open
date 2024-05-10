@@ -4,7 +4,7 @@ type CategoryMap = {
   [key: string]: number;
 };
 
-export function getCategoryInfo(
+export function getCategoryIdAndName(
   categoryName: string | null,
   categories: CategoryInterface[],
 ) {
