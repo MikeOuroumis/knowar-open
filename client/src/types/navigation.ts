@@ -25,8 +25,7 @@ export type RootStackParamList = {
   [AuthenticatedScreens.MainMenuScreen]: undefined;
   [AuthenticatedScreens.MultiplayerLobbyScreen]: undefined;
   [AuthenticatedScreens.GameScreen]: GameScreenParams;
-  [AuthenticatedScreens.CreateGameScreen]: undefined;
-  [AuthenticatedScreens.SinglePlayerCreateGameScreen]: undefined;
+  [AuthenticatedScreens.CreateGameScreen]: {isSinglePlayer: boolean};
   [AuthenticatedScreens.AccountScreen]: undefined;
   [UnauthenticatedScreens.LoginScreen]: undefined;
   [UnauthenticatedScreens.RegisterScreen]: undefined;

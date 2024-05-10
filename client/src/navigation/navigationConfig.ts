@@ -10,7 +10,6 @@ import {
   UnauthenticatedScreens,
   InitialScreens,
 } from '../types/navigation';
-import {SinglePlayerCreateGameScreen} from '../screens/SinglePlayerCreateGameScreen';
 import {SplashScreen} from '../screens/SplashScreen';
 
 export const authenticatedScreens = [
@@ -21,10 +20,6 @@ export const authenticatedScreens = [
   },
   {name: AuthenticatedScreens.CreateGameScreen, component: CreateGameScreen},
   {name: AuthenticatedScreens.GameScreen, component: GameScreen},
-  {
-    name: AuthenticatedScreens.SinglePlayerCreateGameScreen,
-    component: SinglePlayerCreateGameScreen,
-  },
   {name: AuthenticatedScreens.AccountScreen, component: AccountScreen},
 ];
 
