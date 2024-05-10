@@ -9,21 +9,36 @@ import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
 export const useCreateGame = (
-  selectedCategory: {id: number; name: string} | null,
+  categoryName: string | null,
+  categoryId: string | null,
+  isSinglePlayer: boolean,
 ) => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const categories = useFetchTriviaCategories();
 
   const {userId, userName} = useContext(AuthContext);
 
-  async function createGameHandler() {
-    if (!selectedCategory) {
+  function startSinglePlayerGame() {
+    if (!categoryId) {
+      Alert.alert('Please select a category.');
+      return;
+    }
+
+    navigation.navigate(AuthenticatedScreens.GameScreen, {
+      categoryId,
+      isHost: true,
+      isSinglePlayer: true,
+    });
+  }
+
+  async function createRoom() {
+    if (!categoryName || !categoryId) {
       Alert.alert('Please select a category.');
       return;
     }
     try {
       const response = await axios.post(`${apiUrl}/create-room`, {
-        category: selectedCategory.name,
+        category: categoryName,
         userId: userId,
         userName,
       });
@@ -32,13 +47,13 @@ export const useCreateGame = (
         socket.emit('create_room', {
           roomId: userId,
           userName: userName,
-          category: selectedCategory.name,
+          category: categoryName,
         });
 
         navigation.navigate(AuthenticatedScreens.GameScreen, {
-          categoryId: selectedCategory.id,
+          categoryId,
           isHost: true,
-          isSinglePlayer: false,
+          isSinglePlayer,
         });
       } else {
         Alert.alert('Failed to create game room.');
@@ -49,5 +64,5 @@ export const useCreateGame = (
     }
   }
 
-  return {createGameHandler, categories};
+  return {createRoom, startSinglePlayerGame, categories};
 };

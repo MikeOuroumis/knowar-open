@@ -28,9 +28,9 @@ export default function MainMenuScreen(): JSX.Element {
             title="Single Player"
             style={styles.button}
             onPress={() =>
-              navigation.navigate(
-                AuthenticatedScreens.SinglePlayerCreateGameScreen,
-              )
+              navigation.navigate(AuthenticatedScreens.CreateGameScreen, {
+                isSinglePlayer: true,
+              })
             }
           />
           <ButtonComponent

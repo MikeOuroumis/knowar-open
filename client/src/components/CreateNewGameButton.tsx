@@ -10,7 +10,11 @@ export function CreateNewGameButton() {
     <ButtonComponent
       title="Create New"
       style={styles.createNewButton}
-      onPress={() => navigation.navigate(AuthenticatedScreens.CreateGameScreen)}
+      onPress={() =>
+        navigation.navigate(AuthenticatedScreens.CreateGameScreen, {
+          isSinglePlayer: false,
+        })
+      }
     />
   );
 }

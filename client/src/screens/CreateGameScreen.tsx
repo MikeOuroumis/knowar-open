@@ -10,18 +10,27 @@ import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function CreateGameScreen(): JSX.Element {
+type GameScreenRoute = {params: {isSinglePlayer: boolean}};
+
+export default function CreateGameScreen({
+  route,
+}: {
+  route: GameScreenRoute;
+}): JSX.Element {
+  const {isSinglePlayer} = route.params;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null,
   );
 
   const availableCategories = useFetchTriviaCategories();
 
-  const category = {id: selectedCategoryId, name: selectedCategoryName};
-
-  const {createGameHandler} = useCreateGame(category);
+  const {createRoom, startSinglePlayerGame} = useCreateGame(
+    selectedCategoryName,
+    selectedCategoryId,
+    isSinglePlayer,
+  );
 
   return (
     <ImageBackground source={createGameBG} style={styles.imageBackground}>
@@ -47,15 +56,25 @@ export default function CreateGameScreen(): JSX.Element {
           />
           <ButtonComponent
             title="Start Game"
-            onPress={createGameHandler}
+            onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
             disabled={!selectedCategoryName}
           />
-          <ButtonComponent
-            title="Back to Lobby"
-            onPress={() =>
-              navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
-            }
-          />
+          {isSinglePlayer && (
+            <ButtonComponent
+              title="Back to main menu"
+              onPress={() =>
+                navigation.navigate(AuthenticatedScreens.MainMenuScreen)
+              }
+            />
+          )}
+          {!isSinglePlayer && (
+            <ButtonComponent
+              title="Back to Lobby"
+              onPress={() =>
+                navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
+              }
+            />
+          )}
         </View>
       </LinearGradient>
     </ImageBackground>
