@@ -8,21 +8,29 @@ import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
-import {getCategoryInfo} from '../util/categories';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export default function CreateGameScreen(): JSX.Element {
+type GameScreenRoute = {params: {isSinglePlayer: boolean}};
+
+export default function CreateGameScreen({
+  route,
+}: {
+  route: GameScreenRoute;
+}): JSX.Element {
+  const {isSinglePlayer} = route.params;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [_selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
     null,
   );
 
-  const categories = useFetchTriviaCategories();
+  const availableCategories = useFetchTriviaCategories();
 
-  const categoryId = getCategoryInfo(selectedCategory, categories);
-
-  const {createGameHandler} = useCreateGame(categoryId);
+  const {createRoom, startSinglePlayerGame} = useCreateGame(
+    selectedCategoryName,
+    selectedCategoryId,
+    isSinglePlayer,
+  );
 
   return (
     <ImageBackground source={createGameBG} style={styles.imageBackground}>
@@ -40,23 +48,33 @@ export default function CreateGameScreen(): JSX.Element {
         <View style={styles.container}>
           <Text style={styles.title}>Choose a category to start the game!</Text>
           <DropdownComponent
-            options={categories.map(category => category.name)}
+            options={availableCategories.map(category => category.name)}
             onSelectOption={(selectedItem, index) => {
-              setSelectedCategory(selectedItem);
-              setSelectedCategoryId(categories[index].id);
+              setSelectedCategoryName(selectedItem);
+              setSelectedCategoryId(availableCategories[index].id);
             }}
           />
           <ButtonComponent
             title="Start Game"
-            onPress={createGameHandler}
-            disabled={!selectedCategory}
+            onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
+            disabled={!selectedCategoryName}
           />
-          <ButtonComponent
-            title="Back to Lobby"
-            onPress={() =>
-              navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
-            }
-          />
+          {isSinglePlayer && (
+            <ButtonComponent
+              title="Back to main menu"
+              onPress={() =>
+                navigation.navigate(AuthenticatedScreens.MainMenuScreen)
+              }
+            />
+          )}
+          {!isSinglePlayer && (
+            <ButtonComponent
+              title="Back to Lobby"
+              onPress={() =>
+                navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
+              }
+            />
+          )}
         </View>
       </LinearGradient>
     </ImageBackground>
