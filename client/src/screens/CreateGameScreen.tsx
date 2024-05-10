@@ -8,21 +8,20 @@ import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {COLOR_LIST} from '../constants/colors';
-import {getCategoryIdAndName} from '../util/categories';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export default function CreateGameScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [_selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
     null,
   );
 
-  const categories = useFetchTriviaCategories();
+  const availableCategories = useFetchTriviaCategories();
 
-  const categoryId = getCategoryIdAndName(selectedCategory, categories);
+  const category = {id: selectedCategoryId, name: selectedCategoryName};
 
-  const {createGameHandler} = useCreateGame(categoryId);
+  const {createGameHandler} = useCreateGame(category);
 
   return (
     <ImageBackground source={createGameBG} style={styles.imageBackground}>
@@ -40,16 +39,16 @@ export default function CreateGameScreen(): JSX.Element {
         <View style={styles.container}>
           <Text style={styles.title}>Choose a category to start the game!</Text>
           <DropdownComponent
-            options={categories.map(category => category.name)}
+            options={availableCategories.map(category => category.name)}
             onSelectOption={(selectedItem, index) => {
-              setSelectedCategory(selectedItem);
-              setSelectedCategoryId(categories[index].id);
+              setSelectedCategoryName(selectedItem);
+              setSelectedCategoryId(availableCategories[index].id);
             }}
           />
           <ButtonComponent
             title="Start Game"
             onPress={createGameHandler}
-            disabled={!selectedCategory}
+            disabled={!selectedCategoryName}
           />
           <ButtonComponent
             title="Back to Lobby"

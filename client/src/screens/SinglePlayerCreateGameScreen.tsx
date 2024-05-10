@@ -7,20 +7,20 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import {COLOR_LIST} from '../constants/colors';
 import createGameBG from '../assets/images/lobby_bg2.png';
-import {getCategoryIdAndName} from '../util/categories';
 import {useSinglePlayerGameCreation} from '../hooks/useSinglePlayerGameCreation';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export function SinglePlayerCreateGameScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(
+    null,
+  );
 
   const categories = useFetchTriviaCategories();
 
-  const categoryId = getCategoryIdAndName(selectedCategory, categories);
-
-  const {startSinglePlayerGameHandler} =
-    useSinglePlayerGameCreation(categoryId);
+  const category = {id: selectedCategoryId, name: selectedCategoryName};
+  const {startSinglePlayerGameHandler} = useSinglePlayerGameCreation(category);
 
   return (
     <ImageBackground source={createGameBG} style={styles.backgroundImage}>
@@ -39,14 +39,15 @@ export function SinglePlayerCreateGameScreen(): JSX.Element {
           <Text style={styles.title}>Choose a category to start the game!</Text>
           <DropdownComponent
             options={categories.map(category => category.name)} // Pass an array of category names as options
-            onSelectOption={selectedItem => {
-              setSelectedCategory(selectedItem);
+            onSelectOption={(selectedItem, index) => {
+              setSelectedCategoryName(selectedItem);
+              setSelectedCategoryId(categories[index].id);
             }}
           />
           <ButtonComponent
             title="Start Game"
             onPress={startSinglePlayerGameHandler}
-            disabled={!selectedCategory}
+            disabled={!selectedCategoryName}
           />
           <ButtonComponent
             title="Back"
