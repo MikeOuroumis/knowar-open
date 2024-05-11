@@ -1,4 +1,3 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import * as AuthService from '../../../services/AuthService';
 import {
@@ -6,12 +5,13 @@ import {
   loginUserEndpoint,
   registerUserEndpoint,
 } from '../../../config';
+import mainAxiosClient from '../../../api/axiosClients';
 
 describe('AuthService', () => {
   let mock: MockAdapter;
 
   beforeEach(() => {
-    mock = new MockAdapter(axios);
+    mock = new MockAdapter(mainAxiosClient);
   });
 
   afterEach(() => {

@@ -5,21 +5,19 @@ import socket from '../socket/socket';
 import ButtonComponent from '../components/ButtonComponent';
 import {AuthContext} from '../store/auth-context';
 import {SocketEvents} from '../socket/SocketEvents';
-import {fetchQuestionsFromAPI} from '../api/fetchQuestions';
 import {useSocketLogic} from '../hooks/useSocketLogic';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
 import {COLOR_LIST} from '../constants/colors';
 import {Score} from '../components/GameScreen/Score';
-import {QuestionInterface} from '../types/questions';
 import {useGameLogic} from '../hooks/useGameLogic';
 import {TimeBar} from '../components/GameScreen/TimeBar';
 import {useGameContext} from '../store/GameContext';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {prepareQuestions} from '../util/questions';
+import {useQuestions} from '../hooks/useQuestions';
 
 export type GameScreenParams = {
   categoryId: string;
@@ -45,11 +43,12 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
   const {triggerResetTimer} = useGameContext();
 
   const [opponent, setOpponent] = useState(false);
-  const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [answeredCorrect, setAnsweredCorrect] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState('');
 
+  const {questions, setQuestions, fetchAndPrepareQuestions} =
+    useQuestions(categoryId);
   const {
     gameEnded,
     currentQuestionIndex,
@@ -60,17 +59,6 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
   } = useGameLogic(questions, userId);
 
   useSocketLogic(isHost, opponent, questions, setOpponent, setQuestions);
-
-  const fetchAndPrepareQuestions = async () => {
-    const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
-
-    if (!fetchedQuestions) {
-      return;
-    }
-
-    const preparedQuestions = prepareQuestions(fetchedQuestions);
-    setQuestions(preparedQuestions);
-  };
 
   useEffect(() => {
     // set is answered to false when the question changes
