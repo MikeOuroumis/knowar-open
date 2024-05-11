@@ -11,4 +11,5 @@ export enum SocketEvents {
   SEND_ANSWER = 'send_answer',
   UPDATE_SCORE_AND_STATE = 'update_score_and_state',
   OPPONENT_UPDATE_STATE = 'opponent_update_state',
+  CREATE_ROOM = 'create_room',
 }
