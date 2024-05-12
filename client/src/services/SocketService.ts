@@ -35,7 +35,7 @@ export async function createRoom(
   }
 }
 
-async function saveRoomInDatabase(
+export async function saveRoomInDatabase( // exported only to be tested with Jest
   category: string,
   userId: string,
   userName: string,
