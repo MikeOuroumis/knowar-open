@@ -1,36 +1,36 @@
-import axios from 'axios';
 import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
-import {apiUrl} from '../config';
 import {SocketEvents} from '../socket/SocketEvents';
 import {Alert} from 'react-native';
 import {IRoom} from '../../../shared/types/Room';
+import * as SocketService from '../services/SocketService';
 
 export const useRoomListener = () => {
   const [activeRooms, setActiveRooms] = useState<IRoom[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const fetchActiveRooms = async () => {
+      try {
+        setLoading(true);
+        const rooms = await SocketService.fetchActiveRooms();
+
+        setActiveRooms(rooms);
+      } catch (err) {
+        Alert.alert('Error', "Couldn't find rooms, please try again.", [
+          {text: 'Retry', onPress: () => fetchActiveRooms()},
+          {text: 'Cancel', style: 'cancel'},
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     // prevent race condition
-    setTimeout(() => {
-      setLoading(true);
+    const timer = setTimeout(fetchActiveRooms, 1000);
 
-      const fetchActiveRooms = async () => {
-        try {
-          const response = await axios.get(`${apiUrl}/active-rooms`);
-          const rooms: IRoom[] = response.data.rooms;
-
-          setActiveRooms(rooms);
-        } catch (err) {
-          console.error("Couldn't fetch rooms", err);
-          Alert.alert("Couldn't find rooms");
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchActiveRooms();
-    }, 1000);
+    // Clean up the timer when the component unmounts
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {

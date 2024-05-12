@@ -1,12 +1,10 @@
 import {AuthContext} from '../store/auth-context';
-import socket from '../socket/socket';
-import {apiUrl} from '../config';
-import axios from 'axios';
 import {useContext} from 'react';
 import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
+import * as SocketService from '../services/SocketService';
 
 export const useCreateGame = (
   categoryName: string | null,
@@ -37,19 +35,13 @@ export const useCreateGame = (
       return;
     }
     try {
-      const response = await axios.post(`${apiUrl}/create-room`, {
-        category: categoryName,
-        userId: userId,
+      const roomId = await SocketService.createRoom(
+        categoryName,
+        userId,
         userName,
-      });
+      );
 
-      if (response.data && response.data.status === 'ok') {
-        socket.emit('create_room', {
-          roomId: userId,
-          userName: userName,
-          category: categoryName,
-        });
-
+      if (roomId) {
         navigation.navigate(AuthenticatedScreens.GameScreen, {
           categoryId,
           isHost: true,
@@ -60,7 +52,7 @@ export const useCreateGame = (
       }
     } catch (error) {
       Alert.alert("Couldn't create game room.");
-      console.log("Couldn't create game room.", error);
+      console.error("Couldn't create game room.", error);
     }
   }
 
