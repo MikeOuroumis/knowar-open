@@ -6,7 +6,7 @@ import {
   View,
   ImageBackground,
 } from 'react-native';
-import loadingImagebg from '../assets/images/galaxy.png';
+import {galaxyImage} from '../assets/images';
 import {colorList} from '../constants/colors';
 import ButtonComponent from '../components/ButtonComponent';
 import {useNavigation} from '@react-navigation/native';
@@ -30,7 +30,7 @@ type LoadingScreenNavigationProp = NativeStackNavigationProp<
 export default function LoadingScreen({text, buttonText}: LoadingScreenProps) {
   const navigation = useNavigation<LoadingScreenNavigationProp>();
   return (
-    <ImageBackground source={loadingImagebg} style={styles.backgroundImage}>
+    <ImageBackground source={galaxyImage} style={styles.backgroundImage}>
       <View style={styles.backgroundImageOverlay}>
         <View style={[styles.container, styles.horizontal]}>
           <Text style={styles.text}>{text}</Text>

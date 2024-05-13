@@ -3,7 +3,7 @@ import {View, StyleSheet, ImageBackground} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
 import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import lobbyBackground from '../assets/images/lobby_bg2.png';
+import {LobbyBg} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {ActiveRooms} from '../components/ActiveRooms';
@@ -14,7 +14,7 @@ export default function MultiplayerLobbyScreen(): JSX.Element {
 
   return (
     <ImageBackground
-      source={lobbyBackground}
+      source={LobbyBg}
       style={styles.globalView}
       resizeMode="cover">
       <LinearGradient

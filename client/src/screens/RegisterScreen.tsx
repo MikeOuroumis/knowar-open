@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, ImageBackground} from 'react-native';
 import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
 import {LinearGradient} from 'react-native-linear-gradient';
-import backgroundImage from '../assets/images/loginScreen_bg.png';
+import {LoginScreenBg} from '../assets/images';
 import {colorList} from '../constants/colors';
 import {useRegisterUser} from '../hooks/useRegisterUser';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -33,7 +33,7 @@ export default function RegisterScreen(): JSX.Element {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={backgroundImage}
+        source={LoginScreenBg}
         style={styles.globalView}
         resizeMode="cover">
         <LinearGradient

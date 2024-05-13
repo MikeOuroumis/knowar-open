@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useContext} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
-import logo from '../assets/images/Knowar_logo.png';
+import {KnowarLogo} from '../assets/images';
 import {colorList} from '../constants/colors';
 import {AuthContext} from '../store/auth-context';
 import {
@@ -49,7 +49,7 @@ export function SplashScreen(): JSX.Element {
   return (
     <View style={styles.container}>
       <Animated.Image
-        source={logo}
+        source={KnowarLogo}
         style={[
           styles.logo,
           {

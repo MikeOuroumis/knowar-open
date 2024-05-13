@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
-import backgroundImage from '../assets/images/loginScreen_bg.png';
+import {LoginScreenBg} from '../assets/images';
 import {ImageBackground} from 'react-native';
 import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
@@ -31,7 +31,7 @@ export default function LoginScreen(): JSX.Element {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={backgroundImage}
+        source={LoginScreenBg}
         style={styles.globalView}
         resizeMode="cover">
         <LinearGradient

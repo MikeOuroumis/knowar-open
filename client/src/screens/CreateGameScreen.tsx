@@ -5,7 +5,7 @@ import DropdownComponent from '../components/DropdownComponent';
 import {useCreateGame} from '../hooks/useCreateGame';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
-import createGameBG from '../assets/images/lobby_bg2.png';
+import {LobbyBg} from '../assets/images';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {colorList} from '../constants/colors';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
@@ -33,7 +33,7 @@ export default function CreateGameScreen({
   );
 
   return (
-    <ImageBackground source={createGameBG} style={styles.imageBackground}>
+    <ImageBackground source={LobbyBg} style={styles.imageBackground}>
       <LinearGradient
         colors={[
           'rgba(0,0,0,0.8)',

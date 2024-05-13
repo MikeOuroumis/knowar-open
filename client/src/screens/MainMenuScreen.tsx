@@ -5,7 +5,7 @@ import ButtonComponent from '../components/ButtonComponent';
 import {colorList} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../types/SocketEvents';
-import mainMenuBackground from '../assets/images/Knowar_logo.png';
+import {KnowarLogo} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
@@ -20,7 +20,7 @@ export default function MainMenuScreen(): JSX.Element {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={mainMenuBackground}
+        source={KnowarLogo}
         style={styles.globalView}
         resizeMode="cover">
         <View style={styles.buttonWrapper}>
