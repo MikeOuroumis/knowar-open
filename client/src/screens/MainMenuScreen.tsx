@@ -13,7 +13,7 @@ export default function MainMenuScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   useEffect(() => {
     socket.on(SocketEvents.CONNECT, () => {
-      socket.emit('on_connect', 'someone connected');
+      socket.emit(SocketEvents.ON_CONNECT, 'someone connected');
     });
   }, []);
 

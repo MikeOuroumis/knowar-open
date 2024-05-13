@@ -1,5 +1,5 @@
 import MockAdapter from 'axios-mock-adapter';
-import * as AuthService from '../../../services/AuthService';
+import {AuthService} from '../../../services';
 import {
   deleteUserEndpoint,
   loginUserEndpoint,

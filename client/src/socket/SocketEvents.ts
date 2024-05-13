@@ -1,5 +1,6 @@
 export enum SocketEvents {
   CONNECT = 'connect',
+  ON_CONNECT = 'on_connect',
   LEAVE_ROOM = 'leave_room',
   NEW_ROOM_AVAILABLE = 'new_room_available',
   ROOM_DELETED = 'room_deleted',
