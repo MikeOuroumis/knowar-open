@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import {Alert} from 'react-native';
 import {IRoom} from '../../../shared/types/Room';
 import {SocketService} from '../services';

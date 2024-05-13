@@ -1,6 +1,6 @@
 import {IRoom} from '../../../shared/types/Room';
 import mainAxiosClient from '../api/axiosClients';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import socket from '../socket/socket';
 
 export async function fetchActiveRooms(): Promise<IRoom[]> {

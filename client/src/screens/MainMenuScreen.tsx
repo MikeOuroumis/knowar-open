@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import ButtonComponent from '../components/ButtonComponent';
 import {colorList} from '../constants/colors';
 import socket from '../socket/socket';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import mainMenuBackground from '../assets/images/Knowar_logo.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';

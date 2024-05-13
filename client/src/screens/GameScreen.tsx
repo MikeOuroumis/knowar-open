@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 import socket from '../socket/socket';
 import ButtonComponent from '../components/ButtonComponent';
 import {AuthContext} from '../store/auth-context';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import {useSocketLogic} from '../hooks/useSocketLogic';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
