@@ -4,7 +4,7 @@ import Input from '../components/Input';
 import ButtonComponent from '../components/ButtonComponent';
 import backgroundImage from '../assets/images/loginScreen_bg.png';
 import {ImageBackground} from 'react-native';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useLogin} from '../hooks/useLogin';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -35,7 +35,7 @@ export default function LoginScreen(): JSX.Element {
         style={styles.globalView}
         resizeMode="cover">
         <LinearGradient
-          colors={['transparent', COLOR_LIST.darkBackgroundBlue]}
+          colors={['transparent', colorList.darkBackgroundBlue]}
           style={styles.linearGradient}
           start={{x: 0, y: 0}}
           end={{x: 0, y: 1}}>
@@ -43,7 +43,7 @@ export default function LoginScreen(): JSX.Element {
             placeholder="Email"
             style={styles.input}
             textStyle={styles.inputText}
-            placeholderTextColor={COLOR_LIST.neonPink}
+            placeholderTextColor={colorList.neonPink}
             keyboardType="email-address"
             onChangeText={setEmail}
           />
@@ -51,7 +51,7 @@ export default function LoginScreen(): JSX.Element {
             placeholder="Password"
             style={styles.input}
             textStyle={styles.inputText}
-            placeholderTextColor={COLOR_LIST.neonPink}
+            placeholderTextColor={colorList.neonPink}
             keyboardType="default"
             secureTextEntry={true}
             onChangeText={setPassword}
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   input: {
-    backgroundColor: COLOR_LIST.white,
-    shadowColor: COLOR_LIST.white,
+    backgroundColor: colorList.white,
+    shadowColor: colorList.white,
     shadowOpacity: 1,
     shadowRadius: 20,
     shadowOffset: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     elevation: 10,
   },
   container: {
-    backgroundColor: COLOR_LIST.darkBackgroundBlue,
+    backgroundColor: colorList.darkBackgroundBlue,
     flex: 1,
     justifyContent: 'center',
   },
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   registerText: {color: '#fff', textAlign: 'center'},
   hereText: {
-    color: COLOR_LIST.neonPink,
+    color: colorList.neonPink,
     fontWeight: 'bold',
   },
 });

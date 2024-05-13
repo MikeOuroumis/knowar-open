@@ -1,6 +1,6 @@
 import React from 'react';
 import {TextInput, StyleSheet, ViewStyle, TextStyle} from 'react-native';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 
 interface InputProps {
   placeholder: string;
@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     height: 45,
     marginHorizontal: 35,
-    color: COLOR_LIST.neonPink,
+    color: colorList.neonPink,
     paddingHorizontal: 10,
     marginTop: 20,
     backgroundColor: 'white',

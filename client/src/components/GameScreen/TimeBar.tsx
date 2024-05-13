@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import {COLOR_LIST} from '../../constants/colors';
+import {colorList} from '../../constants/colors';
 import {useGameContext} from '../../store/GameContext';
 
 type TimeBarProps = {
@@ -40,10 +40,10 @@ export function TimeBar({onTimeElapsed}: TimeBarProps) {
     <View style={styles.timeBar}>
       <LinearGradient
         colors={[
-          COLOR_LIST.deepBlue,
-          COLOR_LIST.brightPurple,
-          COLOR_LIST.neonPink,
-          COLOR_LIST.electricBlue,
+          colorList.deepBlue,
+          colorList.brightPurple,
+          colorList.neonPink,
+          colorList.electricBlue,
         ]}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}

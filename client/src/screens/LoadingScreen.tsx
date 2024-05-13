@@ -7,7 +7,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import loadingImagebg from '../assets/images/galaxy.png';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import ButtonComponent from '../components/ButtonComponent';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -34,7 +34,7 @@ export default function LoadingScreen({text, buttonText}: LoadingScreenProps) {
       <View style={styles.backgroundImageOverlay}>
         <View style={[styles.container, styles.horizontal]}>
           <Text style={styles.text}>{text}</Text>
-          <ActivityIndicator size="large" color={COLOR_LIST.white} />
+          <ActivityIndicator size="large" color={colorList.white} />
         </View>
         {buttonText && navigation && (
           <ButtonComponent
@@ -65,11 +65,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   text: {
-    color: COLOR_LIST.white,
+    color: colorList.white,
     marginBottom: 20,
     fontSize: 30,
     textAlign: 'center',
-    textShadowColor: COLOR_LIST.white,
+    textShadowColor: colorList.white,
     textShadowRadius: 5,
   },
 });

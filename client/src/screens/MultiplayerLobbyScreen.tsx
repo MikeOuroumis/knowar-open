@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import ButtonComponent from '../components/ButtonComponent';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import lobbyBackground from '../assets/images/lobby_bg2.png';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingBottom: 20,
-    borderColor: COLOR_LIST.vibrantCyan,
+    borderColor: colorList.vibrantCyan,
     borderWidth: 2,
     borderRadius: 10,
     marginHorizontal: 20,

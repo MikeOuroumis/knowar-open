@@ -7,7 +7,7 @@ import {
   TextStyle,
   ActivityIndicator,
 } from 'react-native';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface ButtonComponentProps {
@@ -54,12 +54,12 @@ export default function ButtonComponent({
       onPress={onPress}
       disabled={disabled}>
       <LinearGradient
-        colors={[COLOR_LIST.neonPink, COLOR_LIST.softPink]}
+        colors={[colorList.neonPink, colorList.softPink]}
         style={getGradientStyle()}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}>
         {isLoading ? (
-          <ActivityIndicator size={'small'} color={COLOR_LIST.white} />
+          <ActivityIndicator size={'small'} color={colorList.white} />
         ) : (
           <Text style={[styles.buttonText, textStyle]}>{title}</Text>
         )}
@@ -70,7 +70,7 @@ export default function ButtonComponent({
 
 const styles = StyleSheet.create({
   gradient: {
-    shadowColor: COLOR_LIST.softPink,
+    shadowColor: colorList.softPink,
     shadowOpacity: 1,
     shadowRadius: 3,
     elevation: 10,

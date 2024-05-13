@@ -1,4 +1,4 @@
-export const COLOR_LIST = {
+export const colorList = {
   deepBlue: '#1C185C',
   brightPurple: '#8720FF',
   neonPink: '#FA2398',

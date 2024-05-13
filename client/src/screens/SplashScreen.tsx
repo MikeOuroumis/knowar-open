@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useContext} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import logo from '../assets/images/Knowar_logo.png';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import {AuthContext} from '../store/auth-context';
 import {
   AuthenticatedScreens,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: COLOR_LIST.darkBackgroundBlue,
+    backgroundColor: colorList.darkBackgroundBlue,
   },
   logo: {
     width: '100%',

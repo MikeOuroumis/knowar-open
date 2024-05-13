@@ -2,7 +2,7 @@ import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {useEffect} from 'react';
 import ButtonComponent from '../components/ButtonComponent';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import mainMenuBackground from '../assets/images/Knowar_logo.png';
@@ -55,7 +55,7 @@ export default function MainMenuScreen(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLOR_LIST.darkBackgroundBlue,
+    backgroundColor: colorList.darkBackgroundBlue,
     flex: 1,
   },
   globalView: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     elevation: 10,
-    shadowColor: COLOR_LIST.vibrantCyan,
+    shadowColor: colorList.vibrantCyan,
     shadowOffset: {width: 0, height: 2},
   },
   logo: {
@@ -78,9 +78,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
-    borderColor: COLOR_LIST.softPink,
+    borderColor: colorList.softPink,
     borderWidth: 2,
-    shadowColor: COLOR_LIST.softPink,
+    shadowColor: colorList.softPink,
     shadowOpacity: 1,
     shadowRadius: 3,
     elevation: 10,

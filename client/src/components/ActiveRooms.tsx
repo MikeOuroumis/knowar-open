@@ -1,6 +1,6 @@
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {useRoomListener} from '../hooks/useRoomListener';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import {RoomItem} from './RoomItem';
 import {useJoinGame} from '../hooks/useJoinGame';
 import {ActiveGamesHeader} from './ActiveGamesHeader';
@@ -13,7 +13,7 @@ export function ActiveRooms() {
   return (
     <View style={styles.container}>
       {loading ? (
-        <ActivityIndicator size="large" color={COLOR_LIST.vibrantCyan} />
+        <ActivityIndicator size="large" color={colorList.vibrantCyan} />
       ) : (
         <FlatList
           data={activeRooms}

@@ -9,7 +9,7 @@ import {useSocketLogic} from '../hooks/useSocketLogic';
 import {Question} from '../components/GameScreen/Question';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import {Score} from '../components/GameScreen/Score';
 import {useGameLogic} from '../hooks/useGameLogic';
 import {TimeBar} from '../components/GameScreen/TimeBar';
@@ -192,7 +192,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLOR_LIST.black,
+    backgroundColor: colorList.black,
     justifyContent: 'center',
   },
   questionWrapper: {

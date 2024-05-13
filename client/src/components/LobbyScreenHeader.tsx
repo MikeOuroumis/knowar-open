@@ -1,6 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
 import {CreateNewGameButton} from './CreateNewGameButton';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 
 export function LobbyScreenHeader() {
   return (
@@ -18,7 +18,7 @@ export function LobbyScreenHeader() {
 const styles = StyleSheet.create({
   joinGameRow: {
     flexDirection: 'row',
-    borderBottomColor: COLOR_LIST.vibrantCyan,
+    borderBottomColor: colorList.vibrantCyan,
     borderBottomWidth: 2,
     paddingBottom: 10,
     marginBottom: 10,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   activeRoomsTitle: {
-    color: COLOR_LIST.white,
+    color: colorList.white,
     textAlign: 'center',
     marginLeft: 20,
     marginVertical: 20,

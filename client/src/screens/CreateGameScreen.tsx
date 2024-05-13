@@ -7,7 +7,7 @@ import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
 import createGameBG from '../assets/images/lobby_bg2.png';
 import {LinearGradient} from 'react-native-linear-gradient';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 type GameScreenRoute = {params: {isSinglePlayer: boolean}};
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingBottom: 20,
-    borderColor: COLOR_LIST.brightPurple,
+    borderColor: colorList.brightPurple,
     borderWidth: 2,
     borderRadius: 10,
     marginHorizontal: 20,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     padding: 20,
     color: '#fff',
-    textShadowColor: COLOR_LIST.brightPurple,
+    textShadowColor: colorList.brightPurple,
     textShadowRadius: 10,
     marginBottom: 70,
     fontWeight: '400',
