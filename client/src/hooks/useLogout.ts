@@ -1,6 +1,6 @@
 import {AuthContext} from '../store/auth-context';
 import {useContext} from 'react';
-import * as KeychainService from '../services/KeychainService';
+import {KeychainService} from '../services';
 
 export function useLogout() {
   const authCtx = useContext(AuthContext);

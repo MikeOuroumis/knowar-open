@@ -4,7 +4,7 @@ import {useFetchTriviaCategories} from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import * as SocketService from '../services/SocketService';
+import {SocketService} from '../services';
 
 export const useCreateGame = (
   categoryName: string | null,

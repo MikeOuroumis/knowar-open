@@ -3,7 +3,7 @@ import socket from '../socket/socket';
 import {SocketEvents} from '../socket/SocketEvents';
 import {Alert} from 'react-native';
 import {IRoom} from '../../../shared/types/Room';
-import * as SocketService from '../services/SocketService';
+import {SocketService} from '../services';
 
 export const useRoomListener = () => {
   const [activeRooms, setActiveRooms] = useState<IRoom[]>([]);

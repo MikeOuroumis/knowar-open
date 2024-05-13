@@ -1,6 +1,5 @@
 import {useCallback, useContext, useState} from 'react';
-import * as AuthService from '../services/AuthService';
-import * as KeychainService from '../services/KeychainService';
+import {AuthService, KeychainService} from '../services';
 import {AuthContext} from '../store/auth-context';
 import {Alert} from 'react-native';
 

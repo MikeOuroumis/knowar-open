@@ -6,10 +6,9 @@ import {
   RootStackParamList,
   UnauthenticatedScreens,
 } from '../types/navigation';
-import * as KeychainService from '../services/KeychainService';
+import {KeychainService, AuthService} from '../services';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import * as AuthService from '../services/AuthService';
 
 type LoginNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
