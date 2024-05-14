@@ -1,7 +1,7 @@
 import React from 'react';
-import AuthContextProvider from './store/auth-context';
+import AuthContextProvider from './store/authContext';
 import {Navigation} from './navigation/Navigation';
-import GameProvider from './store/GameContext';
+import GameProvider from './store/gameContext';
 import {useRetrieveCredentials, useResetNavOnAuthChange} from './hooks';
 import {NavigationContainer} from '@react-navigation/native';
 

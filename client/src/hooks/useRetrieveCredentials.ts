@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from 'react';
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {KeychainService} from '../services';
 
 export default function useRetrieveCredentials(): boolean {

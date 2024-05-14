@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useRef} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {colorList} from '../../constants/colors';
-import {useGameContext} from '../../store/GameContext';
+import {useGameContext} from '../../store/gameContext';
 
 type TimeBarProps = {
   onTimeElapsed: () => void;

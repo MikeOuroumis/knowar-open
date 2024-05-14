@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useContext} from 'react';
 import {View, Animated, StyleSheet} from 'react-native';
 import {KnowarLogo} from '../assets/images';
 import {colorList} from '../constants/colors';
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {
   AuthenticatedScreens,
   InitialScreens,

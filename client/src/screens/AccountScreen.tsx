@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {ButtonComponent} from '../components/common';
 import {StyleSheet, Text, View} from 'react-native';
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {useDeleteAccount, useLogout} from '../hooks';
 import {colorList} from '../constants/colors';
 

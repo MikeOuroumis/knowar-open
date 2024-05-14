@@ -1,4 +1,4 @@
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {useContext} from 'react';
 import useFetchTriviaCategories from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
