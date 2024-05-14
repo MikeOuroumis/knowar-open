@@ -1,11 +1,11 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {useEffect} from 'react';
-import ButtonComponent from '../components/ButtonComponent';
-import {COLOR_LIST} from '../constants/colors';
+import ButtonComponent from '../components/common/ButtonComponent';
+import {colorList} from '../constants/colors';
 import socket from '../socket/socket';
-import {SocketEvents} from '../socket/SocketEvents';
-import mainMenuBackground from '../assets/images/Knowar_logo.png';
+import {SocketEvents} from '../types/SocketEvents';
+import {KnowarLogo} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
@@ -13,14 +13,14 @@ export default function MainMenuScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   useEffect(() => {
     socket.on(SocketEvents.CONNECT, () => {
-      socket.emit('on_connect', 'someone connected');
+      socket.emit(SocketEvents.ON_CONNECT, 'someone connected');
     });
   }, []);
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={mainMenuBackground}
+        source={KnowarLogo}
         style={styles.globalView}
         resizeMode="cover">
         <View style={styles.buttonWrapper}>
@@ -55,7 +55,7 @@ export default function MainMenuScreen(): JSX.Element {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLOR_LIST.darkBackgroundBlue,
+    backgroundColor: colorList.darkBackgroundBlue,
     flex: 1,
   },
   globalView: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     elevation: 10,
-    shadowColor: COLOR_LIST.vibrantCyan,
+    shadowColor: colorList.vibrantCyan,
     shadowOffset: {width: 0, height: 2},
   },
   logo: {
@@ -78,9 +78,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   button: {
-    borderColor: COLOR_LIST.softPink,
+    borderColor: colorList.softPink,
     borderWidth: 2,
-    shadowColor: COLOR_LIST.softPink,
+    shadowColor: colorList.softPink,
     shadowOpacity: 1,
     shadowRadius: 3,
     elevation: 10,

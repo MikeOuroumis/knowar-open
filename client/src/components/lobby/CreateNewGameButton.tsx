@@ -1,9 +1,9 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import ButtonComponent from './ButtonComponent';
-import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {ButtonComponent} from '../common';
+import {AuthenticatedScreens, RootStackParamList} from '../../types/navigation';
 import {StyleSheet} from 'react-native';
 
-export function CreateNewGameButton() {
+export default function CreateNewGameButton() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (

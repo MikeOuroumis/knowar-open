@@ -1,10 +1,10 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../../shared/types/Room';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import socket from '../socket/socket';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export function useJoinGame() {
+export default function useJoinGame() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleJoinGame = (room: IRoom) => {

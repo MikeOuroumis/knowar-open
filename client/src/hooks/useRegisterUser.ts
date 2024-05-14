@@ -1,4 +1,4 @@
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {Alert} from 'react-native';
 import {useContext, useState} from 'react';
 import {
@@ -6,17 +6,16 @@ import {
   RootStackParamList,
   UnauthenticatedScreens,
 } from '../types/navigation';
-import * as KeychainService from '../services/KeychainService';
+import {KeychainService, AuthService} from '../services';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import * as AuthService from '../services/AuthService';
 
 type RegistarNavigationPro = NativeStackNavigationProp<
   RootStackParamList,
   UnauthenticatedScreens.RegisterScreen
 >;
 
-export function useRegisterUser(
+export default function useRegisterUser(
   userName: string,
   email: string,
   password: string,

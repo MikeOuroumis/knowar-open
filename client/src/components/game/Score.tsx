@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {COLOR_LIST} from '../../constants/colors';
+import {colorList} from '../../constants/colors';
 
 interface ScoreProps {
   playerScore: number;
@@ -8,7 +8,7 @@ interface ScoreProps {
   isSinglePlayer: boolean;
 }
 
-export function Score({
+export default function Score({
   playerScore,
   opponentScore,
   isSinglePlayer,
@@ -35,26 +35,26 @@ const styles = StyleSheet.create({
   scoreContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: COLOR_LIST.red,
+    backgroundColor: colorList.red,
     marginTop: 10,
 
     borderRadius: 10,
     padding: 10,
   },
   winning: {
-    backgroundColor: COLOR_LIST.green,
+    backgroundColor: colorList.green,
   },
   draw: {
-    backgroundColor: COLOR_LIST.white,
+    backgroundColor: colorList.white,
   },
   playerScoreText: {
-    color: COLOR_LIST.black,
+    color: colorList.black,
     fontSize: 20,
     textAlign: 'center',
     fontWeight: 'bold',
   },
   opponentScoreText: {
-    color: COLOR_LIST.black,
+    color: colorList.black,
     fontSize: 20,
     fontWeight: 'bold',
   },

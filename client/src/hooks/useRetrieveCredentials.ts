@@ -1,8 +1,8 @@
 import {useContext, useEffect, useState} from 'react';
-import {AuthContext} from '../store/auth-context';
-import * as KeychainService from '../services/KeychainService';
+import {AuthContext} from '../store/authContext';
+import {KeychainService} from '../services';
 
-export function useRetrieveCredentials(): boolean {
+export default function useRetrieveCredentials(): boolean {
   const authCtx = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 

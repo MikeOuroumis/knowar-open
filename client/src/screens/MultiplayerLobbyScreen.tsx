@@ -1,20 +1,18 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
-import ButtonComponent from '../components/ButtonComponent';
-import {COLOR_LIST} from '../constants/colors';
+import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import lobbyBackground from '../assets/images/lobby_bg2.png';
+import {LobbyBg} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
-import {ActiveRooms} from '../components/ActiveRooms';
-import {LobbyScreenHeader} from '../components/LobbyScreenHeader';
+import {ActiveRooms, LobbyScreenHeader, ButtonComponent} from '../components';
 
 export default function MultiplayerLobbyScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   return (
     <ImageBackground
-      source={lobbyBackground}
+      source={LobbyBg}
       style={styles.globalView}
       resizeMode="cover">
       <LinearGradient
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     paddingBottom: 20,
-    borderColor: COLOR_LIST.vibrantCyan,
+    borderColor: colorList.vibrantCyan,
     borderWidth: 2,
     borderRadius: 10,
     marginHorizontal: 20,

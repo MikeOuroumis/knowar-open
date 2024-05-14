@@ -1,10 +1,9 @@
 import React from 'react';
-import AuthContextProvider from './store/auth-context';
+import AuthContextProvider from './store/authContext';
 import {Navigation} from './navigation/Navigation';
-import GameProvider from './store/GameContext';
-import {useRetrieveCredentials} from './hooks/useRetrieveCredentials';
+import GameProvider from './store/gameContext';
+import {useRetrieveCredentials, useResetNavOnAuthChange} from './hooks';
 import {NavigationContainer} from '@react-navigation/native';
-import {useResetNavOnAuthChange} from './hooks/useResetNavOnAuthChange';
 
 export default function App() {
   return (

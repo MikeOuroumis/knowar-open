@@ -2,22 +2,17 @@ import {View, StyleSheet} from 'react-native';
 import React, {useContext, useState} from 'react';
 import {useEffect} from 'react';
 import socket from '../socket/socket';
-import ButtonComponent from '../components/ButtonComponent';
-import {AuthContext} from '../store/auth-context';
-import {SocketEvents} from '../socket/SocketEvents';
-import {useSocketLogic} from '../hooks/useSocketLogic';
-import {Question} from '../components/GameScreen/Question';
+import {AuthContext} from '../store/authContext';
+import {SocketEvents} from '../types/SocketEvents';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
-import {COLOR_LIST} from '../constants/colors';
-import {Score} from '../components/GameScreen/Score';
-import {useGameLogic} from '../hooks/useGameLogic';
-import {TimeBar} from '../components/GameScreen/TimeBar';
-import {useGameContext} from '../store/GameContext';
+import {colorList} from '../constants/colors';
+import {useGameLogic, useSocketLogic, useQuestions} from '../hooks';
+import {TimeBar, Score, Question, ButtonComponent} from '../components';
+import {useGameContext} from '../store/gameContext';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useQuestions} from '../hooks/useQuestions';
 
 export type GameScreenParams = {
   categoryId: string;
@@ -192,7 +187,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLOR_LIST.black,
+    backgroundColor: colorList.black,
     justifyContent: 'center',
   },
   questionWrapper: {

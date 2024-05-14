@@ -1,6 +1,6 @@
 import {CommonActions, useNavigation} from '@react-navigation/native';
 import {useContext, useEffect} from 'react';
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {
   AuthenticatedScreens,
   UnauthenticatedScreens,
@@ -11,7 +11,7 @@ import {
  * When a user logs in or logs out the navigation state is reset so
  * no history is included
  */
-export function useResetNavOnAuthChange() {
+export default function useResetNavOnAuthChange() {
   const {isAuthenticated} = useContext(AuthContext);
   const navigation = useNavigation();
 

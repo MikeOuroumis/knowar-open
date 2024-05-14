@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import {Alert} from 'react-native';
 import {IRoom} from '../../../shared/types/Room';
-import * as SocketService from '../services/SocketService';
+import {SocketService} from '../services';
 
-export const useRoomListener = () => {
+export default function useRoomListener() {
   const [activeRooms, setActiveRooms] = useState<IRoom[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -62,4 +62,4 @@ export const useRoomListener = () => {
   }, []);
 
   return {activeRooms, loading};
-};
+}

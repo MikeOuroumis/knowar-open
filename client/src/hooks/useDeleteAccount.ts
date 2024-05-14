@@ -1,10 +1,9 @@
 import {useCallback, useContext, useState} from 'react';
-import * as AuthService from '../services/AuthService';
-import * as KeychainService from '../services/KeychainService';
-import {AuthContext} from '../store/auth-context';
+import {AuthService, KeychainService} from '../services';
+import {AuthContext} from '../store/authContext';
 import {Alert} from 'react-native';
 
-export function useDeleteAccount() {
+export default function useDeleteAccount() {
   const [loading, setLoading] = useState(false);
   const {userId, logout} = useContext(AuthContext);
 

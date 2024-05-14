@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import ButtonComponent from '../components/ButtonComponent';
+import {ButtonComponent} from '../components/common';
 
 interface EndGameScreenProps {
   playerScore: number;

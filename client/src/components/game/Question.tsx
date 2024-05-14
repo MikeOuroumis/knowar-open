@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {Option} from './Option';
+import Option from './Option';
 import {decode} from 'html-entities';
 
 type QuestionObject = {
@@ -16,7 +16,7 @@ interface QuestionProps {
   selectedAnswer: string;
 }
 
-export function Question({
+export default function Question({
   questionObj,
   onOptionPress,
   isAnswered,

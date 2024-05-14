@@ -1,13 +1,13 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {COLOR_LIST} from '../constants/colors';
-import {IRoom} from '../../../shared/types/Room';
+import {colorList} from '../../constants/colors';
+import {IRoom} from '../../../../shared/types/Room';
 
 interface ActiveRoomProps {
   room: IRoom;
   handleJoinGame: (room: IRoom) => void;
 }
 
-export function RoomItem({room, handleJoinGame}: ActiveRoomProps) {
+export default function RoomItem({room, handleJoinGame}: ActiveRoomProps) {
   return (
     <Pressable onPress={() => handleJoinGame(room)}>
       <View style={styles.activeRoomButton}>
@@ -25,15 +25,15 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: COLOR_LIST.vibrantCyan,
-    shadowColor: COLOR_LIST.vibrantCyan,
+    borderColor: colorList.vibrantCyan,
+    shadowColor: colorList.vibrantCyan,
     shadowOpacity: 1,
     shadowRadius: 3,
     elevation: 100,
   },
   activeRoomText: {
-    color: COLOR_LIST.vibrantCyan,
-    textShadowColor: COLOR_LIST.vibrantCyan,
+    color: colorList.vibrantCyan,
+    textShadowColor: colorList.vibrantCyan,
     textShadowRadius: 10,
     textAlign: 'center',
   },

@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SplashScreen} from '../screens/SplashScreen';
-import {AuthContext} from '../store/auth-context';
+import {AuthContext} from '../store/authContext';
 import {InitialScreens} from '../types/navigation';
 import {authenticatedScreens, unauthenticatedScreens} from './navigationConfig';
 

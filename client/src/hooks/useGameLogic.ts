@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import socket from '../socket/socket';
-import {SocketEvents} from '../socket/SocketEvents';
+import {SocketEvents} from '../types/SocketEvents';
 import {QuestionInterface} from '../types/questions';
 
 type UpdateData = {
@@ -10,7 +10,7 @@ type UpdateData = {
   userId: string;
 };
 
-export function useGameLogic(
+export default function useGameLogic(
   questions: QuestionInterface[] | null,
   userId: string,
 ) {

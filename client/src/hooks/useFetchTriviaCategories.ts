@@ -4,7 +4,7 @@ import {TRIVIA_CATEGORY_URL} from '../config';
 import {CategoryInterface} from '../types/category';
 import {Alert} from 'react-native';
 
-export const useFetchTriviaCategories = () => {
+export default function useFetchTriviaCategories() {
   const [categories, setCategories] = useState<CategoryInterface[]>([]);
 
   useEffect(() => {
@@ -26,4 +26,4 @@ export const useFetchTriviaCategories = () => {
   }
 
   return categories;
-};
+}

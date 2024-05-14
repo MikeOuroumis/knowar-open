@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, Pressable, StyleSheet} from 'react-native';
 import {decode} from 'html-entities';
-import {COLOR_LIST} from '../../constants/colors';
+import {colorList} from '../../constants/colors';
 
 interface OptionProps {
   answer: string;
@@ -12,7 +12,7 @@ interface OptionProps {
   isCorrect: boolean;
 }
 
-export function Option({
+export default function Option({
   answer,
   onPress,
   isAnswered,
@@ -41,7 +41,7 @@ export function Option({
 
 const styles = StyleSheet.create({
   optionContainer: {
-    backgroundColor: COLOR_LIST.white,
+    backgroundColor: colorList.white,
     width: '100%',
     marginVertical: 10,
     fontSize: 20,
@@ -55,16 +55,16 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: COLOR_LIST.black,
+    color: colorList.black,
   },
   correct: {
-    backgroundColor: COLOR_LIST.green,
+    backgroundColor: colorList.green,
   },
   incorrect: {
-    backgroundColor: COLOR_LIST.red,
+    backgroundColor: colorList.red,
   },
   correctNoSelected: {
-    borderColor: COLOR_LIST.green,
+    borderColor: colorList.green,
     borderWidth: 3,
   },
 });

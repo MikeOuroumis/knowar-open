@@ -1,10 +1,9 @@
 import React, {useContext} from 'react';
-import ButtonComponent from '../components/ButtonComponent';
-import {useLogout} from '../hooks/useLogout';
+import {ButtonComponent} from '../components/common';
 import {StyleSheet, Text, View} from 'react-native';
-import {AuthContext} from '../store/auth-context';
-import {useDeleteAccount} from '../hooks/useDeleteAccount';
-import {COLOR_LIST} from '../constants/colors';
+import {AuthContext} from '../store/authContext';
+import {useDeleteAccount, useLogout} from '../hooks';
+import {colorList} from '../constants/colors';
 
 export default function AccountScreen(): JSX.Element {
   const logout = useLogout();
@@ -32,20 +31,20 @@ const styles = StyleSheet.create({
   globalView: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: COLOR_LIST.black,
+    backgroundColor: colorList.black,
   },
   centered: {
     textAlign: 'center',
     marginBottom: 10,
   },
   text: {
-    color: COLOR_LIST.white,
+    color: colorList.white,
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 10,
   },
   label: {
-    color: COLOR_LIST.neonPink,
+    color: colorList.neonPink,
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 10,
