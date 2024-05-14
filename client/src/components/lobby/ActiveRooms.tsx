@@ -1,12 +1,10 @@
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
-import {useRoomListener} from '../hooks/useRoomListener';
-import {colorList} from '../constants/colors';
-import {RoomItem} from './RoomItem';
-import {useJoinGame} from '../hooks/useJoinGame';
-import {ActiveGamesHeader} from './ActiveGamesHeader';
-import {NoActiveGames} from './NoActiveGames';
+import {useRoomListener} from '../../hooks/useRoomListener';
+import {colorList} from '../../constants/colors';
+import {useJoinGame} from '../../hooks/useJoinGame';
+import {RoomItem, ActiveGamesHeader, NoActiveGames} from '../../components';
 
-export function ActiveRooms() {
+export default function ActiveRooms() {
   const {activeRooms, loading} = useRoomListener();
   const handleJoinGame = useJoinGame();
 

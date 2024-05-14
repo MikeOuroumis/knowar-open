@@ -8,7 +8,7 @@ type TimeBarProps = {
   onTimeElapsed: () => void;
 };
 
-export function TimeBar({onTimeElapsed}: TimeBarProps) {
+export default function TimeBar({onTimeElapsed}: TimeBarProps) {
   const overlayWidthAnim = useRef(new Animated.Value(0)).current;
   const {resetTimerKey} = useGameContext();
 

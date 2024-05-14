@@ -1,13 +1,13 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {colorList} from '../constants/colors';
-import {IRoom} from '../../../shared/types/Room';
+import {colorList} from '../../constants/colors';
+import {IRoom} from '../../../../shared/types/Room';
 
 interface ActiveRoomProps {
   room: IRoom;
   handleJoinGame: (room: IRoom) => void;
 }
 
-export function RoomItem({room, handleJoinGame}: ActiveRoomProps) {
+export default function RoomItem({room, handleJoinGame}: ActiveRoomProps) {
   return (
     <Pressable onPress={() => handleJoinGame(room)}>
       <View style={styles.activeRoomButton}>

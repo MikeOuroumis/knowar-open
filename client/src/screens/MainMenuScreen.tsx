@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
 import {useEffect} from 'react';
-import ButtonComponent from '../components/ButtonComponent';
+import ButtonComponent from '../components/common/ButtonComponent';
 import {colorList} from '../constants/colors';
 import socket from '../socket/socket';
 import {SocketEvents} from '../types/SocketEvents';

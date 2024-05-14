@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import ButtonComponent from '../components/ButtonComponent';
+import {ButtonComponent} from '../components/common';
 import {useLogout} from '../hooks/useLogout';
 import {StyleSheet, Text, View} from 'react-native';
 import {AuthContext} from '../store/auth-context';

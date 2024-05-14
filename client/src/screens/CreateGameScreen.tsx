@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import ButtonComponent from '../components/ButtonComponent';
-import DropdownComponent from '../components/DropdownComponent';
+import {DropdownComponent, ButtonComponent} from '../components';
 import {useCreateGame} from '../hooks/useCreateGame';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';

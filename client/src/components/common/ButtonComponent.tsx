@@ -7,7 +7,7 @@ import {
   TextStyle,
   ActivityIndicator,
 } from 'react-native';
-import {colorList} from '../constants/colors';
+import {colorList} from '../../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
 interface ButtonComponentProps {

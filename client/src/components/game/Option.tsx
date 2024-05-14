@@ -12,7 +12,7 @@ interface OptionProps {
   isCorrect: boolean;
 }
 
-export function Option({
+export default function Option({
   answer,
   onPress,
   isAnswered,

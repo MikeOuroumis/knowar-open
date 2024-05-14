@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, ImageBackground} from 'react-native';
-import Input from '../components/Input';
-import ButtonComponent from '../components/ButtonComponent';
+import Input from '../components/common/Input';
+import {ButtonComponent} from '../components/common';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {LoginScreenBg} from '../assets/images';
 import {colorList} from '../constants/colors';

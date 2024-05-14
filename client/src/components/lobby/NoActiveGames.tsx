@@ -1,7 +1,7 @@
 import {StyleSheet, Text} from 'react-native';
-import {colorList} from '../constants/colors';
+import {colorList} from '../../constants/colors';
 
-export function NoActiveGames() {
+export default function NoActiveGames() {
   return <Text style={styles.text}>No active games, press create new...</Text>;
 }
 

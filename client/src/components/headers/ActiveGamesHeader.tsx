@@ -1,7 +1,7 @@
 import {StyleSheet, Text} from 'react-native';
-import {colorList} from '../constants/colors';
+import {colorList} from '../../constants/colors';
 
-export function ActiveGamesHeader() {
+export default function ActiveGamesHeader() {
   return <Text style={styles.text}>Active Games</Text>;
 }
 

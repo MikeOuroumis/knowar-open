@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import Input from '../components/Input';
-import ButtonComponent from '../components/ButtonComponent';
+import Input from '../components/common/Input';
+import ButtonComponent from '../components/common/ButtonComponent';
 import {LoginScreenBg} from '../assets/images';
 import {ImageBackground} from 'react-native';
 import {colorList} from '../constants/colors';

@@ -1,8 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {CreateNewGameButton} from './CreateNewGameButton';
-import {colorList} from '../constants/colors';
+import {CreateNewGameButton} from '../lobby';
+import {colorList} from '../../constants/colors';
 
-export function LobbyScreenHeader() {
+export default function LobbyScreenHeader() {
   return (
     <View style={styles.joinGameRow}>
       <View style={styles.flexOne}>

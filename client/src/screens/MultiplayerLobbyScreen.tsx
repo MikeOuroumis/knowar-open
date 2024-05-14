@@ -1,13 +1,11 @@
 import React from 'react';
 import {View, StyleSheet, ImageBackground} from 'react-native';
-import ButtonComponent from '../components/ButtonComponent';
 import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import {LobbyBg} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
-import {ActiveRooms} from '../components/ActiveRooms';
-import {LobbyScreenHeader} from '../components/LobbyScreenHeader';
+import {ActiveRooms, LobbyScreenHeader, ButtonComponent} from '../components';
 
 export default function MultiplayerLobbyScreen(): JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
