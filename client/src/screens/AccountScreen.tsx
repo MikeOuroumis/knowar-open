@@ -1,9 +1,8 @@
 import React, {useContext} from 'react';
 import {ButtonComponent} from '../components/common';
-import {useLogout} from '../hooks/useLogout';
 import {StyleSheet, Text, View} from 'react-native';
 import {AuthContext} from '../store/auth-context';
-import {useDeleteAccount} from '../hooks/useDeleteAccount';
+import {useDeleteAccount, useLogout} from '../hooks';
 import {colorList} from '../constants/colors';
 
 export default function AccountScreen(): JSX.Element {

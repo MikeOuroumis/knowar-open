@@ -3,7 +3,7 @@ import socket from '../socket/socket';
 import {SocketEvents} from '../types/SocketEvents';
 import {QuestionInterface} from '../types/questions';
 
-export function useSocketLogic(
+export default function useSocketLogic(
   isHost: boolean,
   opponent: boolean,
   questions: QuestionInterface[] | null,

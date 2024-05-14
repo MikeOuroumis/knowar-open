@@ -1,16 +1,16 @@
 import {AuthContext} from '../store/auth-context';
 import {useContext} from 'react';
-import {useFetchTriviaCategories} from './useFetchTriviaCategories';
+import useFetchTriviaCategories from './useFetchTriviaCategories';
 import {Alert} from 'react-native';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {SocketService} from '../services';
 
-export const useCreateGame = (
+export default function useCreateGame(
   categoryName: string | null,
   categoryId: string | null,
   isSinglePlayer: boolean,
-) => {
+) {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const categories = useFetchTriviaCategories();
 
@@ -57,4 +57,4 @@ export const useCreateGame = (
   }
 
   return {createRoom, startSinglePlayerGame, categories};
-};
+}

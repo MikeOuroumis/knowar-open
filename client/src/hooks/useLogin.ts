@@ -15,7 +15,7 @@ type LoginNavigationProp = NativeStackNavigationProp<
   UnauthenticatedScreens.LoginScreen
 >;
 
-export function useLogin(email: string, password: string) {
+export default function useLogin(email: string, password: string) {
   const navigation = useNavigation<LoginNavigationProp>();
 
   const [isLoading, setIsLoading] = useState(false);

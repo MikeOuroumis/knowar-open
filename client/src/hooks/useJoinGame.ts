@@ -4,7 +4,7 @@ import {SocketEvents} from '../types/SocketEvents';
 import socket from '../socket/socket';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
-export function useJoinGame() {
+export default function useJoinGame() {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const handleJoinGame = (room: IRoom) => {

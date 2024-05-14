@@ -4,17 +4,15 @@ import {useEffect} from 'react';
 import socket from '../socket/socket';
 import {AuthContext} from '../store/auth-context';
 import {SocketEvents} from '../types/SocketEvents';
-import {useSocketLogic} from '../hooks/useSocketLogic';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
 import {colorList} from '../constants/colors';
-import {useGameLogic} from '../hooks/useGameLogic';
+import {useGameLogic, useSocketLogic, useQuestions} from '../hooks';
 import {TimeBar, Score, Question, ButtonComponent} from '../components';
 import {useGameContext} from '../store/GameContext';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useQuestions} from '../hooks/useQuestions';
 
 export type GameScreenParams = {
   categoryId: string;

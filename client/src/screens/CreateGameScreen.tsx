@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {DropdownComponent, ButtonComponent} from '../components';
-import {useCreateGame} from '../hooks/useCreateGame';
+import {} from '../hooks/useCreateGame';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {useFetchTriviaCategories} from '../hooks/useFetchTriviaCategories';
+import {useFetchTriviaCategories, useCreateGame} from '../hooks';
 import {LobbyBg} from '../assets/images';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {colorList} from '../constants/colors';

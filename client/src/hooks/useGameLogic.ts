@@ -10,7 +10,7 @@ type UpdateData = {
   userId: string;
 };
 
-export function useGameLogic(
+export default function useGameLogic(
   questions: QuestionInterface[] | null,
   userId: string,
 ) {

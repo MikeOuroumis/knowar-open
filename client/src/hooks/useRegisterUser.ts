@@ -15,7 +15,7 @@ type RegistarNavigationPro = NativeStackNavigationProp<
   UnauthenticatedScreens.RegisterScreen
 >;
 
-export function useRegisterUser(
+export default function useRegisterUser(
   userName: string,
   email: string,
   password: string,

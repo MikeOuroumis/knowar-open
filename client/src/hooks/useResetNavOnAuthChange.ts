@@ -11,7 +11,7 @@ import {
  * When a user logs in or logs out the navigation state is reset so
  * no history is included
  */
-export function useResetNavOnAuthChange() {
+export default function useResetNavOnAuthChange() {
   const {isAuthenticated} = useContext(AuthContext);
   const navigation = useNavigation();
 

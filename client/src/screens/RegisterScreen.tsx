@@ -5,7 +5,7 @@ import {ButtonComponent} from '../components/common';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {LoginScreenBg} from '../assets/images';
 import {colorList} from '../constants/colors';
-import {useRegisterUser} from '../hooks/useRegisterUser';
+import {useRegisterUser} from '../hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList, UnauthenticatedScreens} from '../types/navigation';
 

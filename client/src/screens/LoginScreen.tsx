@@ -6,7 +6,7 @@ import {LoginScreenBg} from '../assets/images';
 import {ImageBackground} from 'react-native';
 import {colorList} from '../constants/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import {useLogin} from '../hooks/useLogin';
+import {useLogin} from '../hooks';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {RootStackParamList, UnauthenticatedScreens} from '../types/navigation';
 
