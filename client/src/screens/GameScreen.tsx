@@ -1,7 +1,7 @@
 import {View, StyleSheet} from 'react-native';
 import React, {useContext, useState} from 'react';
 import {useEffect} from 'react';
-import socket from '../socket/socket';
+import socket from '../services/SocketService';
 import {AuthContext} from '../store/authContext';
 import {SocketEvents} from '../types/SocketEvents';
 import EndGameScreen from './EndGameScreen';
