@@ -56,11 +56,6 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
   },
-  dropDown: {
-    backgroundColor: '#fff',
-    width: '90%',
-    borderRadius: 20,
-  },
   rowText: {
     color: '#000',
     fontSize: 18,
