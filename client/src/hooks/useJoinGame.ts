@@ -1,7 +1,7 @@
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {IRoom} from '../../../shared/types/Room';
 import {SocketEvents} from '../types/SocketEvents';
-import socket from '../socket/socket';
+import socket from '../services/SocketService';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 
 export default function useJoinGame() {

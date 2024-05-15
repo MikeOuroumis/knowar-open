@@ -3,7 +3,7 @@ import {View, StyleSheet, ImageBackground} from 'react-native';
 import {useEffect} from 'react';
 import ButtonComponent from '../components/common/ButtonComponent';
 import {colorList} from '../constants/colors';
-import socket from '../socket/socket';
+import socket from '../services/SocketService';
 import {SocketEvents} from '../types/SocketEvents';
 import {KnowarLogo} from '../assets/images';
 import {NavigationProp, useNavigation} from '@react-navigation/native';

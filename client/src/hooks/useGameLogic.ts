@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import socket from '../socket/socket';
+import socket from '../services/SocketService';
 import {SocketEvents} from '../types/SocketEvents';
 import {QuestionInterface} from '../types/questions';
 
