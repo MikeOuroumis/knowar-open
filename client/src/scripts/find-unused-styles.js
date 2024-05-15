@@ -8,7 +8,6 @@ const STYLESHEET_REGEX = /const styles = StyleSheet.create\(({[\s\S]*?})\);/g;
 const files = glob.sync('src/**/*.tsx');
 
 let stylesInUse = new Set();
-let styleDefinitions = {};
 
 // Find all style usages
 files.forEach(file => {
@@ -32,6 +31,11 @@ files.forEach(file => {
       .map(style => style.split(':')[0].trim());
 
     styleNames.forEach(styleName => {
+      // nested property shadowOffset is not a style
+      if (styleName === 'shadowOffset') {
+        return;
+      }
+
       if (!stylesInUse.has(styleName)) {
         console.log(`Unused style "${styleName}" found in file "${file}"`);
       }
