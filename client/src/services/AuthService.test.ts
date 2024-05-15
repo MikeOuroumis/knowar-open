@@ -1,11 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
-import * as AuthService from '../../../src/services/AuthService';
+import * as AuthService from './AuthService';
 import {
   deleteUserEndpoint,
   loginUserEndpoint,
   registerUserEndpoint,
-} from '../../../src/config';
-import mainAxiosClient from '../../../src/api/axiosClients';
+} from '../config';
+import mainAxiosClient from '../api/axiosClients';
 
 describe('AuthService', () => {
   let mock: MockAdapter;

@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
-import mainAxiosClient from '../../../src/api/axiosClients';
-import {IRoom} from '../../../../shared/types/Room';
-import * as SocketService from '../../../src/services/SocketService';
-import socket from '../../../src/services/SocketService';
+import mainAxiosClient from '../api/axiosClients';
+import {IRoom} from '../../../shared/types/Room';
+import * as SocketService from './SocketService';
+import socket from './SocketService';
 
 describe('SocketService', () => {
   let mock: MockAdapter;
