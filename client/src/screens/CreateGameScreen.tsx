@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {DropdownComponent, ButtonComponent} from '../components';
-import {} from '../hooks/useCreateGame';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories, useCreateGame} from '../hooks';
 import {LobbyBg} from '../assets/images';
@@ -84,11 +83,6 @@ const styles = StyleSheet.create({
   imageBackground: {
     flex: 1,
     resizeMode: 'cover',
-  },
-  lobbyScreenContainer: {
-    backgroundColor: '#000',
-    flex: 1,
-    justifyContent: 'center',
   },
   linearGradient: {
     flex: 1,

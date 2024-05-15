@@ -62,11 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '50%',
   },
-  logoContainer: {
-    elevation: 10,
-    shadowColor: colorList.vibrantCyan,
-    shadowOffset: {width: 0, height: 2},
-  },
   logo: {
     width: '100%',
     height: 300,
