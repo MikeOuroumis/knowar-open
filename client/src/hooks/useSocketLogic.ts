@@ -19,7 +19,6 @@ export default function useSocketLogic(
     if (isHost && opponent) {
       socket.emit(SocketEvents.SEND_QUESTIONS, questions);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, opponent, questions]);
 
   useEffect(() => {
