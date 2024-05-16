@@ -1,10 +1,11 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {fetchQuestionsFromAPI} from '../api/fetchQuestions';
 import {prepareQuestions} from '../util/questions';
 import {QuestionInterface} from '../types/questions';
 
-export default function useQuestions(categoryId: string) {
+export default function useQuestions(categoryId: string, isHost: boolean) {
   const [questions, setQuestions] = useState<QuestionInterface[] | null>(null);
+
   const fetchAndPrepareQuestions = async () => {
     const fetchedQuestions = await fetchQuestionsFromAPI(categoryId);
 
@@ -15,5 +16,13 @@ export default function useQuestions(categoryId: string) {
     const preparedQuestions = prepareQuestions(fetchedQuestions);
     setQuestions(preparedQuestions);
   };
-  return {questions, setQuestions, fetchAndPrepareQuestions};
+
+  useEffect(() => {
+    if (isHost && !questions) {
+      fetchAndPrepareQuestions();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return {questions, setQuestions};
 }
