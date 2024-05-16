@@ -1,8 +1,9 @@
-import {useEffect, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import socket from '../services/SocketService';
 import {SocketEvents} from '../types/SocketEvents';
 import {QuestionInterface} from '../types/questions';
 import {useGameContext} from '../store/gameContext';
+import {AuthContext} from '../store/authContext';
 
 type UpdateData = {
   nextQuestionIndex: number;
@@ -11,10 +12,10 @@ type UpdateData = {
   userId: string;
 };
 
-export default function useGameLogic(
-  questions: QuestionInterface[] | null,
-  userId: string,
-) {
+export default function useGameLogic(questions: QuestionInterface[] | null) {
+  const userId = useContext(AuthContext).userId;
+  const {triggerResetTimer} = useGameContext();
+
   const [gameEnded, setGameEnded] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [playerScore, setPlayerScore] = useState(0);
@@ -22,8 +23,6 @@ export default function useGameLogic(
   const [answeredCorrect, setAnsweredCorrect] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [isAnswered, setIsAnswered] = useState(false);
-
-  const {triggerResetTimer} = useGameContext();
 
   const handleTimeElapsed = () => {
     incrementQuestionIndex();

@@ -1,11 +1,10 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useContext} from 'react';
-import {AuthContext} from '../store/authContext';
+import React from 'react';
 import EndGameScreen from './EndGameScreen';
 import LoadingScreen from './LoadingScreen';
 import {colorList} from '../constants/colors';
 import {useGameLogic, useSocketLogic, useQuestions} from '../hooks';
-import {TimeBar, Score, Question, ButtonComponent} from '../components';
+import {TimeBar, ScorePanel, Question, ButtonComponent} from '../components';
 import {
   AuthenticatedScreens,
   GameScreenParams,
@@ -28,8 +27,6 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 
   const {categoryId, isHost, isSinglePlayer} = route.params;
 
-  const userId = useContext(AuthContext).userId;
-
   const {questions, setQuestions} = useQuestions(categoryId, isHost);
 
   const {
@@ -42,7 +39,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
     isAnswered,
     handleOptionPress,
     handleTimeElapsed,
-  } = useGameLogic(questions, userId);
+  } = useGameLogic(questions);
 
   const opponent = useSocketLogic(isHost, questions, setQuestions);
 
@@ -76,7 +73,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
     return (
       <View style={styles.container}>
         <View style={styles.questionWrapper}>
-          <Score
+          <ScorePanel
             playerScore={playerScore}
             opponentScore={opponentScore}
             isSinglePlayer={isSinglePlayer}
