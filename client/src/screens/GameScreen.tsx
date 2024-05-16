@@ -43,27 +43,22 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
 
   const opponent = useSocketLogic(isHost, questions, setQuestions);
 
+  const isWaitingForOpponent = isHost && !opponent && !isSinglePlayer;
+
   if (gameEnded) {
     return (
       <EndGameScreen
         playerScore={playerScore}
         opponentScore={opponentScore}
-        didWin={playerScore > opponentScore} // Determine if the player won
-        onBackToMainMenu={() =>
-          navigation.replace(AuthenticatedScreens.MainMenuScreen)
-        }
-        isDraw={playerScore === opponentScore}
         isSinglePlayer={isSinglePlayer}
       />
     );
   }
 
-  const isWaitingForOpponent = isHost && !opponent && !isSinglePlayer;
-
   if (isWaitingForOpponent) {
     return (
       <LoadingScreen
-        text="Waiting for the opponent to join the game..."
+        text="Waiting for opponent to join the game..."
         buttonText="Back"
       />
     );
@@ -98,6 +93,7 @@ export default function GameScreen({route}: {route: Route}): JSX.Element {
       </View>
     );
   }
+
   return <LoadingScreen text="No questions loaded" buttonText="Back" />;
 }
 
