@@ -17,6 +17,7 @@ interface ButtonComponentProps {
   textStyle?: TextStyle;
   disabled?: boolean;
   isLoading?: boolean;
+  variant?: 'default' | 'bluish';
 }
 
 export default function ButtonComponent({
@@ -26,6 +27,7 @@ export default function ButtonComponent({
   textStyle,
   disabled,
   isLoading,
+  variant = 'default',
 }: ButtonComponentProps) {
   const [isPressed, setIsPressed] = useState(false);
 
@@ -44,8 +46,20 @@ export default function ButtonComponent({
     if (isPressed) {
       return [styles.gradient, styles.pressed, style];
     }
-    return [styles.gradient, style];
+    return variant === 'bluish'
+      ? [styles.buttonBase, styles.bluishGradient, style]
+      : [styles.buttonBase, styles.gradient, style];
   };
+
+  const gradientColors =
+    variant === 'bluish'
+      ? [colorList.vibrantCyan, colorList.electricBlue]
+      : [colorList.neonPink, colorList.softPink];
+
+  const buttonTextStyle =
+    variant === 'bluish'
+      ? [styles.textBase, styles.bluishButtonText, textStyle]
+      : [styles.textBase, styles.buttonText, textStyle];
 
   return (
     <Pressable
@@ -54,14 +68,14 @@ export default function ButtonComponent({
       onPress={onPress}
       disabled={disabled}>
       <LinearGradient
-        colors={[colorList.neonPink, colorList.softPink]}
+        colors={gradientColors}
         style={getGradientStyle()}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}>
         {isLoading ? (
           <ActivityIndicator size={'small'} color={colorList.white} />
         ) : (
-          <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+          <Text style={buttonTextStyle}>{title}</Text>
         )}
       </LinearGradient>
     </Pressable>
@@ -69,9 +83,7 @@ export default function ButtonComponent({
 }
 
 const styles = StyleSheet.create({
-  gradient: {
-    shadowColor: colorList.softPink,
-    shadowOpacity: 1,
+  buttonBase: {
     shadowRadius: 3,
     elevation: 10,
     borderRadius: 20,
@@ -79,6 +91,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 35,
     justifyContent: 'center',
     marginTop: 20,
+    shadowOpacity: 1,
+  },
+  gradient: {
+    shadowColor: colorList.softPink,
+  },
+  bluishGradient: {
+    shadowColor: colorList.electricBlue,
   },
   disabled: {
     opacity: 0.5,
@@ -86,10 +105,15 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.8,
   },
-  buttonText: {
+  textBase: {
     textAlign: 'center',
-    color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  buttonText: {
+    color: colorList.white,
+  },
+  bluishButtonText: {
+    color: colorList.black,
   },
 });
