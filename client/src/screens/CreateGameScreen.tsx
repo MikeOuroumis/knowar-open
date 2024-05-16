@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import {DropdownComponent, ButtonComponent} from '../components';
+import {ImageBackground, StyleSheet, View, Pressable} from 'react-native';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {useFetchTriviaCategories, useCreateGame} from '../hooks';
 import {LobbyBg} from '../assets/images';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {colorList} from '../constants/colors';
 import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import CategoriesList from '../components/createGame/CategoriesList';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {ButtonComponent} from '../components';
+import {CategoryInterface} from '../types/categories';
 
 type GameScreenRoute = {params: {isSinglePlayer: boolean}};
 
@@ -17,18 +20,20 @@ export default function CreateGameScreen({
 }): JSX.Element {
   const {isSinglePlayer} = route.params;
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryInterface | null>(null);
 
   const availableCategories = useFetchTriviaCategories();
 
   const {createRoom, startSinglePlayerGame} = useCreateGame(
-    selectedCategoryName,
-    selectedCategoryId,
+    selectedCategory?.name || '',
+    selectedCategory?.id || '',
     isSinglePlayer,
   );
+
+  const handleSelectCategory = (category: CategoryInterface) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <ImageBackground source={LobbyBg} style={styles.imageBackground}>
@@ -44,33 +49,28 @@ export default function CreateGameScreen({
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.container}>
-          <Text style={styles.title}>Choose a category to start the game!</Text>
-          <DropdownComponent
-            options={availableCategories.map(category => category.name)}
-            onSelectOption={(selectedItem, index) => {
-              setSelectedCategoryName(selectedItem);
-              setSelectedCategoryId(availableCategories[index].id);
-            }}
-          />
-          <ButtonComponent
-            title="Start Game"
-            onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
-            disabled={!selectedCategoryName}
-          />
-          {isSinglePlayer && (
-            <ButtonComponent
-              title="Back to main menu"
-              onPress={() =>
-                navigation.navigate(AuthenticatedScreens.MainMenuScreen)
+          <Pressable
+            style={styles.backButton}
+            onPress={() => {
+              if (isSinglePlayer) {
+                navigation.navigate(AuthenticatedScreens.MainMenuScreen);
+              } else {
+                navigation.navigate(
+                  AuthenticatedScreens.MultiplayerLobbyScreen,
+                );
               }
-            />
-          )}
-          {!isSinglePlayer && (
+            }}>
+            <Icon name="arrow-back" size={30} color={colorList.white} />
+          </Pressable>
+          <CategoriesList
+            categories={availableCategories}
+            onCategorySelect={handleSelectCategory}
+          />
+          {selectedCategory && (
             <ButtonComponent
-              title="Back to Lobby"
-              onPress={() =>
-                navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
-              }
+              title="Start Game"
+              onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
+              disabled={!selectedCategory}
             />
           )}
         </View>
@@ -89,15 +89,13 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingBottom: 20,
-    borderColor: colorList.brightPurple,
-    borderWidth: 2,
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 20,
     backgroundColor: 'rgba(0,0,0,0.7)',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 40,
+    left: 20,
+    zIndex: 1,
   },
   title: {
     textAlign: 'center',
@@ -105,7 +103,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     textShadowColor: colorList.brightPurple,
     textShadowRadius: 10,
-    marginBottom: 70,
     fontWeight: '400',
     fontSize: 25,
   },
