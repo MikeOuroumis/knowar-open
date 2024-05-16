@@ -1,16 +1,18 @@
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import CreateGameScreen from '../screens/CreateGameScreen';
-import MainMenuScreen from '../screens/MainMenuScreen';
-import MultiplayerLobbyScreen from '../screens/MultiplayerLobbyScreen';
-import GameScreen from '../screens/GameScreen';
-import AccountScreen from '../screens/AccountScreen';
+import {
+  LoginScreen,
+  RegisterScreen,
+  CreateGameScreen,
+  MainMenuScreen,
+  MultiplayerLobbyScreen,
+  GameScreen,
+  AccountScreen,
+  SplashScreen,
+} from '../screens';
 import {
   AuthenticatedScreens,
   UnauthenticatedScreens,
   InitialScreens,
 } from '../types/navigation';
-import {SplashScreen} from '../screens/SplashScreen';
 
 export const authenticatedScreens = [
   {name: AuthenticatedScreens.MainMenuScreen, component: MainMenuScreen},
