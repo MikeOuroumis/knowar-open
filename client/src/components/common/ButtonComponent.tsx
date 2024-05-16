@@ -47,8 +47,8 @@ export default function ButtonComponent({
       return [styles.gradient, styles.pressed, style];
     }
     return variant === 'bluish'
-      ? [styles.buttonBase, styles.bluishGradient, style]
-      : [styles.buttonBase, styles.gradient, style];
+      ? [styles.bluishGradient, style]
+      : [styles.gradient, style];
   };
 
   const gradientColors =
@@ -69,7 +69,7 @@ export default function ButtonComponent({
       disabled={disabled}>
       <LinearGradient
         colors={gradientColors}
-        style={getGradientStyle()}
+        style={[styles.buttonBase, getGradientStyle()]}
         start={{x: 0, y: 0}}
         end={{x: 1, y: 0}}>
         {isLoading ? (
