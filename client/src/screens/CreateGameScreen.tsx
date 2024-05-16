@@ -66,13 +66,13 @@ export default function CreateGameScreen({
             categories={availableCategories}
             onCategorySelect={handleSelectCategory}
           />
-          {selectedCategory && (
-            <ButtonComponent
-              title="Start Game"
-              onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
-              disabled={!selectedCategory}
-            />
-          )}
+
+          <ButtonComponent
+            variant="bluish"
+            title="Start Game"
+            onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
+            disabled={!selectedCategory}
+          />
         </View>
       </LinearGradient>
     </ImageBackground>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   backButton: {
     position: 'absolute',
