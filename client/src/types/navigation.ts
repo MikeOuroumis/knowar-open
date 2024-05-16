@@ -1,5 +1,3 @@
-import {GameScreenParams} from '../screens/GameScreen';
-
 export enum InitialScreens {
   SplashScreen = 'SplashScreen',
   LoadingScreen = 'LoadingScreen',
@@ -29,4 +27,10 @@ export type RootStackParamList = {
   [AuthenticatedScreens.AccountScreen]: undefined;
   [UnauthenticatedScreens.LoginScreen]: undefined;
   [UnauthenticatedScreens.RegisterScreen]: undefined;
+};
+
+export type GameScreenParams = {
+  categoryId: string;
+  isHost: boolean;
+  isSinglePlayer: boolean;
 };

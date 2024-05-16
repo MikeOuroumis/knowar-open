@@ -1,24 +1,30 @@
 import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {ButtonComponent} from '../components/common';
+import {useNavigation} from '@react-navigation/native';
+import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 interface EndGameScreenProps {
   playerScore: number;
   opponentScore: number;
-  didWin: boolean;
-  isDraw: boolean;
-  onBackToMainMenu: () => void;
   isSinglePlayer: boolean;
 }
+
+type EndGameScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  AuthenticatedScreens.GameScreen
+>;
 
 export default function EndGameScreen({
   playerScore,
   opponentScore,
-  didWin,
-  isDraw,
-  onBackToMainMenu,
   isSinglePlayer,
 }: EndGameScreenProps) {
+  const navigation = useNavigation<EndGameScreenNavigationProp>();
+  const didWin = playerScore > opponentScore;
+  const isDraw = playerScore === opponentScore;
+
   let message;
   if (isDraw) {
     message = "It's a draw! 🤝";
@@ -36,7 +42,7 @@ export default function EndGameScreen({
 
       <ButtonComponent
         title="Back to Main Menu"
-        onPress={onBackToMainMenu}
+        onPress={() => navigation.replace(AuthenticatedScreens.MainMenuScreen)}
         style={styles.button}
       />
     </View>

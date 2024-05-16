@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const glob = require('glob');
 
 const STYLE_USAGE_REGEX = /styles\.([a-zA-Z0-9_]+)/g;

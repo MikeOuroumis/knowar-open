@@ -8,7 +8,7 @@ interface ScoreProps {
   isSinglePlayer: boolean;
 }
 
-export default function Score({
+export default function ScorePanel({
   playerScore,
   opponentScore,
   isSinglePlayer,

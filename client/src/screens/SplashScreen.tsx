@@ -17,7 +17,7 @@ type SplashScreenNavigationProp = NativeStackNavigationProp<
   InitialScreens.SplashScreen
 >;
 
-export function SplashScreen(): JSX.Element {
+export default function SplashScreen(): JSX.Element {
   const navigation = useNavigation<SplashScreenNavigationProp>();
 
   const fadeAnim = useRef(new Animated.Value(0)).current;

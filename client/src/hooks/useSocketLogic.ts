@@ -1,15 +1,17 @@
-import {useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import socket from '../services/SocketService';
 import {SocketEvents} from '../types/SocketEvents';
 import {QuestionInterface} from '../types/questions';
+import {AuthContext} from '../store/authContext';
 
 export default function useSocketLogic(
   isHost: boolean,
-  opponent: boolean,
   questions: QuestionInterface[] | null,
-  setOpponent: (opponent: boolean) => void,
   setQuestions: (questions: QuestionInterface[]) => void,
 ) {
+  const userId = useContext(AuthContext).userId;
+  const [opponent, setOpponent] = useState(false);
+
   useEffect(() => {
     if (isHost) {
       socket.on(SocketEvents.OPPONENT_JOINED, setOpponent);
@@ -17,7 +19,6 @@ export default function useSocketLogic(
     if (isHost && opponent) {
       socket.emit(SocketEvents.SEND_QUESTIONS, questions);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost, opponent, questions]);
 
   useEffect(() => {
@@ -26,4 +27,13 @@ export default function useSocketLogic(
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isHost]);
+
+  useEffect(() => {
+    return () => {
+      socket.emit(SocketEvents.LEAVE_ROOM, userId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return opponent;
 }
