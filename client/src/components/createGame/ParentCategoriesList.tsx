@@ -1,6 +1,6 @@
-import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {FlatList, StyleSheet} from 'react-native';
 import React from 'react';
-import {colorList} from '../../constants/colors';
+import ParentCategoryButton from './ParentCategoryButton';
 
 interface ParentCategoriesListProps {
   parentCategories: string[];
@@ -17,23 +17,11 @@ export default function ParentCategoriesList({
     <FlatList
       data={parentCategories}
       renderItem={({item}) => (
-        <TouchableOpacity
-          key={item}
-          style={[
-            styles.categoryButton,
-            item === selectedCategory && styles.selectedCategoryButton,
-          ]}
-          onPress={() => onSelectCategory(item)}>
-          <Text
-            style={[
-              styles.categoryButtonText,
-              item === selectedCategory
-                ? styles.selectedCategoryButtonText
-                : styles.unselectedCategoryButtonText,
-            ]}>
-            {item}
-          </Text>
-        </TouchableOpacity>
+        <ParentCategoryButton
+          item={item}
+          selectedCategory={selectedCategory}
+          onSelectCategory={onSelectCategory} // TODO: Replace this with redux
+        />
       )}
       keyExtractor={item => item}
       horizontal
@@ -47,26 +35,5 @@ const styles = StyleSheet.create({
   horizontalList: {
     marginBottom: 16,
     height: 50,
-  },
-  categoryButton: {
-    padding: 10,
-    backgroundColor: 'transparent',
-    borderColor: colorList.electricBlue,
-    borderWidth: 2,
-    borderRadius: 20,
-    marginRight: 10,
-    justifyContent: 'center',
-  },
-  selectedCategoryButton: {
-    backgroundColor: colorList.electricBlue,
-  },
-  categoryButtonText: {
-    fontSize: 16,
-  },
-  selectedCategoryButtonText: {
-    color: colorList.black,
-  },
-  unselectedCategoryButtonText: {
-    color: colorList.electricBlue,
   },
 });

@@ -5,6 +5,7 @@ import {categorizeCategories} from '../../util/categories';
 import ParentCategoriesList from './ParentCategoriesList';
 import ChildCategoriesList from './ChildCategoriesList';
 import {colorList} from '../../constants/colors';
+import {GoBackArrow} from '../common';
 
 interface CategoryListProps {
   categories: CategoryInterface[];
@@ -27,25 +28,31 @@ export default function CategoriesList({
   const handleSelectParentCategory = (category: string) => {
     setSelectedParentCategory(category);
     setSelectedCategory(null);
+    onCategorySelect(null); // TODO: Replace this with redux
   };
 
-  const handleSelectCategory = (category: CategoryInterface) => {
+  const onSelectCategory = (category: CategoryInterface) => {
     setSelectedCategory(category);
     onCategorySelect(category);
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Choose your category!</Text>
+      <View style={styles.titleArrowContainer}>
+        <GoBackArrow style={styles.arrow} />
+        <Text style={styles.title}>Choose your category!</Text>
+      </View>
+
       <ParentCategoriesList
         parentCategories={parentCategories}
         selectedCategory={selectedParentCategory}
         onSelectCategory={handleSelectParentCategory}
       />
+
       <ChildCategoriesList
         categories={categorizedCategories[selectedParentCategory]}
         selectedCategory={selectedCategory}
-        onSelectCategory={handleSelectCategory}
+        onSelectCategory={onSelectCategory}
       />
     </View>
   );
@@ -57,9 +64,17 @@ const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'flex-start',
   },
+  titleArrowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  arrow: {
+    top: 2,
+  },
   title: {
     margin: 20,
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     color: colorList.white,
     textAlign: 'center',
