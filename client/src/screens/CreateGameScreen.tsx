@@ -1,13 +1,10 @@
 import React, {useState} from 'react';
-import {ImageBackground, StyleSheet, View, Pressable} from 'react-native';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import {useFetchTriviaCategories, useCreateGame} from '../hooks';
 import {LobbyBg} from '../assets/images';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {colorList} from '../constants/colors';
-import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
 import CategoriesList from '../components/createGame/CategoriesList';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import {ButtonComponent} from '../components';
 import {CategoryInterface} from '../types/categories';
 
@@ -19,7 +16,6 @@ export default function CreateGameScreen({
   route: GameScreenRoute;
 }): JSX.Element {
   const {isSinglePlayer} = route.params;
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryInterface | null>(null);
 
@@ -49,19 +45,6 @@ export default function CreateGameScreen({
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.container}>
-          <Pressable
-            style={styles.backButton}
-            onPress={() => {
-              if (isSinglePlayer) {
-                navigation.navigate(AuthenticatedScreens.MainMenuScreen);
-              } else {
-                navigation.navigate(
-                  AuthenticatedScreens.MultiplayerLobbyScreen,
-                );
-              }
-            }}>
-            <Icon name="arrow-back" size={30} color={colorList.white} />
-          </Pressable>
           <CategoriesList
             categories={availableCategories}
             onCategorySelect={handleSelectCategory}
@@ -90,12 +73,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
-  },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 20,
-    zIndex: 1,
   },
   title: {
     textAlign: 'center',
