@@ -23,6 +23,7 @@ export default function Input({
 }: InputProps) {
   return (
     <TextInput
+      testID="text-input"
       placeholder={placeholder}
       style={[styles.input, style, textStyle]}
       placeholderTextColor={placeholderTextColor || '#fff'}
