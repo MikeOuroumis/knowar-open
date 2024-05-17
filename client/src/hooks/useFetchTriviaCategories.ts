@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import {TRIVIA_CATEGORY_URL} from '../config';
-import {CategoryInterface} from '../types/category';
+import {CategoryInterface} from '../types/categories';
 import {Alert} from 'react-native';
 
 export default function useFetchTriviaCategories() {

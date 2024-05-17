@@ -1,0 +1,28 @@
+import {ParentCategory} from '../types/categories';
+
+export const categoryMappings: {[key: string]: ParentCategory} = {
+  Books: ParentCategory.ArtsAndEntertainment,
+  Film: ParentCategory.ArtsAndEntertainment,
+  Music: ParentCategory.ArtsAndEntertainment,
+  'Musicals & Theatres': ParentCategory.ArtsAndEntertainment,
+  Television: ParentCategory.ArtsAndEntertainment,
+  Celebrities: ParentCategory.ArtsAndEntertainment,
+  'Japanese Anime & Manga': ParentCategory.ArtsAndEntertainment,
+  'Cartoon & Animations': ParentCategory.ArtsAndEntertainment,
+  Comics: ParentCategory.ArtsAndEntertainment,
+  'Science & Nature': ParentCategory.ScienceAndTechnology,
+  Computers: ParentCategory.ScienceAndTechnology,
+  Mathematics: ParentCategory.ScienceAndTechnology,
+  Gadgets: ParentCategory.ScienceAndTechnology,
+  'General Knowledge': ParentCategory.Miscellaneous,
+  Mythology: ParentCategory.HistoryAndGeography,
+  Geography: ParentCategory.HistoryAndGeography,
+  History: ParentCategory.HistoryAndGeography,
+  Politics: ParentCategory.HistoryAndGeography,
+  Sports: ParentCategory.SportsAndGames,
+  'Video Games': ParentCategory.SportsAndGames,
+  'Board Games': ParentCategory.SportsAndGames,
+  Animals: ParentCategory.Miscellaneous,
+  Vehicles: ParentCategory.Miscellaneous,
+  Art: ParentCategory.ArtsAndEntertainment,
+};

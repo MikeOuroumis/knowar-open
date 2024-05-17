@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
-import {DropdownComponent, ButtonComponent} from '../components';
-import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import {useFetchTriviaCategories, useCreateGame} from '../hooks';
 import {LobbyBg} from '../assets/images';
 import {LinearGradient} from 'react-native-linear-gradient';
 import {colorList} from '../constants/colors';
-import {AuthenticatedScreens, RootStackParamList} from '../types/navigation';
+import CategoriesList from '../components/createGame/CategoriesList';
+import {ButtonComponent} from '../components';
+import {CategoryInterface} from '../types/categories';
 
 type GameScreenRoute = {params: {isSinglePlayer: boolean}};
 
@@ -16,19 +16,20 @@ export default function CreateGameScreen({
   route: GameScreenRoute;
 }): JSX.Element {
   const {isSinglePlayer} = route.params;
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedCategoryName, setSelectedCategoryName] = useState(null);
-  const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(
-    null,
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryInterface | null>(null);
 
   const availableCategories = useFetchTriviaCategories();
 
   const {createRoom, startSinglePlayerGame} = useCreateGame(
-    selectedCategoryName,
-    selectedCategoryId,
+    selectedCategory?.name || '',
+    selectedCategory?.id || '',
     isSinglePlayer,
   );
+
+  const handleSelectCategory = (category: CategoryInterface) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <ImageBackground source={LobbyBg} style={styles.imageBackground}>
@@ -44,35 +45,17 @@ export default function CreateGameScreen({
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}>
         <View style={styles.container}>
-          <Text style={styles.title}>Choose a category to start the game!</Text>
-          <DropdownComponent
-            options={availableCategories.map(category => category.name)}
-            onSelectOption={(selectedItem, index) => {
-              setSelectedCategoryName(selectedItem);
-              setSelectedCategoryId(availableCategories[index].id);
-            }}
+          <CategoriesList
+            categories={availableCategories}
+            onCategorySelect={handleSelectCategory}
           />
+
           <ButtonComponent
+            variant="bluish"
             title="Start Game"
             onPress={isSinglePlayer ? startSinglePlayerGame : createRoom}
-            disabled={!selectedCategoryName}
+            disabled={!selectedCategory}
           />
-          {isSinglePlayer && (
-            <ButtonComponent
-              title="Back to main menu"
-              onPress={() =>
-                navigation.navigate(AuthenticatedScreens.MainMenuScreen)
-              }
-            />
-          )}
-          {!isSinglePlayer && (
-            <ButtonComponent
-              title="Back to Lobby"
-              onPress={() =>
-                navigation.navigate(AuthenticatedScreens.MultiplayerLobbyScreen)
-              }
-            />
-          )}
         </View>
       </LinearGradient>
     </ImageBackground>
@@ -89,15 +72,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    paddingBottom: 20,
-    borderColor: colorList.brightPurple,
-    borderWidth: 2,
-    borderRadius: 10,
-    marginHorizontal: 20,
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
   },
   title: {
     textAlign: 'center',
@@ -105,7 +80,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     textShadowColor: colorList.brightPurple,
     textShadowRadius: 10,
-    marginBottom: 70,
     fontWeight: '400',
     fontSize: 25,
   },
