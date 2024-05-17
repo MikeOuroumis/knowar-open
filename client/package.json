@@ -16,6 +16,8 @@
     "@react-navigation/drawer": "^6.5.5",
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.6",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^12.5.0",
     "@types/react-native": "~0.70.6",
     "@typescript-eslint/scope-manager": "^6.6.0",
     "axios": "^1.6.0",

@@ -13,6 +13,7 @@ export default function GoBackArrow({style}: GoBackArrowProps) {
 
   return (
     <Pressable
+      testID="go-back-arrow"
       style={[style, styles.backButton]}
       onPress={() => {
         navigation.goBack();
