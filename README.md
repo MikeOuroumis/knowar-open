@@ -30,7 +30,7 @@ Ensure you have the following software installed on your machine:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/knowar-open.git
+git clone https://github.com/MikeOuroumis/knowar-open.git
 cd knowar-open
 ```
 
