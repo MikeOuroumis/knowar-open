@@ -6,4 +6,5 @@ node_modules
 /server/dist
 eas.json
 .vscode
+gradle.properties
 network_security_config.xml
