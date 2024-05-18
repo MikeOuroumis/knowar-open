@@ -19,7 +19,6 @@ connectDB();
 const app = express();
 
 app.use(logRequests);
-app.use(errorHandler);
 app.use(express.json());
 app.use(cors());
 app.use(userRoutes);
@@ -29,6 +28,8 @@ app.use("/api/rooms", roomRoutes);
 
 // Health check route
 app.get("/", (_req, res) => res.status(200).send("OK"));
+
+app.use(errorHandler);
 
 const server = app.listen(5000, () => {
   console.log("Server running on port 5000");
