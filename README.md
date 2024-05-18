@@ -1,25 +1,120 @@
 # Knowar - Multiplayer Quiz Game
 
-Welcome to the official repository for _Knowar_, a real-time multiplayer quiz
-game designed for trivia enthusiasts! This game is built using React Native,
-Node.js, MongoDB, and Socket.IO, and deployed on AWS EC2.
+![Knowar Logo](./client/src/assets/images/Knowar_logo.png)
 
-[![Knowar Logo](https://github.com/MikeOuroumis/Knowar/blob/main/client/src/assets/images/Knowar_logo.png)](https://play.google.com/store/apps/details?id=com.knowar_client)
+Welcome to the **knowar-open**! This is a production-ready version of
+[Knowar](https://play.google.com/store/apps/details?id=com.knowar_client), a
+multiplayer quiz game.
 
-### Sneak Peek
+If you're interested in building multiplayer games with React Native and Node.js
+or understanding how sockets work for real-time communication, this is the
+place! Clone the project to practice or contribute!
 
-![ezgif com-video-to-gif-converter (1)](https://github.com/MikeOuroumis/Knowar/assets/93167319/02a77bcd-7b6e-40fc-a242-1725212ab42d)
+The backend includes configurations for deploying to an EC2 machine on AWS,
+including a `server-deploy.yml` file in the `.github/workflows/backup/`
+directory to help you understand advanced CI/CD pipelines.
 
-## Introduction
+Although it's production-ready, you can run everything locally by following the
+instructions below.
 
-_Knowar_ challenges players with a wide array of questions from the Open Trivia
-Database across various categories and difficulties. The game promotes friendly
-competition with an engaging real-time experience.
+## How to Run the Project Locally
 
-This repository holds the source code for educational purposes and portfolio
-display. While you can peruse the code to understand the structure and
-technologies used, the repository is not intended for cloning and running a
-local instance of the game.
+### Prerequisites
+
+Ensure you have the following software installed on your machine:
+
+- Node.js and npm (Node Package Manager)
+- Expo CLI (for running the React Native app)
+- MongoDB (for the database)
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/your-username/knowar-open.git
+cd knowar-open
+```
+
+### Install Dependencies
+
+#### Server Dependencies
+
+```bash
+cd server
+npm install
+```
+
+#### Client Dependencies
+
+```bash
+cd ../client
+npm install
+```
+
+### Configure Environment Variables
+
+First, find your system's IP address since `localhost` can't connect your phone
+to the backend like a browser does.
+
+**How to find the system IP:**
+
+#### On MacOS
+
+1. Open the terminal and run:
+   ```bash
+   ifconfig
+   ```
+2. Under `en0`, find the `inet` value. This IP next to `inet` is your system's
+   IP address. Copy it and paste it into the `.env` file as shown below.
+
+#### On Windows
+
+1. Open the Command Prompt (`cmd.exe`) and run:
+   ```bash
+   ipconfig
+   ```
+2. Look for the `IPv4 Address` under your active network connection. This is
+   your system's IP address. Copy it and paste it into the `.env` file as shown
+   below.
+
+#### On Linux
+
+1. Open the terminal and run:
+   ```bash
+   ip addr show
+   ```
+2. Look for the `inet` value under your active network connection. This is your
+   system's IP address. Copy it and paste it into the `.env` file as shown
+   below.
+
+Create a `.env` file in the `client` directory and add the following variable:
+
+```plaintext
+LOCAL_API_URL="http://{your-machine's-ip}:5000"
+```
+
+### Start the Server
+
+```bash
+# From the server directory
+npm run dev
+```
+
+### Start the Client
+
+```bash
+# From the client directory
+npm run android
+```
+
+## Sneak Peek
+
+![Gameplay Preview](https://github.com/MikeOuroumis/Knowar/assets/93167319/02a77bcd-7b6e-40fc-a242-1725212ab42d)
+
+## About the Game
+
+**Knowar** challenges players with a wide array of questions from the Open
+Trivia Database across various categories and difficulties. The game promotes
+friendly competition with an engaging real-time experience.
 
 ## Features
 
@@ -27,11 +122,10 @@ local instance of the game.
 - Real-time multiplayer gameplay facilitated by Socket.IO.
 - MVC architectural pattern in Node.js for a scalable backend.
 - MongoDB for efficient data management.
-- AWS EC2 for reliable and scalable cloud deployment.
 
 ## Play the Game
 
-_Knowar_ is available on the Google Play Store. You can download and play the
-game by visiting the following link:
+**Knowar** is available on the Google Play Store. Download and play the game by
+visiting the following link:
 
 [Play Knowar on Google Play Store](https://play.google.com/store/apps/details?id=com.knowar_client)
