@@ -1,5 +1,7 @@
 # Knowar - Multiplayer Quiz Game
 
+![Knowar Logo](./client/src/assets/images/Knowar_logo.png)
+
 Welcome to the **knowar-open**! This is a production-ready version of
 [Knowar](https://play.google.com/store/apps/details?id=com.knowar_client), a
 multiplayer quiz game.
