@@ -26,16 +26,16 @@ export const register = async (req: Request, res: Response) => {
         .json({ status: "error", message: "Email is already registered" });
     }
 
-    const newUser = await UserService.createUser(userName, email, password);
+    const newUser = await UserService.createUser({ userName, email, password });
 
     const token = UserService.generateToken(newUser);
 
     return res.status(201).json({
       status: "ok",
       message: "Registration successful",
-      token: token,
-      email: email,
-      userName: userName,
+      token,
+      email,
+      userName,
       userId: newUser.id,
     });
   } catch (error) {
@@ -100,7 +100,8 @@ export const userData = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    console.error(error);
+    const typedError = error as Error;
+    console.error(typedError);
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
@@ -116,7 +117,8 @@ export const deleteUser = async (req: Request, res: Response) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    console.error(error);
+    const typedError = error as Error;
+    console.error(typedError);
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };
