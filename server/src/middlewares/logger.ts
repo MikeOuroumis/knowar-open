@@ -5,6 +5,8 @@ export function logRequests(
   _res: Response,
   next: NextFunction
 ): void {
-  console.log(`${req.method} ${req.path}`);
+  const now = new Date();
+  console.log(`[${now.toISOString()}] ${req.method} ${req.path}`);
+
   next();
 }

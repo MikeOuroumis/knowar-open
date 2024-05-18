@@ -7,5 +7,11 @@ export const errorHandler = (
   _next: NextFunction
 ) => {
   console.error(err);
-  res.status(500).send({ status: "error", message: err.message });
+
+  const statusCode = err.name === "ValidationError" ? 400 : 500;
+
+  res.status(statusCode).send({
+    status: "error",
+    message: err.message,
+  });
 };
