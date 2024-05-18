@@ -2,9 +2,9 @@ import {API_URL, LOCAL_API_URL} from '@env';
 
 export const apiUrl = determineURL();
 export const TRIVIA_CATEGORY_URL = 'https://opentdb.com/api_category.php';
-export const deleteUserEndpoint = '/delete-user';
-export const loginUserEndpoint = '/login';
-export const registerUserEndpoint = '/register';
+export const deleteUserEndpoint = '/users/delete-user';
+export const loginUserEndpoint = '/users/login';
+export const registerUserEndpoint = '/users/register';
 
 function determineURL() {
   // as soon as jest doesn't recognize __DEV__ property we need this function
