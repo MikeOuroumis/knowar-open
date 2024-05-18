@@ -85,27 +85,6 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const userData = async (req: Request, res: Response) => {
-  const { token } = req.body;
-
-  try {
-    const user = await UserService.getUserDataFromToken(token);
-
-    res.send({
-      status: "ok",
-      data: {
-        email: user.email,
-        userName: user.userName,
-        userId: user._id,
-      },
-    });
-  } catch (error) {
-    const typedError = error as Error;
-    console.error(typedError);
-    res.status(500).json({ status: "error", message: "Internal server error" });
-  }
-};
-
 export const deleteUser = async (req: Request, res: Response) => {
   const { userId } = req.body;
 

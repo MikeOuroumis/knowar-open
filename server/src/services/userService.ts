@@ -48,20 +48,6 @@ export const validatePassword = async (
   return bcrypt.compare(password, user.password);
 };
 
-export const getUserDataFromToken = async (token: string) => {
-  const decodedToken = jwt.verify(token, jwtSecret) as {
-    userId: string;
-    email: string;
-  };
-
-  const user = await User.findOne({ email: decodedToken.email });
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return user;
-};
-
 export const deleteUser = async (userId: string) => {
   const user = await User.findById(userId);
   if (!user) {
