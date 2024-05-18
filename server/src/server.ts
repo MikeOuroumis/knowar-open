@@ -4,11 +4,11 @@ import userRoutes from "./routes/userRoutes";
 import roomRoutes from "./routes/roomRoutes";
 import { initializeSocket } from "./socket/socket";
 import { JWT_SECRET } from "./config/config";
-import { logRequests } from "./middleware/logger";
+import { logRequests } from "./middlewares/logger";
+import { errorHandler } from "./middlewares/errorHandler";
 
 // Check for JWT_SECRET
-const jwtSecret = JWT_SECRET;
-if (!jwtSecret) {
+if (!JWT_SECRET) {
   console.error("FATAL ERROR: JWT_SECRET is not defined.");
   process.exit(1); // Exit if JWT_SECRET is not set
 }
@@ -16,6 +16,7 @@ if (!jwtSecret) {
 const app = express();
 
 app.use(logRequests);
+app.use(errorHandler);
 app.use(express.json());
 app.use(cors());
 app.use(userRoutes);
