@@ -1,12 +1,27 @@
-import mongoose from "mongoose";
+import mongoose, { Document, Schema } from "mongoose";
 
-const RoomSchema = new mongoose.Schema({
-  category: String,
-  userName: String,
-  host: { type: mongoose.Schema.Types.ObjectId, ref: "RegisteredUsers" },
-  players: [{ type: mongoose.Schema.Types.ObjectId, ref: "RegisteredUsers" }],
-  isActive: { type: Boolean, default: true },
-});
+interface IRoom extends Document {
+  category: string;
+  userName: string;
+  host: mongoose.Types.ObjectId;
+  players: mongoose.Types.ObjectId[];
+  isActive: boolean;
+}
 
-const Room = mongoose.model("Room", RoomSchema);
+const RoomSchema: Schema = new Schema(
+  {
+    category: { type: String, required: true },
+    userName: { type: String, required: true },
+    host: {
+      type: Schema.Types.ObjectId,
+      ref: "RegisteredUsers",
+      required: true,
+    },
+    players: [{ type: Schema.Types.ObjectId, ref: "RegisteredUsers" }],
+    isActive: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+
+const Room = mongoose.model<IRoom>("Room", RoomSchema);
 export default Room;

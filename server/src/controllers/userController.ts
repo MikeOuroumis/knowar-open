@@ -26,16 +26,16 @@ export const register = async (req: Request, res: Response) => {
         .json({ status: "error", message: "Email is already registered" });
     }
 
-    const newUser = await UserService.createUser(userName, email, password);
+    const newUser = await UserService.createUser({ userName, email, password });
 
     const token = UserService.generateToken(newUser);
 
     return res.status(201).json({
       status: "ok",
       message: "Registration successful",
-      token: token,
-      email: email,
-      userName: userName,
+      token,
+      email,
+      userName,
       userId: newUser.id,
     });
   } catch (error) {
@@ -85,26 +85,6 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const userData = async (req: Request, res: Response) => {
-  const { token } = req.body;
-
-  try {
-    const user = await UserService.getUserDataFromToken(token);
-
-    res.send({
-      status: "ok",
-      data: {
-        email: user.email,
-        userName: user.userName,
-        userId: user._id,
-      },
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ status: "error", message: "Internal server error" });
-  }
-};
-
 export const deleteUser = async (req: Request, res: Response) => {
   const { userId } = req.body;
 
@@ -116,7 +96,8 @@ export const deleteUser = async (req: Request, res: Response) => {
       message: "User deleted successfully",
     });
   } catch (error) {
-    console.error(error);
+    const typedError = error as Error;
+    console.error(typedError);
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 };

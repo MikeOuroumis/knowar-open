@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/Users";
-import { JWT_SECRET } from "../constants/variables";
+import { JWT_SECRET } from "../config/config";
 
 const jwtSecret = JWT_SECRET as string;
 
@@ -11,11 +11,17 @@ interface UserInterface {
   password: string;
 }
 
-export const createUser = async (
-  userName: string,
-  email: string,
-  password: string
-) => {
+interface CreateUserInput {
+  userName: string;
+  email: string;
+  password: string;
+}
+
+export const createUser = async ({
+  userName,
+  email,
+  password,
+}: CreateUserInput) => {
   const encryptedPassword = await bcrypt.hash(password, 10);
   const newUser = await User.create({
     userName,
@@ -32,41 +38,22 @@ export const generateToken = (user: UserInterface) => {
 };
 
 export const findUserByEmail = async (email: string) => {
-  const oldUser = await User.findOne({ email });
-
-  return oldUser;
+  return User.findOne({ email });
 };
 
 export const validatePassword = async (
   password: string,
   user: UserInterface
 ) => {
-  const isValid = await bcrypt.compare(password, user.password);
-  return isValid;
-};
-
-export const getUserDataFromToken = async (token: string) => {
-  const decodedToken = jwt.verify(token, jwtSecret) as {
-    userId: string;
-    email: string;
-  };
-
-  const user = await User.findOne({ email: decodedToken.email });
-  if (!user) {
-    throw new Error("User not found");
-  }
-
-  return user;
+  return bcrypt.compare(password, user.password);
 };
 
 export const deleteUser = async (userId: string) => {
-  // Assuming User is a Mongoose model
   const user = await User.findById(userId);
   if (!user) {
     throw new Error("User not found");
   }
 
   await User.deleteOne({ _id: userId });
-  // Additional cleanup operations can be performed here if necessary
   return { message: "User deleted successfully" };
 };

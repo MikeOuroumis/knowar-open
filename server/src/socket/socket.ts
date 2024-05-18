@@ -1,54 +1,27 @@
 import { Server as HttpServer } from "http";
-import { Socket, Server as SocketServer } from "socket.io";
-import {
-  handleOnConnect,
-  handleOnDisconnect,
-} from "./socketHandlers/connectionHandlers";
-import {
-  handleSendAnswer,
-  handleSendQuestions,
-  handleGiveMeQuestions,
-} from "./socketHandlers/questionHandlers";
-import {
-  handleLeaveRoom,
-  handleCreateRoom,
-} from "./socketHandlers/roomHandlers";
-import {
-  handleJoinGame,
-  handleUserInactive,
-} from "./socketHandlers/userHandlers";
-import { handleUpdateScoreAndState } from "./socketHandlers/gameplayHandlers";
-import { LOCALHOST_URL } from "../constants/variables";
-
-const configureSocket = (io: SocketServer) => {
-  io.on("connection", (socket: Socket) => {
-    console.log("A user connected to socket🔌:", socket.id);
-
-    handleOnConnect(socket);
-    handleOnDisconnect(socket);
-    handleSendAnswer(socket);
-    handleSendQuestions(socket);
-    handleGiveMeQuestions(socket);
-    handleJoinGame(socket);
-    handleLeaveRoom(socket);
-    handleCreateRoom(socket);
-    handleUserInactive(socket);
-    handleUpdateScoreAndState(socket);
-  });
-};
+import { Socket, Server as SocketServer, Namespace } from "socket.io";
+import { registerConnectionHandlers } from "./handlers/connectionHandlers";
+import { registerGameplayHandlers } from "./handlers/gameplayHandlers";
+import { registerQuestionHandlers } from "./handlers/questionHandlers";
+import { registerRoomHandlers } from "./handlers/roomHandlers";
+import { registerUserHandlers } from "./handlers/userHandlers";
 
 export const initializeSocket = (server: HttpServer) => {
-  if (!LOCALHOST_URL) {
-    console.error("Error: LOCALHOST_URL is not set!");
-    return;
-  }
-
   const io = new SocketServer(server, {
     cors: {
-      origin: `${LOCALHOST_URL}:5002`,
-      methods: ["GET", "POST"],
+      origin: "*",
     },
   });
 
-  configureSocket(io);
+  const socketNamespace: Namespace = io.of("/socket");
+
+  socketNamespace.on("connection", (socket: Socket) => {
+    console.log("A user connected to socket🔌:", socket.id);
+
+    registerConnectionHandlers(socket);
+    registerGameplayHandlers(socket);
+    registerQuestionHandlers(socket);
+    registerRoomHandlers(socket);
+    registerUserHandlers(socket);
+  });
 };

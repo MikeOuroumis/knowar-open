@@ -4,7 +4,7 @@ Welcome to the official repository for _Knowar_, a real-time multiplayer quiz
 game designed for trivia enthusiasts! This game is built using React Native,
 Node.js, MongoDB, and Socket.IO, and deployed on AWS EC2.
 
-[![Knowar Logo](https://github.com/MikeOuroumis/Knowar/blob/main/client/knowar_client/src/assets/images/Knowar_logo.png)](https://play.google.com/store/apps/details?id=com.knowar_client)
+[![Knowar Logo](https://github.com/MikeOuroumis/Knowar/blob/main/client/src/assets/images/Knowar_logo.png)](https://play.google.com/store/apps/details?id=com.knowar_client)
 
 ### Sneak Peek
 

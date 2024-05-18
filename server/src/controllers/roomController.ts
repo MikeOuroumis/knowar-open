@@ -1,21 +1,11 @@
 import { Request, Response } from "express";
-import Room from "../models/Room";
-import mongoose from "mongoose";
+import * as RoomService from "../services/roomService";
 
 export const createRoom = async (req: Request, res: Response) => {
   const { category, userId, userName } = req.body;
 
-  const objectId = new mongoose.Types.ObjectId(userId);
-
   try {
-    const room = new Room({
-      category: category,
-      userName,
-      host: objectId,
-      players: [objectId],
-    });
-
-    await room.save();
+    const room = await RoomService.createRoom({ category, userId, userName });
     res.send({ status: "ok", roomId: room._id });
   } catch (error) {
     const typedError = error as Error;
@@ -26,10 +16,7 @@ export const createRoom = async (req: Request, res: Response) => {
 
 export const activeRooms = async (_req: Request, res: Response) => {
   try {
-    const activeRooms = await Room.find({ isActive: true })
-      .populate("host", "userName")
-      .exec();
-
+    const activeRooms = await RoomService.getActiveRooms();
     res.json({ status: "ok", rooms: activeRooms });
   } catch (error) {
     const typedError = error as Error;
@@ -40,7 +27,7 @@ export const activeRooms = async (_req: Request, res: Response) => {
 
 export const deleteRoom = async (userId: string) => {
   try {
-    await Room.deleteOne({ host: userId });
+    await RoomService.deleteRoomByUserId(userId);
     console.log(`Room created by user ${userId} has been deleted`);
   } catch (error) {
     console.error("Error deleting room:", error);

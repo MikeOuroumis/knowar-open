@@ -10,9 +10,10 @@ const envFile =
 dotenv.config({ path: envFile });
 
 // Export environment variables
-export const MONGO_URL = process.env.MONGO_URL;
-export const JWT_SECRET = process.env.JWT_SECRET;
-export const LOCALHOST_URL = process.env.LOCALHOST_URL;
+export const MONGO_URL =
+  process.env.MONGO_URL || "mongodb://localhost:27017/mydatabase";
+export const JWT_SECRET = process.env.JWT_SECRET || "your-default-jwt-secret";
+export const LOCALHOST_URL = "http://localhost";
 
 // Add validation here if needed
 if (!MONGO_URL) {
