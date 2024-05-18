@@ -18,7 +18,7 @@ import {
   handleUserInactive,
 } from "./socketHandlers/userHandlers";
 import { handleUpdateScoreAndState } from "./socketHandlers/gameplayHandlers";
-import { LOCALHOST_URL } from "../constants/variables";
+import { LOCALHOST_URL } from "../config/config";
 
 const configureSocket = (io: SocketServer) => {
   io.on("connection", (socket: Socket) => {

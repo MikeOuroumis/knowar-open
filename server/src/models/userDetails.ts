@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MONGO_URL } from "../constants/variables";
+import { MONGO_URL } from "../config/config";
 
 const UserDetailsSchema = new mongoose.Schema(
   {

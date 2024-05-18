@@ -3,7 +3,7 @@ import cors from "cors";
 import userRoutes from "./routes/userRoutes";
 import roomRoutes from "./routes/roomRoutes";
 import { initializeSocket } from "./socket/socket";
-import { JWT_SECRET } from "./constants/variables";
+import { JWT_SECRET } from "./config/config";
 import { logRequests } from "./middleware/logger";
 
 // Check for JWT_SECRET

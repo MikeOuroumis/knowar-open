@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/Users";
-import { JWT_SECRET } from "../constants/variables";
+import { JWT_SECRET } from "../config/config";
 
 const jwtSecret = JWT_SECRET as string;
 
