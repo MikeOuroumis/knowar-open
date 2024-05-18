@@ -1,6 +1,5 @@
 node_modules
 
-app.json
 .env
 .env.production
 .env.development
