@@ -1,5 +1,7 @@
 # Knowar - Multiplayer Quiz Game
 
+test
+
 ![Knowar Logo](./client/src/assets/images/Knowar_logo.png)
 
 Welcome to the **knowar-open**! This is a production-ready version of
