@@ -9,7 +9,7 @@ export default socket;
 
 export async function fetchActiveRooms(): Promise<IRoom[]> {
   try {
-    const response = await mainAxiosClient.get('/active-rooms');
+    const response = await mainAxiosClient.get('/rooms/active');
     return response.data.rooms;
   } catch (error) {
     console.error('Failed to fetch the active rooms', error);
@@ -33,7 +33,7 @@ export async function createRoom(
       });
     }
 
-    return roomId; // TODO: the room id is not used
+    return roomId; // TODO: the room id is not in use
   } catch (error) {
     console.error('Failed to create room');
   }
@@ -45,7 +45,7 @@ export async function saveRoomInDatabase( // exported only to be tested with Jes
   userName: string,
 ): Promise<string | undefined> {
   try {
-    const response = await mainAxiosClient.post('/create-room', {
+    const response = await mainAxiosClient.post('/rooms', {
       category,
       userId,
       userName,

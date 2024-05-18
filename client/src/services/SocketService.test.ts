@@ -30,7 +30,7 @@ describe('SocketService', () => {
       },
     ];
 
-    mock.onGet('/active-rooms').reply(200, {
+    mock.onGet('rooms/active').reply(200, {
       rooms: mockedRooms,
     });
 
@@ -45,7 +45,7 @@ describe('SocketService', () => {
       userName: 'testUserName',
     };
 
-    mock.onPost('/create-room').reply(200, {
+    mock.onPost('/rooms').reply(200, {
       roomId: 'testRoomId',
     });
 

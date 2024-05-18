@@ -3,7 +3,7 @@ import * as roomController from "../controllers/roomController";
 
 const router = Router();
 
-router.post("/create-room", roomController.createRoom);
-router.get("/active-rooms", roomController.activeRooms);
+router.post("/", roomController.createRoom);
+router.get("/active", roomController.activeRooms);
 
 export default router;
