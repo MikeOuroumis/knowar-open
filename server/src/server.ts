@@ -6,12 +6,15 @@ import { initializeSocket } from "./socket/socket";
 import { JWT_SECRET } from "./config/config";
 import { logRequests } from "./middlewares/logger";
 import { errorHandler } from "./middlewares/errorHandler";
+import connectDB from "./config/db";
 
 // Check for JWT_SECRET
 if (!JWT_SECRET) {
   console.error("FATAL ERROR: JWT_SECRET is not defined.");
   process.exit(1); // Exit if JWT_SECRET is not set
 }
+
+connectDB();
 
 const app = express();
 
