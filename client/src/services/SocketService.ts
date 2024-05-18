@@ -1,10 +1,10 @@
 import {IRoom} from '../../../shared/types/Room';
 import mainAxiosClient from '../api/axiosClients';
+import {socketUrl} from '../config';
 import {SocketEvents} from '../types/SocketEvents';
 import io from 'socket.io-client';
-import {apiUrl} from '../config';
 
-const socket = io(apiUrl);
+const socket = io(socketUrl);
 export default socket;
 
 export async function fetchActiveRooms(): Promise<IRoom[]> {
