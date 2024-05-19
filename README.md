@@ -24,8 +24,9 @@ instructions below.
 Ensure you have the following software installed on your machine:
 
 - Node.js and npm (Node Package Manager)
-- Expo CLI (for running the React Native app)
+- React Native CLI
 - MongoDB (for the database)
+- Android Studio (for running the Android app)
 
 ### Clone the Repository
 
@@ -90,6 +91,21 @@ Create a `.env` file in the `client` directory and add the following variable:
 
 ```plaintext
 LOCAL_API_URL="http://{your-machine's-ip}:5000"
+```
+
+### Configure `gradle.properties` for Android Builds
+
+#### Using the gradle.properties Template
+
+To set up your local `gradle.properties` file, follow these steps:
+
+**Copy the Template File**:
+
+Copy the `gradle.properties.template` file to create your local
+`gradle.properties` file:
+
+```bash
+cp android/gradle.properties.template android/gradle.properties
 ```
 
 ### Start the Server
