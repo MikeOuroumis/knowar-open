@@ -17,6 +17,12 @@ directory to help you understand advanced CI/CD pipelines.
 Although it's production-ready, you can run everything locally by following the
 instructions below.
 
+## Give it a Star ⭐
+
+If you find this project helpful or interesting, please consider giving it a star. It helps me grow and reach more developers who might benefit from this project. Thank you for your support!
+
+[![GitHub stars](https://img.shields.io/github/stars/MikeOuroumis/knowar-open?style=social)](https://github.com/MikeOuroumis/knowar-open/stargazers)
+
 ## How to Run the Project Locally
 
 ### Prerequisites
