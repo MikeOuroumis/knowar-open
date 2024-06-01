@@ -19,7 +19,9 @@ instructions below.
 
 ## Give it a Star ⭐
 
-If you find this project helpful or interesting, please consider giving it a star. It helps me grow and reach more developers who might benefit from this project. Thank you for your support!
+If you find this project helpful or interesting, please consider giving it a
+star. It helps me grow and reach more developers who might benefit from this
+project. Thank you for your support!
 
 ## How to Run the Project Locally
 
@@ -56,6 +58,14 @@ npm install
 ```
 
 ### Configure Environment Variables
+
+To create the `.env` file, simply run:
+
+```bash
+npm run update-local-url
+```
+
+### Fallback Option if "npm run update-local-url" Doesn't Work
 
 First, find your system's IP address since `localhost` can't connect your phone
 to the backend like a browser does.
