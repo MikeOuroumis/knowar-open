@@ -65,6 +65,9 @@ To create the `.env` file, simply run:
 npm run update-local-url
 ```
 
+Please note that every time you change your Wi-Fi connection, you will need to
+run this script again to update the IP address.
+
 ### Fallback Option if "npm run update-local-url" Doesn't Work
 
 First, find your system's IP address since `localhost` can't connect your phone
