@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "find-unused-styles": "node src/scripts/find-unused-styles.js",
+    "update-local-url": "node src/scripts/updateLocalUrl.js",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
